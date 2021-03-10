@@ -21,7 +21,7 @@
     <img src="https://media-exp1.licdn.com/dms/image/C4E0BAQEgWgybqu6dDg/company-logo_200_200/0?e=1611187200&v=beta&t=svIQxQQYJJWDvApMPTxnS3w5v_XXMHQFAvtSxzWpy6E" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Vigilant Keeper Matcher</h3>
+  <h3 align="center">Entity Matching Service</h3>
 
   <p align="center">
     Your awesome ML project!
