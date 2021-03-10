@@ -1,0 +1,37 @@
+
+version: 0.2
+
+env:
+  variables:
+    IMAGE_REPO_NAME: entity-matching-service
+    AWS_ACCOUNT_ID: 533333767769
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - echo Get the environment
+      - ./bin/deployment/code_build_extras.sh
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - AWS_FULL_IMAGE_NAME=$REPOSITORY_URI:$IMAGE_TAG
+  build:
+    commands:
+      - echo Tests started + Docker Build
+      - ./bin/ci-test.sh
+      - docker tag vigilantkeeper:latest $REPOSITORY_URI:latest
+      - docker tag $REPOSITORY_URI:latest $AWS_FULL_IMAGE_NAME
+  post_build:
+    commands:
+      - echo Build Completed!
+      - echo Now Pushing the Docker images...
+      - export IS_MAIN_BRANCH=$(echo "${CODEBUILD_WEBHOOK_HEAD_REF?}" | grep -E -i -o 'master|main$')
+      - ./bin/deployment/register_task_definition.sh
+      - ./bin/deployment/push_to_ecr.sh
+artifacts:
+  files: taskdef.json
