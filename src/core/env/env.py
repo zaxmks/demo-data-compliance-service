@@ -1,7 +1,7 @@
 import os
 from dataclasses import dataclass
 
-from src.env.load import Environments
+from src.core.env import Environments
 
 
 @dataclass

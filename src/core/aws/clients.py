@@ -2,7 +2,7 @@ from logging import Logger
 
 import boto3
 
-from src.env.env import ApplicationEnv
+from src.core.env import ApplicationEnv
 
 logger = Logger(__name__)
 

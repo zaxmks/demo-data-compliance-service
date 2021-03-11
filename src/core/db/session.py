@@ -8,8 +8,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from src.db.config import get_db_config
-from src.db.database_config import DatabaseConfig
+from src.core.db.config import get_db_config
+from src.core.db.database_config import DatabaseConfig
 
 session_obj = sessionmaker()
 

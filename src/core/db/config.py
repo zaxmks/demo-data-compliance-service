@@ -1,7 +1,7 @@
-from src.aws.clients import get_kf_secrets_manager
-from src.aws.secrets import SecretValue
-from src.db.database_config import DatabaseConfig
-from src.env.env import ApplicationEnv
+from src.core.aws.clients import get_kf_secrets_manager
+from src.core.aws.secrets import SecretValue
+from src.core.db.database_config import DatabaseConfig
+from src.core.env import ApplicationEnv
 
 
 def get_db_config() -> DatabaseConfig:

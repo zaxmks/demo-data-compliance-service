@@ -3,7 +3,7 @@ from uuid import UUID
 
 from dataclasses_json import LetterCase, dataclass_json
 
-from src.aws.data.file_message import FileMessage
+from src.core.aws.data.file_message import FileMessage
 
 
 @dataclass_json(letter_case=LetterCase.PASCAL)
