@@ -124,6 +124,21 @@ $ cd [REPO_NAME]
     bin/build.sh
     ```
 
+#### Generating Current database schema
+
+1. Pull down our `raw-data` repo, and run the following commands:
+```shell
+npm install
+npm start
+npm run db:migrate:pdf
+```
+2. You should have a local install of the databases we use to dev
+3. Run this command to generate the latest model schema as SQLAlchemy Models.
+```shell
+sqlacodegen --outfile src/db/models/pdf_models.py postgresql://postgres:password@localhost:56001/postgres
+```
+
+
 #### Unit Tests
 
 Once the Docker image is built we can run the project's unit tests to verify everything is
