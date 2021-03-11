@@ -14,7 +14,8 @@ class DatabaseConfig:
     engine: str
     host: str
     port: int
-    db_cluster_identifier: str
+    db_cluster_identifier: Optional[str] = ""
+    db_instance_identifier: Optional[str] = ""
     db_name: Optional[str] = ""
 
     @staticmethod
@@ -25,8 +26,22 @@ class DatabaseConfig:
             engine=os.getenv("DB_ENGINE"),
             host=os.getenv("DB_HOST"),
             port=int(os.getenv("DB_PORT")),
-            db_cluster_identifier=os.getenv("DB_CLUSTER_IDENTIFIER"),
             db_name=os.getenv("DB_NAME"),
+            db_cluster_identifier=os.getenv("DB_CLUSTER_IDENTIFIER"),
+            db_instance_identifier=os.getenv("MAIN_DB_CLUSTER_IDENTIFIER"),
+        )
+
+    @staticmethod
+    def from_local_env_main_db():
+        return DatabaseConfig(
+            username=os.getenv("MAIN_DB_USERNAME"),
+            password=os.getenv("MAIN_DB_PASSWORD"),
+            engine=os.getenv("MAIN_DB_ENGINE"),
+            host=os.getenv("MAIN_DB_HOST"),
+            port=int(os.getenv("MAIN_DB_PORT")),
+            db_name=os.getenv("MAIN_DB_NAME"),
+            db_cluster_identifier=os.getenv("MAIN_DB_CLUSTER_IDENTIFIER"),
+            db_instance_identifier=os.getenv("MAIN_DB_CLUSTER_IDENTIFIER"),
         )
 
     def make_url(self):
@@ -36,5 +51,5 @@ class DatabaseConfig:
             password=self.password,
             host=self.host,
             port=self.port,
-            database=os.getenv("DB_NAME"),
+            database="postgres",
         )

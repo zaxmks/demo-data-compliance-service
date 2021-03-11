@@ -1,14 +1,19 @@
 import os
 from dataclasses import dataclass
 
-from src.core.env import Environments
+from src.core.env.load import Environments
 
 
 @dataclass
 class ApplicationEnv:
+
     @staticmethod
     def PDF_DB_SECRET_ID():
         return os.getenv("PDF_DB_SECRET_ID", None)
+
+    @staticmethod
+    def MAIN_DB_SECRET_ID():
+        return os.getenv("MAIN_DB_SECRET_ID", None)
 
     @staticmethod
     def AWS_PROFILE():

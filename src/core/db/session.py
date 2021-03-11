@@ -4,24 +4,22 @@ from contextlib import contextmanager
 
 import typing
 
-from sqlalchemy import create_engine
-from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from src.core.db.config import get_db_config
-from src.core.db.database_config import DatabaseConfig
+from src.core.db.config import DatabaseEnum
+from src.core.db import DBConnections
 
 session_obj = sessionmaker()
 
 logger = logging.getLogger(__name__)
 
-cfg: DatabaseConfig = get_db_config()
-engine: Engine = create_engine(cfg.make_url(), pool_recycle=3600)
+connections = DBConnections()
+connections.create_all_connections()
 
 
 class AppSession:
-    def __init__(self):
-        self._engine = engine
+    def __init__(self, db_enum_type: DatabaseEnum):
+        self._engine = connections.get_engine(db_enum_type)
         self._session_instance = self._create_session()
         # self._session_instance.execute(f"USE postgres")
 
@@ -38,8 +36,13 @@ class AppSession:
 
 
 @contextmanager
-def DBContext() -> typing.ContextManager[Session]:
-    session = AppSession()
+def DBContext(enum: DatabaseEnum) -> typing.ContextManager[Session]:
+    """
+    Use the DatabaseEnum to select the database you want to use
+    :param enum:
+    :return:
+    """
+    session = AppSession(enum)
     try:
         yield session.instance
         session.instance.commit()
@@ -52,8 +55,9 @@ def DBContext() -> typing.ContextManager[Session]:
 
 
 class DbQuery:
-    def __init__(self):
+    def __init__(self, db_enum: DatabaseEnum):
         self._total_retries = 10
+        self._db_enum = db_enum
 
     def execute(self, query):
         return self._do_query(query, self._total_retries)
@@ -62,7 +66,8 @@ class DbQuery:
         if retries < 0:
             raise
 
-        connection = engine.connect()  # replace your connection
+        engine = connections.get_engine(self._db_enum)
+        connection = engine.connect() # replace your connection
         try:
             return connection.execute(query)
         except Exception as err:  # may need more exceptions here (or trap all)
@@ -74,3 +79,8 @@ class DbQuery:
             self._do_query(query, retries - 1)
         finally:
             connection.close()
+
+
+with DBContext(DatabaseEnum.PDF_INGESTION_DB) as c:
+    test = c.execute("SELECT * from fincen8300_rev4")
+    print(test)
