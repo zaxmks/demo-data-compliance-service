@@ -79,7 +79,3 @@ class DbQuery:
             self._do_query(query, retries - 1)
         finally:
             connection.close()
-
-
-q = DbQuery(DatabaseEnum.MAIN_INGESTION_DB)
-
