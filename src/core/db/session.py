@@ -81,6 +81,5 @@ class DbQuery:
             connection.close()
 
 
-with DBContext(DatabaseEnum.PDF_INGESTION_DB) as c:
-    test = c.execute("SELECT * from fincen8300_rev4")
-    print(test)
+q = DbQuery(DatabaseEnum.MAIN_INGESTION_DB)
+
