@@ -3,7 +3,7 @@ version: 0.2
 
 env:
   variables:
-    IMAGE_REPO_NAME: entity-matching-service
+    IMAGE_REPO_NAME: data-compliance-service
     AWS_ACCOUNT_ID: 533333767769
 
 phases:
