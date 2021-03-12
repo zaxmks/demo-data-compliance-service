@@ -1,26 +1,8 @@
 version: "2.4"
 
 services:
-
-  vigilantkeeper:
-    image: vigilantkeeper
+  app:
+    image: data-compliance-service
     build: .
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - .:/workspace
-    depends_on:
-      postgres-db:
-        condition: service_healthy
-
-  postgres-db:
-    image: library/postgres:12-alpine
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=local_db
-    healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-d", "local_db", "-U", "postgres"]
-      timeout: 45s
-      interval: 10s
-      retries: 10

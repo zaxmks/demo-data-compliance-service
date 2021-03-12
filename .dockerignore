@@ -9,3 +9,4 @@ Dockerfile
 .pem
 .ppk
 data/*
+venv
