@@ -28,7 +28,6 @@ class DatabaseConfig:
             port=int(os.getenv("DB_PORT")),
             db_name=os.getenv("DB_NAME"),
             db_cluster_identifier=os.getenv("DB_CLUSTER_IDENTIFIER"),
-            db_instance_identifier=os.getenv("MAIN_DB_CLUSTER_IDENTIFIER"),
         )
 
     @staticmethod
@@ -41,7 +40,6 @@ class DatabaseConfig:
             port=int(os.getenv("MAIN_DB_PORT")),
             db_name=os.getenv("MAIN_DB_NAME"),
             db_cluster_identifier=os.getenv("MAIN_DB_CLUSTER_IDENTIFIER"),
-            db_instance_identifier=os.getenv("MAIN_DB_CLUSTER_IDENTIFIER"),
         )
 
     def make_url(self):
