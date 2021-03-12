@@ -135,7 +135,31 @@ npm run db:migrate:pdf
 2. You should have a local install of the databases we use to dev
 3. Run this command to generate the latest model schema as SQLAlchemy Models.
 ```shell
-sqlacodegen --outfile src/db/models/pdf_models.py postgresql://postgres:password@localhost:56001/postgres
+sqlacodegen --outfile src/core/db/models/pdf_models.py postgresql://postgres:password@localhost:56001/postgres
+```
+
+#### Saving to the database
+
+1. Use the DBContext() context-manager in the `db` module
+2. e.g.
+```python
+with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+    # ... Some mapping code to push data into a Fincen8300Rev4 SQL Alchemy Model
+    models = [
+      Fincen8300Rev4(...),
+      Fincen8300Rev4(...),
+      Fincen8300Rev4(...)
+    ]
+    pdf_db.add(models)
+```
+3. This demonstrates how to select a database, and save information to our database.
+
+#### Making Database Queries
+
+e.g.
+```python
+db = DbQuery(DatabaseEnum.MAIN_INGESTION_DB)
+db.execute("SELECT 1 FROM SOME_TABLE")
 ```
 
 

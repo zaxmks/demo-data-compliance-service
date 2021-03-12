@@ -6,7 +6,7 @@ from src.core.db.database_config import DatabaseConfig
 from src.core.env.env import ApplicationEnv
 
 
-class DBConnections:
+class SQLEngineFactory:
 
     def __init__(self):
         self._engines = {}
@@ -15,7 +15,7 @@ class DBConnections:
             DatabaseEnum.PDF_INGESTION_DB.value: ApplicationEnv.PDF_DB_SECRET_ID(),
         }
 
-    def create_all_connections(self):
+    def create_all_engines(self):
         db_enum_list = [e.value for e in DatabaseEnum]
         for name in db_enum_list:
             cfg: DatabaseConfig = get_db_config(self._secrets[name])

@@ -7,26 +7,24 @@ import typing
 from sqlalchemy.orm import Session, sessionmaker
 
 from src.core.db.config import DatabaseEnum
-from src.core.db import DBConnections
+from src.core.db.engines import SQLEngineFactory
 
-session_obj = sessionmaker()
 
 logger = logging.getLogger(__name__)
 
-connections = DBConnections()
-connections.create_all_connections()
+engines = SQLEngineFactory()
+engines.create_all_engines()
 
 
 class AppSession:
     def __init__(self, db_enum_type: DatabaseEnum):
-        self._engine = connections.get_engine(db_enum_type)
+        self._engine = engines.get_engine(db_enum_type)
         self._session_instance = self._create_session()
-        # self._session_instance.execute(f"USE postgres")
 
     def _create_session(self) -> Session:
+        session_obj = sessionmaker()
         # create a configured "Session" class
         session_obj.configure(bind=self._engine)
-
         # create a Session
         return session_obj()
 
@@ -66,8 +64,8 @@ class DbQuery:
         if retries < 0:
             raise
 
-        engine = connections.get_engine(self._db_enum)
-        connection = engine.connect() # replace your connection
+        engine = engines.get_engine(self._db_enum)
+        connection = engine.connect()  # replace your connection
         try:
             return connection.execute(query)
         except Exception as err:  # may need more exceptions here (or trap all)
@@ -79,8 +77,3 @@ class DbQuery:
             self._do_query(query, retries - 1)
         finally:
             connection.close()
-
-
-with DBContext(DatabaseEnum.PDF_INGESTION_DB) as c:
-    test = c.execute("SELECT * from fincen8300_rev4")
-    print(test)
