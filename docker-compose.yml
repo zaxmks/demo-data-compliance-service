@@ -6,3 +6,39 @@ services:
     build: .
     volumes:
       - .:/workspace
+    depends_on:
+      - main_ingestion_db
+      - pdf_ingestion_db
+      - itact_ingestion_db
+
+  databases:
+    build: .
+    command: echo "Databases are up"
+    depends_on:
+      - main_ingestion_db
+      - pdf_ingestion_db
+      - itact_ingestion_db
+
+  main_ingestion_db:
+    image: library/postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 56000:5432
+
+  pdf_ingestion_db:
+    image: library/postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 56001:5432
+
+  itact_ingestion_db:
+    image: library/postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 56002:5432
