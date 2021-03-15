@@ -6,6 +6,10 @@ services:
     build: .
     volumes:
       - .:/workspace
+    depends_on:
+      - main_ingestion_db
+      - pdf_ingestion_db
+      - itact_ingestion_db
 
   databases:
     build: .
