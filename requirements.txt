@@ -1,4 +1,8 @@
+
 boto3==1.17.26
+fastapi==0.63.0
+fastapi-utils
 python-dotenv==0.15.0
 spacy
 SQLAlchemy==1.3.23
+uvicorn

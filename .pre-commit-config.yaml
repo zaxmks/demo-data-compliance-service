@@ -12,8 +12,3 @@ repos:
     rev: 19.3b0
     hooks:
       - id: black
-  - repo: https://github.com/syntaqx/git-hooks
-    rev: v0.0.16
-    hooks:
-      - id: circleci-config-validate
-      - id: shellcheck
