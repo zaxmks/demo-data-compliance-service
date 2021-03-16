@@ -4,6 +4,7 @@ from typing import List
 from fastapi import APIRouter
 from pydantic.main import BaseModel
 
+from demo_db_work import demo_db
 
 pdf_router = APIRouter()
 
@@ -29,4 +30,13 @@ async def bulk_verify(body: VerifyDataInput):
     main ingestion db
     """
     print(body)
+    return VerifyResponse(message="OK")
+
+@pdf_router.post("/demo_db", tags=["verify"])
+async def run_demo_db():
+    """
+    Receive a set of ids that should be verified by the compliance module for making it into the
+    main ingestion db
+    """
+    demo_db()
     return VerifyResponse(message="OK")

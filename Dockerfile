@@ -1,4 +1,5 @@
-FROM 533333767769.dkr.ecr.us-gov-west-1.amazonaws.com/pytorch:1.6.0-cuda10.1-cudnn7-devel
+#FROM 533333767769.dkr.ecr.us-gov-west-1.amazonaws.com/pytorch:1.6.0-cuda10.1-cudnn7-devel
+FROM 533333767769.dkr.ecr.us-gov-west-1.amazonaws.com/python:3.8-slim
 
 WORKDIR /workspace
 
