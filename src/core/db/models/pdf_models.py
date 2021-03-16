@@ -86,3 +86,4 @@ class Migration(Base):
     id = Column(Integer, primary_key=True, server_default=text("nextval('migrations_id_seq'::regclass)"))
     timestamp = Column(BigInteger, nullable=False)
     name = Column(String, nullable=False)
+
