@@ -7,11 +7,7 @@ services:
     volumes:
       - .:/workspace
     ports:
-      - 8080:8080
-    depends_on:
-      - main_ingestion_db
-      - pdf_ingestion_db
-      - itact_ingestion_db
+      - 57001:8080
 
   databases:
     build: .

@@ -22,19 +22,9 @@ RUN apt-get update \
 
 # Install pip packages
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
-# Configure spaCy
-RUN python -m spacy download en_core_web_sm
-
-# Download and install gretel-tools + sync the fasttext model
-RUN git clone https://github.com/gretelai/gretel-tools.git
-RUN (cd gretel-tools && pip install -U -I .)
-RUN python -c 'from gretel_tools import headers; h = headers.HeaderAnalyzer()'
-
-# Switch to non-root user
-RUN useradd -m appuser && chown -R appuser /workspace
-USER appuser
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+    && python -m src.install
 
 # Copy project files
 COPY . .
