@@ -1,4 +1,4 @@
-version: "2.4"
+version: "3.8"
 
 services:
   app:
@@ -8,6 +8,8 @@ services:
       - .:/workspace
     ports:
       - 57001:8080
+    depends_on:
+      - databases
 
   databases:
     build: .
