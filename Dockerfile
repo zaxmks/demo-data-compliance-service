@@ -23,7 +23,7 @@ RUN apt-get update \
 # Install pip packages
 COPY requirements.txt .
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt \
     && python -m src.install
 
 # Copy project files

@@ -16,5 +16,4 @@ phases:
   build:
     commands:
       - echo Tests started + Docker Build
-      - pre-commit run -a
       - ./bin/ci-test.sh
