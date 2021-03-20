@@ -1,0 +1,9 @@
+{
+  "map_by": "name",
+  "confidence_threshold": 0.5,
+  "model_type": "levenshtein",
+  "ignore_case": true,
+  "ignore_special_characters": true,
+  "ignore_digits": false,
+  "model_config": {}
+}
