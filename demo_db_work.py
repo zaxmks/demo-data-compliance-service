@@ -1,4 +1,4 @@
-from src.core.db.config import DatabaseEnum
+from src.core.db.db_names import DatabaseEnum
 from src.core.db.models.pdf_models import Fincen8300Rev4
 from src.core.db.session import DBContext
 

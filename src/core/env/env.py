@@ -16,6 +16,11 @@ class ApplicationEnv:
         return os.getenv("MAIN_DB_SECRET_ID", None)
 
     @staticmethod
+    def ITACT_DB_SECRET_ID():
+        return os.getenv("ITACT_DB_SECRET_ID", None)
+
+
+    @staticmethod
     def AWS_PROFILE():
         return os.getenv("AWS_PROFILE", None)
 
@@ -30,3 +35,7 @@ class ApplicationEnv:
     @staticmethod
     def WORKER_QUEUE_URL():
         return os.getenv("WORKER_QUEUE_URL", None)
+
+    @staticmethod
+    def KF_PDF_URL():
+        return os.getenv("KF_PDF_URL", None)

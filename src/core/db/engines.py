@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 
-from src.core.db.config import DatabaseEnum, get_db_config
+from src.core.db.config import get_db_config
+from src.core.db.db_names import DatabaseEnum
 from src.core.db.database_config import DatabaseConfig
 from src.core.env.env import ApplicationEnv
 
@@ -13,12 +14,13 @@ class SQLEngineFactory:
         self._secrets = {
             DatabaseEnum.MAIN_INGESTION_DB.value: ApplicationEnv.MAIN_DB_SECRET_ID(),
             DatabaseEnum.PDF_INGESTION_DB.value: ApplicationEnv.PDF_DB_SECRET_ID(),
+            DatabaseEnum.ITACT_INGESTION_DB.value: ApplicationEnv.ITACT_DB_SECRET_ID(),
         }
 
     def create_all_engines(self):
         db_enum_list = [e.value for e in DatabaseEnum]
         for name in db_enum_list:
-            cfg: DatabaseConfig = get_db_config(self._secrets[name])
+            cfg: DatabaseConfig = get_db_config(self._secrets[name], name)
             engine: Engine = create_engine(cfg.make_url(), pool_recycle=3600)
             self._engines[name] = engine
 

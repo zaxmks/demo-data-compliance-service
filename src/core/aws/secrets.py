@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-from typing import List, Literal
+from typing import List
 
 
 @dataclass
@@ -10,7 +10,7 @@ class SecretValue:
     Name: str
     VersionId: str
     SecretString: str
-    VersionStages: List[Literal["AWSCURRENT"]]
+    VersionStages: List[str]
     CreatedDate: datetime
     ResponseMetadata: "ResponseMetadatum"
 
@@ -28,5 +28,5 @@ class HttpHeader:
     date_: str
     contenttype: str
     contentlength: str
-    connection: Literal["keep-alive"]
+    connection: str
     xamznrequestid: str
