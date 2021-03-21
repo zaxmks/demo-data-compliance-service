@@ -1,7 +1,8 @@
 {
   "weights": {
-    "full_name": 3,
-    "ssn": 10
+    "first_name": 3,
+    "last_name": 10,
+    "dob": 10
   },
   "null_confidence": 0.2,
   "confidence_threshold": 0.5
