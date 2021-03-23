@@ -126,16 +126,27 @@ $ cd [REPO_NAME]
 
 #### Generating Current database schema
 
-1. Pull down our `raw-data` repo, and run the following commands:
+1. Run your docker-compose setup.
+```shell
+docker network create vk
+./bin/web_server.sh
+```
+2. Pull down our `raw-data` repo, and run the following commands:
 ```shell
 npm install
-npm start
-npm run db:migrate:pdf
 ```
-2. You should have a local install of the databases we use to dev
-3. Run this command to generate the latest model schema as SQLAlchemy Models.
+3. Run migrations on your database:
 ```shell
+npm run db:migrate:pdf
+npm run db:migrate:itact
+npm run db:migrate:main
+```
+4. Your databases should be setup and migrated
+5. Run this command to generate the latest model schema as SQLAlchemy Models.
+```shell
+sqlacodegen --outfile src/core/db/models/itact_models.py postgresql://postgres:password@localhost:56000/postgres
 sqlacodegen --outfile src/core/db/models/pdf_models.py postgresql://postgres:password@localhost:56001/postgres
+sqlacodegen --outfile src/core/db/models/main_models.py postgresql://postgres:password@localhost:56002/postgres
 ```
 
 #### Saving to the database

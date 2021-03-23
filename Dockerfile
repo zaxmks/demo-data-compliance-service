@@ -39,5 +39,7 @@ USER appuser
 # Copy project files
 COPY . .
 
+RUN python -m src.install
+
 # This should stay the entrypoint. Issue commands for new behavior.
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]

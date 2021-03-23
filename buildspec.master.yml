@@ -9,7 +9,7 @@ env:
 phases:
   install:
     runtime-versions:
-      docker: 18
+      docker: 19
   pre_build:
     commands:
       - echo Get the environment
@@ -20,18 +20,13 @@ phases:
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - AWS_FULL_IMAGE_NAME=$REPOSITORY_URI:$IMAGE_TAG
+      - AWS_LATEST_FULL_IMAGE_NAME=$REPOSITORY_URI:latest
   build:
     commands:
       - echo Tests started + Docker Build
       - ./bin/ci-test.sh
-      - docker tag vigilantkeeper:latest $REPOSITORY_URI:latest
-      - docker tag $REPOSITORY_URI:latest $AWS_FULL_IMAGE_NAME
-  post_build:
-    commands:
-      - echo Build Completed!
-      - echo Now Pushing the Docker images...
-      - export IS_MAIN_BRANCH=$(echo "${CODEBUILD_WEBHOOK_HEAD_REF?}" | grep -E -i -o 'master|main$')
-      - ./bin/deployment/register_task_definition.sh
-      - ./bin/deployment/push_to_ecr.sh
-artifacts:
-  files: taskdef.json
+      - docker tag $IMAGE_REPO_NAME $AWS_FULL_IMAGE_NAME
+      - docker tag $IMAGE_REPO_NAME $AWS_LATEST_FULL_IMAGE_NAME
+      - docker images ls
+      - docker push $AWS_FULL_IMAGE_NAME
+      - docker push $AWS_LATEST_FULL_IMAGE_NAME

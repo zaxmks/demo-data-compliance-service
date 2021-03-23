@@ -1,4 +1,4 @@
-version: "2.4"
+version: "3.8"
 
 services:
   app:
@@ -7,11 +7,9 @@ services:
     volumes:
       - .:/workspace
     ports:
-      - 8080:8080
+      - 57001:8080
     depends_on:
-      - main_ingestion_db
-      - pdf_ingestion_db
-      - itact_ingestion_db
+      - databases
 
   databases:
     build: .
