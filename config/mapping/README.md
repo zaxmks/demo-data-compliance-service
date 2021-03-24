@@ -1,0 +1,1 @@
+In `weighted_linear_default.json` the weights refer to target names.

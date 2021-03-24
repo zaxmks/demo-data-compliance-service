@@ -1,0 +1,9 @@
+{
+  "weights": {
+    "FULL_NAME": 3,
+    "SSN": 10,
+    "CITY":  1
+  },
+  "null_confidence": 0.2,
+  "confidence_threshold": 0.5
+}

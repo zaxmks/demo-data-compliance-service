@@ -6,7 +6,7 @@ import typing
 
 from sqlalchemy.orm import Session, sessionmaker
 
-from src.core.db.config import DatabaseEnum
+from src.core.db.db_names import DatabaseEnum
 from src.core.db.engines import SQLEngineFactory
 
 
