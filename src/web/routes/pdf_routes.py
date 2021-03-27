@@ -33,17 +33,15 @@ async def bulk_verify(body: VerifyDataInput):
     print(body)
     return VerifyResponse(message="OK")
 
-if 0:
-    @pdf_router.post("/process")
-    async def process():
-        """
-        Receive an ingestion_event_id that should be verified by the
-        compliance module for making it into the
-        main ingestion db
-        """
-        ingestion_event_id: str = 'aa'
-        result = filter_and_retain(ingestion_event_id)
-        return VerifyResponse(message=result)
+@pdf_router.post("/process/{ingestion_event_id}")
+async def process(ingestion_event_id: str):
+    """
+    Receive an ingestion_event_id that should be verified by the
+    compliance module for making it into the
+    main ingestion db
+    """
+    result = filter_and_retain(ingestion_event_id)
+    return VerifyResponse(message=result)
 
 @pdf_router.post("/demo_db", tags=["verify"])
 async def run_demo_db():

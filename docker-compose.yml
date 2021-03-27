@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/workspace
     ports:
-      - 57003:8081
+      - 57001:8080
     depends_on:
       - databases
 
