@@ -1,9 +1,9 @@
 from typing import List
 
+import json
+
 from pandas import DataFrame
 import pandas as pd
-
-import json
 
 from src.sources.data_source import DataSource
 
@@ -23,10 +23,10 @@ class ColumnMap:
     def __init__(self):
         self.employee = self._get_employee_data_source()
         value_matching_config_json = self._load_config(
-            "../config/mapping/levenshtein_default.json"
+            "config/mapping/levenshtein_default.json"
         )
         row_mapping_config_json = self._load_config(
-            "../config/mapping/weighted_linear_default.json"
+            "config/mapping/weighted_linear_default.json"
         )
         self.value_matching_config = ValueMatchingConfiguration(
             **value_matching_config_json
@@ -57,8 +57,8 @@ class ColumnMap:
 
     @staticmethod
     def _get_employee_data_source() -> DataSource:
-        db = DbQuery(DatabaseEnum.PDF_INGESTION_DB)
-        result = db.execute("SELECT * from public.public.employee limit 10")
+        db = DbQuery(DatabaseEnum.MAIN_INGESTION_DB)
+        result = db.execute("SELECT * from public.employee")
         df = DataFrame(result.fetchall())
         df.columns = result.keys()
         employee = DataSource(df)
@@ -90,7 +90,7 @@ class ColumnMap:
             "first_name": [],  # just for sanity check
             "last_name": [],  # just for sanity check
             "ingestion_event_id": [],
-            "doc_uuid": [],
+            "employee_id": [],
         }
         # noinspection PyUnresolvedReferences
         for relation in source.row_relations:
@@ -120,8 +120,10 @@ def filter_and_retain(ingestion_event_id: str):
         .statement
     )
     df = pd.read_sql(query, app_pdf.engine)
+    num_document_matches = df.shape[0]
     fincen = DataSource(df)
     fincen.column_relations = cm.fincen_column_relations
+    fincen.map_rows_to(cm.employee, cm.value_matching_config, cm.row_mapping_config)
     results_df = cm.generate_structured_row_matches(fincen)
     num_records = results_df.shape[0]
     with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
@@ -133,4 +135,7 @@ def filter_and_retain(ingestion_event_id: str):
                     ingestion_event_id=str(row.ingestion_event_id),
                 )
             )
-    return "got---" + ingestion_event_id
+    return (
+        f"Num documents matched: {num_document_matches}, "
+        f"Num employees matched: {num_records}"
+    )
