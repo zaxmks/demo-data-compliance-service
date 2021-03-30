@@ -32,6 +32,10 @@ class AppSession:
     def instance(self) -> Session:
         return self._session_instance
 
+    @property
+    def engine(self):
+        return self._engine
+
 
 @contextmanager
 def DBContext(enum: DatabaseEnum) -> typing.ContextManager[Session]:
