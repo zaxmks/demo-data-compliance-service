@@ -182,7 +182,6 @@ class Compliance:
                 )
 
             # Write to Fincen
-            print("******* fincen_obj", f_vals)
             del f_vals["ingestion_event_id"]
             f_vals["compliance_event_id"] = ingestion_event_id
             with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
