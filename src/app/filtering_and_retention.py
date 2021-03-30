@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 import json
 
@@ -6,7 +6,6 @@ from pandas import DataFrame
 import pandas as pd
 
 from src.sources.data_source import DataSource
-
 from src.mapping.pdfs.pdf_field_name_classifier import FieldNameClassifier
 from src.mapping.pdfs.pdf_field_label_catalog import FieldLabelCatalog
 from src.mapping.pdfs.pseudofield_generator import PseudofieldGenerator
@@ -14,12 +13,16 @@ from src.mapping.rows.row_mapping_configuration import RowMappingConfiguration
 from src.mapping.values.value_matching_configuration import ValueMatchingConfiguration
 from src.core.db.config import DatabaseEnum
 from src.core.db.models.pdf_models import Fincen8300Rev4
-from src.core.db.models.main_models import EmployeeToDocument
+from src.core.db.models.main_models import (
+    ComplianceRunEvent,
+    EmployeeToComplianceRunEvent,
+)
 from src.core.db.session import DBContext, DbQuery, AppSession
 from src.mapping.columns.column_relation import ColumnRelation
+from src.core.db.models.pdf_models import IngestionEvent
 
 
-class ColumnMap:
+class Compliance:
     def __init__(self):
         self.employee = self._get_employee_data_source()
         value_matching_config_json = self._load_config(
@@ -32,7 +35,6 @@ class ColumnMap:
             **value_matching_config_json
         )
         self.row_mapping_config = RowMappingConfiguration(**row_mapping_config_json)
-
         self.fincen_column_relations = self._get_fincen_column_relations()
 
     def _get_fincen_column_relations(self) -> List[ColumnRelation]:
@@ -106,36 +108,83 @@ class ColumnMap:
             rows["last_name"].append(source_row.last_name)
         return DataFrame(rows)
 
-
-cm = ColumnMap()
-
-
-def filter_and_retain(ingestion_event_id: str):
-    app_pdf = AppSession(DatabaseEnum.PDF_INGESTION_DB)
-    session_pdf = app_pdf.instance
-    # only reasonable way to get into a dataframe
-    query = (
-        session_pdf.query(Fincen8300Rev4)
-        .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
-        .statement
-    )
-    df = pd.read_sql(query, app_pdf.engine)
-    num_document_matches = df.shape[0]
-    fincen = DataSource(df)
-    fincen.column_relations = cm.fincen_column_relations
-    fincen.map_rows_to(cm.employee, cm.value_matching_config, cm.row_mapping_config)
-    results_df = cm.generate_structured_row_matches(fincen)
-    num_records = results_df.shape[0]
-    with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
-        for i in range(num_records):
-            row = results_df.iloc[i]
-            main_db.add(
-                EmployeeToDocument(
-                    employee_id=str(row.employee_id),
-                    ingestion_event_id=str(row.ingestion_event_id),
-                )
+    @staticmethod
+    def _get_pdf_document(
+        ingestion_event_id: str
+    ) -> Tuple[pd.DataFrame, Fincen8300Rev4]:
+        app_pdf = AppSession(DatabaseEnum.PDF_INGESTION_DB)
+        session_pdf = app_pdf.instance
+        # only reasonable way to get into a dataframe
+        query = (
+            session_pdf.query(Fincen8300Rev4)
+            .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
+            .statement
+        )
+        df = pd.read_sql(query, app_pdf.engine)
+        app_pdf.instance.close()
+        # Crazy have to do this twice, but no good way to get object to DataFrame
+        # DataFrame needed to find columns. Object needed to add to db.
+        # Could fix by doing something smarter here
+        with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+            fincen_obj = (
+                pdf_db.query(Fincen8300Rev4)
+                .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
+                .one_or_none()
             )
-    return (
-        f"Num documents matched: {num_document_matches}, "
-        f"Num employees matched: {num_records}"
-    )
+        return df, fincen_obj
+
+    @staticmethod
+    def get_ingestion_event_and_write_to_compliance(ingestion_event_id: str):
+        with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+            result = (
+                pdf_db.query(IngestionEvent)
+                .filter(IngestionEvent.id == ingestion_event_id)
+                .one_or_none()
+            )
+            if result is None:
+                return None
+            with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+                main_db.add(
+                    ComplianceRunEvent(
+                        id=ingestion_event_id,
+                        s3_bucket=result.s3_bucket,
+                        s3_key=result.s3_key,
+                        was_redacted=False,
+                        status="ok",
+                    )
+                )
+        return "done"
+
+    def filter_and_retain(self, ingestion_event_id: str):
+        # first get ingestion event
+        r = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
+        if r is None:
+            return "ingestion_event_id not found"
+        df, fincen_obj = self._get_pdf_document(ingestion_event_id)
+        num_document_matches = df.shape[0]
+        fincen = DataSource(df)
+        fincen.column_relations = self.fincen_column_relations
+        fincen.map_rows_to(
+            self.employee, self.value_matching_config, self.row_mapping_config
+        )
+        results_df = self.generate_structured_row_matches(fincen)
+        num_records = results_df.shape[0]
+
+        # Write to EmployeeToComplianceRunEvent
+        if num_records > 0:
+            row = results_df.iloc[0]
+            with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+                main_db.add(
+                    EmployeeToComplianceRunEvent(
+                        employee_id=str(row.employee_id),
+                        ingestion_event_id=ingestion_event_id,
+                    )
+                )
+
+        # Write to Fincen
+        with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+            main_db.add(fincen_obj)
+        return (
+            f"Num documents matched: {num_document_matches}, "
+            f"Num employees matched: {num_records}"
+        )
