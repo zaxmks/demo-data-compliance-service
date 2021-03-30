@@ -160,7 +160,7 @@ class Compliance:
         if r is None:
             return "ingestion_event_id not found"
         df = self._get_pdf_document(ingestion_event_id)
-        f_vals = df.to_dict(orient="records")[0]
+        f_vals = df.to_dict(orient="records")[0]  # assume one doc per ingestion_event
         num_document_matches = df.shape[0]
         fincen = DataSource(df)
         fincen.column_relations = self.fincen_column_relations
