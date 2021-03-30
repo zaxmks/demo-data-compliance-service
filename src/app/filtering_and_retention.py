@@ -17,6 +17,7 @@ from src.core.db.models.main_models import (
     ComplianceRunEvent,
     EmployeeToComplianceRunEvent,
 )
+from src.core.db.models.main_models import Fincen8300Rev4 as FincenMain
 from src.core.db.session import DBContext, DbQuery, AppSession
 from src.mapping.columns.column_relation import ColumnRelation
 from src.core.db.models.pdf_models import IngestionEvent
@@ -109,9 +110,7 @@ class Compliance:
         return DataFrame(rows)
 
     @staticmethod
-    def _get_pdf_document(
-        ingestion_event_id: str
-    ) -> Tuple[pd.DataFrame, Fincen8300Rev4]:
+    def _get_pdf_document(ingestion_event_id: str) -> pd.DataFrame:
         app_pdf = AppSession(DatabaseEnum.PDF_INGESTION_DB)
         session_pdf = app_pdf.instance
         # only reasonable way to get into a dataframe
@@ -131,7 +130,7 @@ class Compliance:
                 .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
                 .one_or_none()
             )
-        return df, fincen_obj
+        return df
 
     @staticmethod
     def get_ingestion_event_and_write_to_compliance(ingestion_event_id: str):
@@ -160,7 +159,8 @@ class Compliance:
         r = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
         if r is None:
             return "ingestion_event_id not found"
-        df, fincen_obj = self._get_pdf_document(ingestion_event_id)
+        df = self._get_pdf_document(ingestion_event_id)
+        f_vals = df.to_dict(orient="records")[0]
         num_document_matches = df.shape[0]
         fincen = DataSource(df)
         fincen.column_relations = self.fincen_column_relations
@@ -181,9 +181,13 @@ class Compliance:
                     )
                 )
 
-        # Write to Fincen
-        with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
-            main_db.add(fincen_obj)
+            # Write to Fincen
+            print("******* fincen_obj", f_vals)
+            del f_vals["ingestion_event_id"]
+            f_vals["compliance_event_id"] = ingestion_event_id
+            with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+                main_db.add(FincenMain(**f_vals))
+
         return (
             f"Num documents matched: {num_document_matches}, "
             f"Num employees matched: {num_records}"
