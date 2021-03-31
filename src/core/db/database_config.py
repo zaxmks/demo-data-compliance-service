@@ -18,6 +18,7 @@ class DatabaseConfig:
     db_cluster_identifier: Optional[str] = ""
     db_instance_identifier: Optional[str] = ""
     db_name: Optional[str] = ""
+    dbname: Optional[str] = ""
 
     @staticmethod
     def from_local_env(name: DatabaseEnum):
@@ -54,7 +55,6 @@ class DatabaseConfig:
         else:
             raise RuntimeError(f'No database: {name}')
 
-
     @staticmethod
     def from_local_env_main_db():
         return DatabaseConfig(
@@ -74,5 +74,5 @@ class DatabaseConfig:
             password=self.password,
             host=self.host,
             port=self.port,
-            database="postgres",
+            database=self.dbname or self.db_name,
         )
