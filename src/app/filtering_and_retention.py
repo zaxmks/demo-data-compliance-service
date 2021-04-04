@@ -26,7 +26,6 @@ from src.core.db.models.pdf_models import IngestionEvent
 class Compliance:
     def __init__(self):
         self.employee = self._get_employee_data_source()
-        print("****************** got employee ", self.employee)
 
         # If employee is None there is no employee table
         if self.employee:
