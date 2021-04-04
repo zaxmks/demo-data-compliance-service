@@ -8,6 +8,7 @@ from src.app.filtering_and_retention import Compliance
 
 
 pdf_router = APIRouter()
+compliance = Compliance()
 
 
 class DatabaseEnum(Enum):
@@ -41,7 +42,6 @@ async def process(ingestion_event_id: str):
     compliance module for making it into the
     main ingestion db
     """
-    compliance = Compliance()
     result = compliance.filter_and_retain(ingestion_event_id)
     return VerifyResponse(message=result)
 

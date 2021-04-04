@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Optional
 
 import json
 
@@ -26,17 +26,21 @@ from src.core.db.models.pdf_models import IngestionEvent
 class Compliance:
     def __init__(self):
         self.employee = self._get_employee_data_source()
-        value_matching_config_json = self._load_config(
-            "config/mapping/levenshtein_default.json"
-        )
-        row_mapping_config_json = self._load_config(
-            "config/mapping/weighted_linear_default.json"
-        )
-        self.value_matching_config = ValueMatchingConfiguration(
-            **value_matching_config_json
-        )
-        self.row_mapping_config = RowMappingConfiguration(**row_mapping_config_json)
-        self.fincen_column_relations = self._get_fincen_column_relations()
+        print("****************** got employee ", self.employee)
+
+        # If employee is None there is no employee table
+        if self.employee:
+            value_matching_config_json = self._load_config(
+                "config/mapping/levenshtein_default.json"
+            )
+            row_mapping_config_json = self._load_config(
+                "config/mapping/weighted_linear_default.json"
+            )
+            self.value_matching_config = ValueMatchingConfiguration(
+                **value_matching_config_json
+            )
+            self.row_mapping_config = RowMappingConfiguration(**row_mapping_config_json)
+            self.fincen_column_relations = self._get_fincen_column_relations()
 
     def _get_fincen_column_relations(self) -> List[ColumnRelation]:
         fincen = self._get_fincen_data_source()
@@ -59,12 +63,15 @@ class Compliance:
         return fincen
 
     @staticmethod
-    def _get_employee_data_source() -> DataSource:
+    def _get_employee_data_source() -> Optional[DataSource]:
         db = DbQuery(DatabaseEnum.MAIN_INGESTION_DB)
         result = db.execute("SELECT * from public.employee")
         df = DataFrame(result.fetchall())
-        df.columns = result.keys()
-        employee = DataSource(df)
+        if df.shape[0] == 0:
+            employee = None
+        else:
+            df.columns = result.keys()
+            employee = DataSource(df)
         return employee
 
     @staticmethod
@@ -121,15 +128,6 @@ class Compliance:
         )
         df = pd.read_sql(query, app_pdf.engine)
         app_pdf.instance.close()
-        # Crazy have to do this twice, but no good way to get object to DataFrame
-        # DataFrame needed to find columns. Object needed to add to db.
-        # Could fix by doing something smarter here
-        with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
-            fincen_obj = (
-                pdf_db.query(Fincen8300Rev4)
-                .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
-                .one_or_none()
-            )
         return df
 
     @staticmethod
@@ -155,6 +153,10 @@ class Compliance:
         return "done"
 
     def filter_and_retain(self, ingestion_event_id: str):
+
+        if self.employee is None:
+            return "No records in employee table"
+
         # first get ingestion event
         r = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
         if r is None:
@@ -177,13 +179,13 @@ class Compliance:
                 main_db.add(
                     EmployeeToComplianceRunEvent(
                         employee_id=str(row.employee_id),
-                        ingestion_event_id=ingestion_event_id,
+                        compliance_run_event_id=ingestion_event_id,
                     )
                 )
 
             # Write to Fincen
             del f_vals["ingestion_event_id"]
-            f_vals["compliance_event_id"] = ingestion_event_id
+            f_vals["compliance_run_event_id"] = ingestion_event_id
             with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
                 main_db.add(FincenMain(**f_vals))
 
