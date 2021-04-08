@@ -6,7 +6,6 @@ from src.core.env.load import Environments
 
 @dataclass
 class ApplicationEnv:
-
     @staticmethod
     def PDF_DB_SECRET_ID():
         return os.getenv("PDF_DB_SECRET_ID", None)
@@ -18,7 +17,6 @@ class ApplicationEnv:
     @staticmethod
     def ITACT_DB_SECRET_ID():
         return os.getenv("ITACT_DB_SECRET_ID", None)
-
 
     @staticmethod
     def AWS_PROFILE():
@@ -39,3 +37,7 @@ class ApplicationEnv:
     @staticmethod
     def KF_PDF_URL():
         return os.getenv("KF_PDF_URL", None)
+
+    @staticmethod
+    def RULES_ENGINE_URL():
+        return os.getenv("RULES_ENGINE_URL", None)

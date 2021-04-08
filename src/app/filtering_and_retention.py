@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 import json
+import requests as API
 
 from pandas import DataFrame
 import pandas as pd
@@ -182,6 +183,11 @@ class Compliance:
             del f_vals["ingestion_event_id"]
             with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
                 main_db.add(FincenMain(**f_vals))
+
+            # Post to rules engine
+            API.post(
+                f"{ApplicationEnv.RULES_ENGINE_URL()}rules_processor/execute/{[row.employee_id]}"
+            )
 
         return (
             f"Num documents matched: {num_document_matches}, "
