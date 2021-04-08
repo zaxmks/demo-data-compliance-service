@@ -186,7 +186,8 @@ class Compliance:
 
             # Post to rules engine
             API.post(
-                f"{ApplicationEnv.RULES_ENGINE_URL()}/rules_processor/execute/{[row.employee_id]}"
+                f"{ApplicationEnv.RULES_ENGINE_URL()}/rules_processor/execute/",
+                json={"employeeIdList": [row.employee_id]},
             )
 
         return (
