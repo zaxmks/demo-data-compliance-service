@@ -185,9 +185,11 @@ class Compliance:
                 main_db.add(FincenMain(**f_vals))
 
             # Post to rules engine
+            headers = {"Content-Type": "application/json"}
             API.post(
                 f"{ApplicationEnv.RULES_ENGINE_URL()}/rules_processor/execute/",
                 json={"employeeIdList": [row.employee_id]},
+                headers=headers,
             )
 
         return (
