@@ -21,6 +21,7 @@ from src.core.db.models.main_models import Fincen8300Rev4 as FincenMain
 from src.core.db.session import DBContext, DbQuery, AppSession
 from src.mapping.columns.column_relation import ColumnRelation
 from src.core.db.models.pdf_models import IngestionEvent
+from src.core.env.env import ApplicationEnv
 
 
 class Compliance:
