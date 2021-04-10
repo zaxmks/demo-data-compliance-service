@@ -182,6 +182,7 @@ class Compliance:
 
             # Write to Fincen
             del f_vals["ingestion_event_id"]
+            f_vals["compliance_run_event_id"] = ingestion_event_id
             with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
                 main_db.add(FincenMain(**f_vals))
 
