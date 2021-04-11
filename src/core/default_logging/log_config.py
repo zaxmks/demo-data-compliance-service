@@ -35,6 +35,5 @@ def configure_logging():
     logging.root.setLevel(logging.INFO)
     logging.root.addHandler(console_handler)
 
-    logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
-
+    # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
     # logging.root.setLevel(logging.DEBUG)
