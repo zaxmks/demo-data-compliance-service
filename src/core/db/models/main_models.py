@@ -71,22 +71,13 @@ class EmployeeToComplianceRunEvent(Base):
     __tablename__ = "employee_to_compliance_run_event"
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
-    employee_id = Column(UUID, nullable=False)
-    ingestion_event_id = Column(UUID, nullable=False)
-    related_employee_id = Column(ForeignKey("employee.id"))
+    employee_id = Column(ForeignKey("employee.id"), nullable=False)
+    compliance_run_event_id = Column(
+        ForeignKey("compliance_run_event.id"), nullable=False
+    )
 
-    related_employee = relationship("Employee")
-
-
-class EmployeeToDocument(Base):
-    __tablename__ = "employee_to_document"
-
-    id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
-    employee_id = Column(UUID, nullable=False)
-    ingestion_event_id = Column(UUID, nullable=False)
-    related_employee_id = Column(ForeignKey("employee.id"))
-
-    related_employee = relationship("Employee")
+    compliance_run_event = relationship("ComplianceRunEvent")
+    employee = relationship("Employee")
 
 
 class Fincen8300Rev4(Base):
@@ -160,6 +151,6 @@ class Fincen8300Rev4(Base):
     date_of_signature_footer = Column(Date)
     contact_name_printed_brc = Column(String)
     contact_phone_brc = Column(String)
-    compliance_event_id = Column(ForeignKey("compliance_run_event.id"), unique=True)
+    compliance_run_event_id = Column(ForeignKey("compliance_run_event.id"), unique=True)
 
-    compliance_event = relationship("ComplianceRunEvent", uselist=False)
+    compliance_run_event = relationship("ComplianceRunEvent", uselist=False)
