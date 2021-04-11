@@ -1,0 +1,11 @@
+
+[tool.taskipy.tasks]
+# Setup
+"docker:login"       = "aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 533333767769.dkr.ecr.us-gov-west-1.amazonaws.com"
+"db:model:itact"     = "sqlacodegen --outfile src/core/db/models/itact_models.py postgresql://postgres:password@localhost:56000/postgres"
+"db:model:pdf"       = "sqlacodegen --outfile src/core/db/models/pdf_models.py postgresql://postgres:password@localhost:56001/postgres"
+"db:model:main"      = "sqlacodegen --outfile src/core/db/models/main_models.py postgresql://postgres:password@localhost:56002/postgres"
+"sqlacodegen"        = "task db:model:itact && task db:model:pdf && task db:model:main"
+"build"              = "docker-compose build"
+"test"               = "./bin/test.sh"
+"api"                = "./bin/web_server.sh"
