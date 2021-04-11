@@ -30,3 +30,6 @@ phases:
       - docker images
       - docker push $AWS_FULL_IMAGE_NAME
       - docker push $AWS_LATEST_FULL_IMAGE_NAME
+      - ./bin/deployment/write_image_definitions.sh
+artifacts:
+  files: imagedefinitions.json
