@@ -35,9 +35,5 @@ class ApplicationEnv:
         return os.getenv("WORKER_QUEUE_URL", None)
 
     @staticmethod
-    def KF_PDF_URL():
-        return os.getenv("KF_PDF_URL", None)
-
-    @staticmethod
     def RULES_ENGINE_URL():
         return os.getenv("RULES_ENGINE_URL", None)

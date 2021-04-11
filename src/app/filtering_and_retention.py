@@ -1,31 +1,33 @@
+import json
+import logging
 from typing import List, Optional
 
-import json
-import requests as API
-
-from pandas import DataFrame
 import pandas as pd
+from pandas import DataFrame
+from requests_futures.sessions import FuturesSession
 
-from src.sources.data_source import DataSource
-from src.mapping.rows.row_mapping_configuration import RowMappingConfiguration
-from src.mapping.values.value_matching_configuration import ValueMatchingConfiguration
 from src.core.db.config import DatabaseEnum
-from src.core.db.models.pdf_models import Fincen8300Rev4
 from src.core.db.models.main_models import (
     ComplianceRunEvent,
-    EmployeeToComplianceRunEvent,
-    Employee,
     DocumentType,
+    Employee,
+    EmployeeToComplianceRunEvent,
+    Fincen8300Rev4 as FincenMain,
 )
-from src.core.db.models.main_models import Fincen8300Rev4 as FincenMain
-from src.core.db.session import DBContext, DbQuery, AppSession
-from src.mapping.columns.column_relation import ColumnRelation
-from src.core.db.models.pdf_models import IngestionEvent
+from src.core.db.models.pdf_models import Fincen8300Rev4, IngestionEvent
+from src.core.db.session import AppSession, DBContext
 from src.core.env.env import ApplicationEnv
+from src.mapping.columns.column_relation import ColumnRelation
+from src.mapping.rows.row_mapping_configuration import RowMappingConfiguration
+from src.mapping.values.value_matching_configuration import ValueMatchingConfiguration
+from src.sources.data_source import DataSource
+
+logger = logging.getLogger(__name__)
 
 
 class Compliance:
     def __init__(self):
+        self._session = FuturesSession()
         self.employee = self._get_employee_data_source()
 
         # If employee is None there is no employee table
@@ -121,13 +123,14 @@ class Compliance:
 
     @staticmethod
     def get_ingestion_event_and_write_to_compliance(ingestion_event_id: str):
+        # using the ingestion event id, we grab the pdf data
         with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
             result = (
                 pdf_db.query(IngestionEvent)
                 .filter(IngestionEvent.id == ingestion_event_id)
                 .one_or_none()
             )
-            if result is None:
+            if not result:
                 return None
             with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
                 doc_type = (
@@ -150,14 +153,48 @@ class Compliance:
         return "done"
 
     def filter_and_retain(self, ingestion_event_id: str):
-
+        logger.info(
+            "*****************************************************************************"
+        )
+        logger.info("Begin compliance operations")
+        logger.info(
+            "*****************************************************************************"
+        )
+        # Create a class whose job it is to manage querying and paging for employees.
+        # Very soon, employees will not be possible to fully fit in memory.
         if self.employee is None:
+            logger.info(
+                "*****************************************************************************"
+            )
+            logger.info(
+                "No employees in the Main Ingestion DB. Request has been rejected."
+            )
+            logger.info("In the future, we will: ")
+            logger.info("- Remove the ingested PDF data")
+            logger.info("- Log removals to the Main Ingestion DB")
+            logger.info(
+                "*****************************************************************************"
+            )
             return "No records in employee table"
 
         # first get ingestion event
         r = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
         if r is None:
+            logger.info(
+                "*****************************************************************************"
+            )
+            logger.info(
+                "Could not find anything for the ingestion event ID. "
+                "Request has been rejected."
+            )
+            logger.info("In the future, we will: ")
+            logger.info("- Remove the ingested PDF data")
+            logger.info("- Log removals to the Main Ingestion DB")
+            logger.info(
+                "*****************************************************************************"
+            )
             return "ingestion_event_id or document_type not found"
+
         df = self._get_pdf_document(ingestion_event_id)
         f_vals = df.to_dict(orient="records")[0]  # assume one doc per ingestion_event
         num_document_matches = df.shape[0]
@@ -169,27 +206,57 @@ class Compliance:
         results_df = self.generate_structured_row_matches(fincen)
         num_records = results_df.shape[0]
 
+        if num_records <= 0:
+            logger.info(
+                "*****************************************************************************"
+            )
+            logger.info("No Entity Matches found. Request rejected.")
+            logger.info("In the future, we will: ")
+            logger.info("- Remove the ingested PDF data")
+            logger.info("- Log removals to the Main Ingestion DB")
+            logger.info(
+                "*****************************************************************************"
+            )
+            return "No Entity Matches found. Request rejected."
+
         # Write to EmployeeToComplianceRunEvent
-        if num_records > 0:
-            row = results_df.iloc[0]
-            with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
-                main_db.add(
-                    EmployeeToComplianceRunEvent(
-                        employee_id=str(row.employee_id),
-                        compliance_run_event_id=ingestion_event_id,
-                    )
+        row = results_df.iloc[0]
+        with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+            main_db.add(
+                EmployeeToComplianceRunEvent(
+                    employee_id=str(row.employee_id),
+                    compliance_run_event_id=ingestion_event_id,
                 )
+            )
 
-            # Write to Fincen
-            del f_vals["ingestion_event_id"]
-            f_vals["compliance_run_event_id"] = ingestion_event_id
-            with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
-                main_db.add(FincenMain(**f_vals))
+        # Write to Fincen
+        del f_vals["ingestion_event_id"]
+        f_vals["compliance_run_event_id"] = ingestion_event_id
+        with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+            main_db.add(FincenMain(**f_vals))
 
-            # Post to rules engine
-            headers = {"Content-Type": "application/json"}
-            API.post(
-                f"{ApplicationEnv.RULES_ENGINE_URL()}/rules_processor/execute/",
+        # Post to rules engine
+        headers = {"Content-Type": "application/json"}
+        url = ApplicationEnv.RULES_ENGINE_URL()
+        if url:
+            logger.info(
+                "*****************************************************************************"
+            )
+            logger.info(
+                "Successfully Migrated PDF data and persisted match information"
+                "to the Main Ingestion Database"
+            )
+            logger.info(
+                "Prepare API request for rules engine to answer "
+                "any possible pathfinder questions for the newly updated Employee."
+            )
+            logger.info(f"Number of documents matched: {num_document_matches}")
+            logger.info(f"Number of employees matched: {num_records}")
+            logger.info(
+                "*****************************************************************************"
+            )
+            self._session.post(
+                f"{url}/rules_processor/execute/",
                 json={"employeeIdList": [row.employee_id]},
                 headers=headers,
             )
