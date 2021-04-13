@@ -235,16 +235,23 @@ class Compliance:
         with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
             main_db.add(FincenMain(**f_vals))
 
+        logger.info(
+            "Successfully Migrated PDF data and persisted match information"
+            "to the Main Ingestion Database"
+        )
+
+        with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+            pdf_db.query.pdf_db.query(Fincen8300Rev4).filter(
+                Fincen8300Rev4.id == ingestion_event_id
+            ).delete()
+        logger.info("Successfully DELETED Employee records from pdf-ingestion-db")
+
         # Post to rules engine
         headers = {"Content-Type": "application/json"}
         url = ApplicationEnv.RULES_ENGINE_URL()
         if url:
             logger.info(
                 "*****************************************************************************"
-            )
-            logger.info(
-                "Successfully Migrated PDF data and persisted match information"
-                "to the Main Ingestion Database"
             )
             logger.info(
                 "Prepare API request for rules engine to answer "
