@@ -1,25 +1,17 @@
-version: "3.8"
+version: "2.4"
 
 services:
   app:
     image: data-compliance-service
     build: .
-    volumes:
-      - .:/workspace
-    ports:
-      - 57001:8080
+    environment:
+      - CI=True
+      - ENV=TEST
     depends_on:
       - main_ingestion_db
       - pdf_ingestion_db
       - itact_ingestion_db
 
-  databases:
-    image: data-compliance-service
-    command: echo "Databases are up"
-    depends_on:
-      - main_ingestion_db
-      - pdf_ingestion_db
-      - itact_ingestion_db
 
   main_ingestion_db:
     image: library/postgres:12-alpine
