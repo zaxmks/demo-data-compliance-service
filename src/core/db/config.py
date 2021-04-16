@@ -1,7 +1,6 @@
 from src.core.aws.clients import get_kf_secrets_manager
 from src.core.aws.secrets import SecretValue
 from src.core.db.database_config import DatabaseConfig
-from src.core.db.db_names import DatabaseEnum
 from src.core.env.env import ApplicationEnv
 
 

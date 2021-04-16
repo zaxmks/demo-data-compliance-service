@@ -6,7 +6,7 @@ import pandas as pd
 from pandas import DataFrame
 from requests_futures.sessions import FuturesSession
 
-from src.core.db.config import DatabaseEnum
+from src.core.db.db_init import MainDbSession, PdfDbSession
 from src.core.db.models.main_models import (
     ComplianceRunEvent,
     DocumentType,
@@ -15,7 +15,6 @@ from src.core.db.models.main_models import (
     Fincen8300Rev4 as FincenMain,
 )
 from src.core.db.models.pdf_models import Fincen8300Rev4, IngestionEvent
-from src.core.db.session import AppSession, DBContext
 from src.core.env.env import ApplicationEnv
 from src.mapping.columns.column_relation import ColumnRelation
 from src.mapping.rows.row_mapping_configuration import RowMappingConfiguration
@@ -56,26 +55,25 @@ class Compliance:
 
     @staticmethod
     def _get_employee_data_source() -> Optional[DataSource]:
-        app_emp = AppSession(DatabaseEnum.MAIN_INGESTION_DB)
-        session_emp = app_emp.instance
-        query = (
-            session_emp.query(Employee)
-            .with_entities(
-                Employee.id,
-                Employee.ssn,
-                Employee.date_of_birth,
-                Employee.first_name,
-                Employee.last_name,
+        with MainDbSession() as session_emp:
+            query = (
+                session_emp.query(Employee)
+                .with_entities(
+                    Employee.id,
+                    Employee.ssn,
+                    Employee.date_of_birth,
+                    Employee.first_name,
+                    Employee.last_name,
+                )
+                .statement
             )
-            .statement
-        )
-        df_emp = pd.read_sql(query, app_emp.engine)
-        app_emp.instance.close()
-        if df_emp.shape[0] == 0:
-            employee = None
-        else:
-            employee = DataSource(df_emp)
-        return employee
+            df_emp = pd.read_sql(query, session_emp.engine)
+            session_emp.expunge_all()
+            if df_emp.shape[0] == 0:
+                employee = None
+            else:
+                employee = DataSource(df_emp)
+            return employee
 
     @staticmethod
     def _load_config(path) -> dict:
@@ -109,22 +107,21 @@ class Compliance:
 
     @staticmethod
     def _get_pdf_document(ingestion_event_id: str) -> pd.DataFrame:
-        app_pdf = AppSession(DatabaseEnum.PDF_INGESTION_DB)
-        session_pdf = app_pdf.instance
-        # only reasonable way to get into a dataframe
-        query = (
-            session_pdf.query(Fincen8300Rev4)
-            .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
-            .statement
-        )
-        df = pd.read_sql(query, app_pdf.engine)
-        app_pdf.instance.close()
-        return df
+        with PdfDbSession() as pdf_session:
+            # only reasonable way to get into a dataframe
+            query = (
+                pdf_session.query(Fincen8300Rev4)
+                .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
+                .statement
+            )
+            df = pd.read_sql(query, pdf_session.engine)
+            pdf_session.expunge_all()
+            return df
 
     @staticmethod
     def get_ingestion_event_and_write_to_compliance(ingestion_event_id: str):
         # using the ingestion event id, we grab the pdf data
-        with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+        with PdfDbSession() as pdf_db:
             result = (
                 pdf_db.query(IngestionEvent)
                 .filter(IngestionEvent.id == ingestion_event_id)
@@ -132,7 +129,7 @@ class Compliance:
             )
             if not result:
                 return None
-            with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+            with MainDbSession() as main_db:
                 doc_type = (
                     main_db.query(DocumentType)
                     .filter(DocumentType.name.like("%fincen%"))
@@ -150,6 +147,7 @@ class Compliance:
                         document_type_id=doc_type.id,
                     )
                 )
+                main_db.commit()
         return "done"
 
     def filter_and_retain(self, ingestion_event_id: str):
@@ -221,19 +219,21 @@ class Compliance:
 
         # Write to EmployeeToComplianceRunEvent
         row = results_df.iloc[0]
-        with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+        with MainDbSession() as main_db:
             main_db.add(
                 EmployeeToComplianceRunEvent(
                     employee_id=str(row.employee_id),
                     compliance_run_event_id=ingestion_event_id,
                 )
             )
+            main_db.commit()
 
         # Write to Fincen
         del f_vals["ingestion_event_id"]
         f_vals["compliance_run_event_id"] = ingestion_event_id
-        with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
+        with MainDbSession() as main_db:
             main_db.add(FincenMain(**f_vals))
+            main_db.commit()
 
         logger.info(
             "Successfully Migrated PDF data and persisted match information"
@@ -249,6 +249,7 @@ class Compliance:
         # Post to rules engine
         headers = {"Content-Type": "application/json"}
         url = ApplicationEnv.RULES_ENGINE_URL()
+
         if url:
             logger.info(
                 "*****************************************************************************"
