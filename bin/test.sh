@@ -22,5 +22,4 @@
 
 #source bin/set_docker_runtime.sh
 
-docker-compose --env-file /dev/null run --rm -v $(pwd):/workspace --entrypoint python app \
- -m pytest -p no:warnings "$@" tests/
+docker-compose run --rm app python -m pytest -p no:warnings
