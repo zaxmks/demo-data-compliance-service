@@ -147,6 +147,7 @@ class Compliance:
                         document_type_id=doc_type.id,
                     )
                 )
+                main_db.commit()
         return "done"
 
     def filter_and_retain(self, ingestion_event_id: str):
@@ -225,12 +226,14 @@ class Compliance:
                     compliance_run_event_id=ingestion_event_id,
                 )
             )
+            main_db.commit()
 
         # Write to Fincen
         del f_vals["ingestion_event_id"]
         f_vals["compliance_run_event_id"] = ingestion_event_id
-        with MainDbSession as main_db:
+        with MainDbSession() as main_db:
             main_db.add(FincenMain(**f_vals))
+            main_db.commit()
 
         # Post to rules engine
         headers = {"Content-Type": "application/json"}
