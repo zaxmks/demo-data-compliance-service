@@ -240,10 +240,14 @@ class Compliance:
             "to the Main Ingestion Database"
         )
 
-        with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+        with PdfDbSession() as pdf_db:
             pdf_db.query.pdf_db.query(Fincen8300Rev4).filter(
-                Fincen8300Rev4.id == ingestion_event_id
+                Fincen8300Rev4.ingestion_event_id == ingestion_event_id
             ).delete()
+
+        logger.info(
+            "After completion of PDF data migration, delete the file from the db."
+        )
         logger.info("Successfully DELETED Employee records from pdf-ingestion-db")
 
         # Post to rules engine
