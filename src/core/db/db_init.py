@@ -18,8 +18,8 @@ def MainDbSession():
 
 
 def PdfDbSession():
-    return AppSession("main")
+    return AppSession("pdf")
 
 
 def ItactDbSession():
-    return AppSession("main")
+    return AppSession("itact")
