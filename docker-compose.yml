@@ -9,10 +9,12 @@ services:
     ports:
       - 57001:8080
     depends_on:
-      - databases
+      - main_ingestion_db
+      - pdf_ingestion_db
+      - itact_ingestion_db
 
   databases:
-    build: .
+    image: data-compliance-service
     command: echo "Databases are up"
     depends_on:
       - main_ingestion_db
