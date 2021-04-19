@@ -92,7 +92,10 @@ class Compliance:
             "last_name": [],  # just for sanity check
             "ingestion_event_id": [],
             "employee_id": [],
+            "confidence": [],
+            "explanation": [],
         }
+
         # noinspection PyUnresolvedReferences
         for relation in source.row_relations:
             source_index = relation.source_index
@@ -105,6 +108,8 @@ class Compliance:
             rows["ingestion_event_id"].append(source_row.ingestion_event_id)
             rows["first_name"].append(source_row.first_name)
             rows["last_name"].append(source_row.last_name)
+            rows["confidence"] = relation.confidence
+            rows["explanation"] = relation.match_description
         return DataFrame(rows)
 
     @staticmethod
@@ -206,7 +211,7 @@ class Compliance:
         results_df = self.generate_structured_row_matches(fincen)
         num_records = results_df.shape[0]
 
-        if num_records <= 0:
+        if num_records == 0:
             logger.info(
                 "*****************************************************************************"
             )
@@ -218,9 +223,21 @@ class Compliance:
                 "*****************************************************************************"
             )
             return "No Entity Matches found. Request rejected."
-
+        else:
+            # Assume only one employee matches a document
+            row = results_df.iloc[0]
+            logger.info(
+                "*****************************************************************************"
+            )
+            logger.info(
+                f"Found match for {row.first_name} {row.lastname} "
+                f"with confidence {row.confidence}, "
+                f"computed by {row.explanation}"
+            )
+            logger.info(
+                "*****************************************************************************"
+            )
         # Write to EmployeeToComplianceRunEvent
-        row = results_df.iloc[0]
         with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
             main_db.add(
                 EmployeeToComplianceRunEvent(
