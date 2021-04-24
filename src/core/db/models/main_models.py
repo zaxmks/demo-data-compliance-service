@@ -8,6 +8,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    Text,
     text,
 )
 from sqlalchemy.dialects.postgresql import UUID
@@ -37,6 +38,9 @@ class Employee(Base):
     date_of_birth = Column(Date)
     dod_id = Column(String)
     ssn = Column(String)
+    emp_id = Column(String)
+    emp_1st_hire_dt = Column(Date)
+    emp_last_hiredt = Column(Date)
 
 
 class Migration(Base):
@@ -78,6 +82,21 @@ class EmployeeToComplianceRunEvent(Base):
 
     compliance_run_event = relationship("ComplianceRunEvent")
     employee = relationship("Employee")
+
+
+class EntityMatchDatum(Base):
+    __tablename__ = "entity_match_data"
+
+    id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
+    confidence_threshold = Column(String, nullable=False)
+    confidence = Column(String, nullable=False)
+    explanation = Column(String, nullable=False)
+    matched_employee_id = Column(ForeignKey("employee.id"), nullable=False)
+    run_event_id = Column(ForeignKey("compliance_run_event.id"), nullable=False)
+    created_at = Column(DateTime, nullable=False, server_default=text("now()"))
+
+    matched_employee = relationship("Employee")
+    run_event = relationship("ComplianceRunEvent")
 
 
 class Fincen8300Rev4(Base):
@@ -154,3 +173,20 @@ class Fincen8300Rev4(Base):
     compliance_run_event_id = Column(ForeignKey("compliance_run_event.id"), unique=True)
 
     compliance_run_event = relationship("ComplianceRunEvent", uselist=False)
+
+
+class UnstructuredDocument(Base):
+    __tablename__ = "unstructured_document"
+
+    id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
+    first_name = Column(String)
+    last_name = Column(String)
+    ssn = Column(String)
+    date_of_birth = Column(Date)
+    zip_code = Column(Integer)
+    text = Column(Text, nullable=False)
+    compliance_run_event_id = Column(ForeignKey("compliance_run_event.id"), unique=True)
+    document_type_id = Column(ForeignKey("document_type.id"), unique=True)
+
+    compliance_run_event = relationship("ComplianceRunEvent", uselist=False)
+    document_type = relationship("DocumentType", uselist=False)

@@ -13,6 +13,7 @@ from src.core.db.models.main_models import (
     Employee,
     EmployeeToComplianceRunEvent,
     Fincen8300Rev4 as FincenMain,
+    EntityMatchDatum,
 )
 from src.core.db.models.pdf_models import Fincen8300Rev4, IngestionEvent
 from src.core.db.session import AppSession, DBContext
@@ -230,14 +231,14 @@ class Compliance:
                 "*****************************************************************************"
             )
             logger.info(
-                f"Found match for {row.first_name} {row.lastname} "
+                f"Found match for {row.first_name} {row.last_name} "
                 f"with confidence {row.confidence}, "
                 f"computed by {row.explanation}"
             )
             logger.info(
                 "*****************************************************************************"
             )
-        # Write to EmployeeToComplianceRunEvent
+        # Write to EmployeeToComplianceRunEvent and add explanation
         with DBContext(DatabaseEnum.MAIN_INGESTION_DB) as main_db:
             main_db.add(
                 EmployeeToComplianceRunEvent(
@@ -245,6 +246,16 @@ class Compliance:
                     compliance_run_event_id=ingestion_event_id,
                 )
             )
+            match_data = EntityMatchDatum(
+                confidence_threshold=str(
+                    self.row_mapping_config.get_confidence_threshold()
+                ),
+                confidence=str(row.confidence),
+                explanation=str(row.explanation),
+                matched_employee_id=str(row.employee_id),
+                run_event_id=ingestion_event_id,
+            )
+            main_db.add(match_data)
 
         # Write to Fincen
         del f_vals["ingestion_event_id"]

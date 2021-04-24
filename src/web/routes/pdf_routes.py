@@ -17,6 +17,7 @@ async def process(ingestion_event_id: str):
     compliance module for making it into the
     main ingestion db
     """
+    print("made it to compliance")
     compliance = Compliance()
     result = compliance.filter_and_retain(ingestion_event_id)
     return VerifyResponse(message=result)
