@@ -1,4 +1,3 @@
-
 version: 0.2
 
 env:
@@ -10,10 +9,12 @@ phases:
   install:
     runtime-versions:
       docker: 19
+      python: 3.8
+    commands:
+      - pip install poetry taskipy
   pre_build:
     commands:
       - echo Get the environment
-      - ./bin/deployment/code_build_extras.sh
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
@@ -24,7 +25,7 @@ phases:
   build:
     commands:
       - echo Tests started + Docker Build
-      - ./bin/test.sh
+      - task test
       - docker tag $IMAGE_REPO_NAME $AWS_FULL_IMAGE_NAME
       - docker tag $IMAGE_REPO_NAME $AWS_LATEST_FULL_IMAGE_NAME
       - docker images

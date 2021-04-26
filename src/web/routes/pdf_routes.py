@@ -1,13 +1,9 @@
 from fastapi import APIRouter
-from pydantic.main import BaseModel
+from starlette.responses import Response
 
 from src.app.filtering_and_retention import Compliance
 
 pdf_router = APIRouter()
-
-
-class VerifyResponse(BaseModel):
-    message: str
 
 
 @pdf_router.post("/process/{ingestion_event_id}", tags=["process_pdf"])
@@ -19,4 +15,4 @@ async def process(ingestion_event_id: str):
     """
     compliance = Compliance()
     result = compliance.filter_and_retain(ingestion_event_id)
-    return VerifyResponse(message=result)
+    return Response(content=result)
