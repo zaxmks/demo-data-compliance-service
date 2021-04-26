@@ -25,14 +25,12 @@ from src.mapping.rows.row_mapping_configuration import RowMappingConfiguration
 from src.mapping.values.value_matching_configuration import ValueMatchingConfiguration
 from src.sources.data_source import DataSource
 from src.app.filtering.unstructured_filter import UnstructuredFilter
+from src.app.document_type_enum import DocumentTypeEnum
 
 logger = logging.getLogger(__name__)
 
 
 class Compliance:
-    FINCEN = "fincen"
-    UNKNOWN = "unknown"
-
     def __init__(self):
         self._session = FuturesSession()
         self.employee = self._get_employee_data_source()
@@ -73,33 +71,9 @@ class Compliance:
                     Employee.first_name,
                     Employee.last_name,
                 )
-                .all()
-                # .statement()
+                .statement
             )
-            # df_emp = pd.read_sql(query, session_emp.engine)
-            # TODO: THIS IS A HACK TO GET THIS SECTION WORKING
-            # there is some issue in master but I'm not sure why
-            df_emp = pd.DataFrame(
-                {
-                    "id": [],
-                    "ssn": [],
-                    "date_of_birth": [],
-                    "first_name": [],
-                    "last_name": [],
-                }
-            )
-            for row in query:
-                df = pd.DataFrame(
-                    {
-                        "id": [row[0]],
-                        "ssn": [row[1]],
-                        "date_of_birth": [row[2]],
-                        "first_name": [row[3]],
-                        "last_name": [row[4]],
-                    }
-                )
-                df_emp = df_emp.append(df)
-            # *** END WORKAROUND ***
+            df_emp = pd.read_sql(query, session_emp.get_bind())
             session_emp.expunge_all()
             if df_emp.shape[0] == 0:
                 employee = None
@@ -162,23 +136,29 @@ class Compliance:
             if not result:
                 return None
             with MainDbSession() as main_db:
-                print("parsing id", result.parsing_strategy_type_id)
                 parse_type = (
                     pdf_db.query(ParsingStrategyType)
                     .filter(ParsingStrategyType.id == result.parsing_strategy_type_id)
                     .one_or_none()
                 )
-                print("parse type", parse_type.name)
                 if parse_type.name == "configuration_parse":
                     doc_type = (
                         main_db.query(DocumentType)
-                        .filter(DocumentType.name.like("%fincen%"))
+                        .filter(
+                            DocumentType.name.like(
+                                f"%{DocumentTypeEnum.FINCEN8300.value}%"
+                            )
+                        )
                         .one_or_none()
                     )
                 elif parse_type.name == "unstructured":
                     doc_type = (
                         main_db.query(DocumentType)
-                        .filter(DocumentType.name.like("%unknown%"))
+                        .filter(
+                            DocumentType.name.like(
+                                f"%{DocumentTypeEnum.UNKNOWN.value}%"
+                            )
+                        )
                         .one_or_none()
                     )
                 if not doc_type:
@@ -241,9 +221,8 @@ class Compliance:
             return "ingestion_event_id or document_type not found"
 
         doc_type = r
-        print("found this document type:", doc_type)
 
-        if doc_type == self.FINCEN:
+        if doc_type == DocumentTypeEnum.FINCEN8300.value:
             df = self._get_pdf_document(ingestion_event_id)
             f_vals = df.to_dict(orient="records")[
                 0
@@ -254,7 +233,7 @@ class Compliance:
             ds.map_rows_to(
                 self.employee, self.value_matching_config, self.row_mapping_config
             )
-        elif doc_type == self.UNKNOWN:
+        elif doc_type == DocumentTypeEnum.UNKNOWN.value:
             unstructured_filter = UnstructuredFilter()
             people_match_df = unstructured_filter.filter(ingestion_event_id)
             f_vals = people_match_df.to_dict(orient="records")[

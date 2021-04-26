@@ -4,6 +4,7 @@ import logging
 from src.core.db.models.pdf_models import UnstructuredDocument
 from src.core.db.models.main_models import Employee
 from src.core.db.db_init import MainDbSession, PdfDbSession
+from src.app.filtering.unstructured_match import UnstructuredMatch
 
 logger = logging.getLogger(__name__)
 
@@ -35,27 +36,22 @@ class UnstructuredFilter:
         match_types = []
 
         for employee in db_matches:
-            match_dict = {
-                "first_name": True,
-                "last_name": True,
-                "ssn": False,
-                "date_of_birth": False,
-            }
-            if doc_input.ssn and int(employee.ssn) in doc_input.ssn["ssn"]:
-                match_dict["ssn"] = True
+            match = UnstructuredMatch()
+            if doc_input.ssn and int(employee.ssn) in doc_input.ssn[match.SSN]:
+                match.set_true(match.SSN)
 
             if (
                 doc_input.dateOfBirth
-                and employee.date_of_birth in doc_input.dateOfBirth["date_of_birth"]
+                and employee.date_of_birth in doc_input.dateOfBirth[match.DATE_OF_BIRTH]
             ):
-                match_dict["date_of_birth"] = True
+                match.set_true(match.DATE_OF_BIRTH)
 
-            if match_dict["ssn"] or match_dict["date_of_birth"]:
+            if match.is_match(match.SSN) or match.is_match(match.DATE_OF_BIRTH):
                 individual_df = individual_df.append(
                     pd.DataFrame.from_records([self.row2dict(employee)])
                 )
 
-            match_types.append(match_dict)
+            match_types.append(match)
 
         logger.info(
             f"Matches of these types found in unstructured document: {match_types}"
@@ -71,6 +67,9 @@ class UnstructuredFilter:
         return d
 
     def _get_name_matches(self, doc_input):
+        """
+        Get rows that have name in Employee.first_name, do the same for Employee.last_name, then join on id
+        """
         with MainDbSession() as context:
             first_name_rows = context.query(Employee).filter(
                 Employee.first_name.in_(doc_input.name["name"])
