@@ -504,3 +504,15 @@ class Fincen8300Rev4(Base):
     date_of_signature_footer = Column(Date)
 
     ingestion_event = relationship("IngestionEvent")
+
+
+class UnstructuredDocument(Base):
+    __tablename__ = "unstructured_document"
+
+    id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
+    name = Column(String, nullable=True)
+    ssn = Column(String, nullable=True)
+    dateOfBirth = Column(String, nullable=True)
+    zipCode = Column(String, nullable=True)
+    text = Column(String, nullable=True)
+    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
