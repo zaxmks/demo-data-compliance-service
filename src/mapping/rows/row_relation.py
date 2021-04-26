@@ -1,5 +1,17 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Dict, Optional
+
+
+@dataclass
+class ValueMatchDescription:
+    value_match_score: float
+    normalized_column_weight: float
+
+
+@dataclass
+class RowMatchDescription:
+    # str is target field name
+    match_dict: Dict[str, ValueMatchDescription]
 
 
 @dataclass
@@ -8,6 +20,7 @@ class RowRelation:
     source_index: int
     target_index: int
     confidence: float
+    match_description: Optional[RowMatchDescription] = None
 
     def __str__(self) -> str:
         """Build string from relation."""
