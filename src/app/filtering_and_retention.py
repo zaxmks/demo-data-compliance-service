@@ -17,12 +17,18 @@ from src.core.db.models.main_models import (
     Fincen8300Rev4 as FincenMain,
     EntityMatchDatum,
 )
-from src.core.db.models.pdf_models import Fincen8300Rev4, IngestionEvent
+from src.core.db.models.pdf_models import (
+    Fincen8300Rev4,
+    IngestionEvent,
+    ParsingStrategyType,
+)
 from src.core.env.env import ApplicationEnv
 from src.mapping.columns.column_relation import ColumnRelation
 from src.mapping.rows.row_mapping_configuration import RowMappingConfiguration
 from src.mapping.values.value_matching_configuration import ValueMatchingConfiguration
 from src.sources.data_source import DataSource
+from src.app.filtering.unstructured_filter import UnstructuredFilter
+from src.app.document_type_enum import DocumentTypeEnum
 
 logger = logging.getLogger(__name__)
 
@@ -140,12 +146,32 @@ class Compliance:
             if not result:
                 return None
             with MainDbSession() as main_db:
-                doc_type = (
-                    main_db.query(DocumentType)
-                    .filter(DocumentType.name.like("%fincen%"))
+                parse_type = (
+                    pdf_db.query(ParsingStrategyType)
+                    .filter(ParsingStrategyType.id == result.parsing_strategy_type_id)
                     .one_or_none()
                 )
-                if doc_type is None:
+                if parse_type.name == "configuration_parse":
+                    doc_type = (
+                        main_db.query(DocumentType)
+                        .filter(
+                            DocumentType.name.like(
+                                f"%{DocumentTypeEnum.FINCEN8300.value}%"
+                            )
+                        )
+                        .one_or_none()
+                    )
+                elif parse_type.name == "unstructured":
+                    doc_type = (
+                        main_db.query(DocumentType)
+                        .filter(
+                            DocumentType.name.like(
+                                f"%{DocumentTypeEnum.UNKNOWN.value}%"
+                            )
+                        )
+                        .one_or_none()
+                    )
+                if not doc_type:
                     return None
                 main_db.add(
                     ComplianceRunEvent(
@@ -158,7 +184,8 @@ class Compliance:
                     )
                 )
                 main_db.commit()
-        return "done"
+                doc_type_name = doc_type.name
+        return doc_type_name
 
     def filter_and_retain(self, ingestion_event_id: str):
         logger.info(
@@ -186,8 +213,8 @@ class Compliance:
             return "No records in employee table"
 
         # first get ingestion event
-        r = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
-        if r is None:
+        doc_type = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
+        if not r:
             logger.info(
                 "*****************************************************************************"
             )
@@ -203,15 +230,32 @@ class Compliance:
             )
             return "ingestion_event_id or document_type not found"
 
-        df = self._get_pdf_document(ingestion_event_id)
-        f_vals = df.to_dict(orient="records")[0]  # assume one doc per ingestion_event
-        num_document_matches = df.shape[0]
-        fincen = DataSource(df)
-        fincen.column_relations = self.fincen_column_relations
-        fincen.map_rows_to(
-            self.employee, self.value_matching_config, self.row_mapping_config
-        )
-        results_df = self.generate_structured_row_matches(fincen)
+        if doc_type == DocumentTypeEnum.FINCEN8300.value:
+            df = self._get_pdf_document(ingestion_event_id)
+            f_vals = df.to_dict(orient="records")[
+                0
+            ]  # assume one doc per ingestion_event
+            num_document_matches = df.shape[0]
+            ds = DataSource(df)
+            ds.column_relations = self.fincen_column_relations
+            ds.map_rows_to(
+                self.employee, self.value_matching_config, self.row_mapping_config
+            )
+        elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+            unstructured_filter = UnstructuredFilter()
+            people_match_df = unstructured_filter.filter(ingestion_event_id)
+            f_vals = people_match_df.to_dict(orient="records")[
+                0
+            ]  # assume one doc per ingestion_event
+            num_document_matches = people_match_df.shape[0]
+            ds = DataSource(people_match_df)
+
+            # TODO: Jonathan, insert code here to process output of UnstructuredFilter class
+            # essentially should be same thing that you did with fincen
+        else:
+            return "Invalid document type. Request rejected"
+
+        results_df = self.generate_structured_row_matches(ds)
         num_records = results_df.shape[0]
 
         if num_records == 0:
