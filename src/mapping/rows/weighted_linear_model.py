@@ -1,6 +1,7 @@
 import logging
-from typing import List
+from typing import List, Union, Tuple, Dict
 
+from src.mapping.rows.row_relation import RowMatchDescription, ValueMatchDescription
 from src.mapping.values.value_match import ValueMatch
 from src.mapping.columns.column_relation import ColumnRelation
 
@@ -16,7 +17,8 @@ class WeightedLinearModel:
         self,
         column_relations: List[ColumnRelation],
         value_match_group: List[ValueMatch],
-    ) -> float:
+        is_return_explanation: bool = False,
+    ) -> Union[float, Tuple[float, RowMatchDescription]]:
         """Predict confidence from a list of value matches."""
         # Remove weights for columns that aren't present in the source data (i.e. don't penalized matches because the .csv didn't have ssn)
         matched_columns = {cr.target_column_name for cr in column_relations}
@@ -28,4 +30,12 @@ class WeightedLinearModel:
             if vm.target_column in dimensions:
                 dimensions[vm.target_column] = vm.confidence
         activations = {c: dimensions[c] * weights[c] for c in weighted_columns}
-        return sum(activations.values())
+        match_val = sum(activations.values())
+        if is_return_explanation:
+            match_dict: Dict[str, ValueMatchDescription] = {
+                c: ValueMatchDescription(dimensions[c], weights[c])
+                for c in weighted_columns
+            }
+            return match_val, RowMatchDescription(match_dict)
+        else:
+            return match_val

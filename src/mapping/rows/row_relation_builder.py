@@ -73,13 +73,16 @@ class RowRelationBuilder:
                         target_column=target_column,
                     )
                     val_matches.append(val_match)
-                row_confidence = row_model.predict(col_relations, val_matches)
+                row_confidence, row_match_desc = row_model.predict(
+                    col_relations, val_matches, is_return_explanation=True
+                )
                 if row_confidence > row_thresh:
                     row_relation = RowRelation(
                         target_data_source=self.target,
                         source_index=s_i,
                         target_index=t_i,
                         confidence=row_confidence,
+                        match_description=row_match_desc,
                     )
                     row_relations.append(row_relation)
         return row_relations

@@ -6,6 +6,8 @@ import pandas as pd
 from pandas import DataFrame
 from requests_futures.sessions import FuturesSession
 
+from kfai_sql_chemistry.db.main import engines
+
 from src.core.db.db_init import MainDbSession, PdfDbSession
 from src.core.db.models.main_models import (
     ComplianceRunEvent,
@@ -13,6 +15,7 @@ from src.core.db.models.main_models import (
     Employee,
     EmployeeToComplianceRunEvent,
     Fincen8300Rev4 as FincenMain,
+    EntityMatchDatum,
 )
 from src.core.db.models.pdf_models import (
     Fincen8300Rev4,
@@ -61,6 +64,7 @@ class Compliance:
 
     @staticmethod
     def _get_employee_data_source() -> Optional[DataSource]:
+        engine = engines.get_engine("main")
         with MainDbSession() as session_emp:
             query = (
                 session_emp.query(Employee)
@@ -73,7 +77,7 @@ class Compliance:
                 )
                 .statement
             )
-            df_emp = pd.read_sql(query, session_emp.get_bind())
+            df_emp = pd.read_sql(query, engine)
             session_emp.expunge_all()
             if df_emp.shape[0] == 0:
                 employee = None
@@ -96,7 +100,10 @@ class Compliance:
             "last_name": [],  # just for sanity check
             "ingestion_event_id": [],
             "employee_id": [],
+            "confidence": [],
+            "explanation": [],
         }
+
         # noinspection PyUnresolvedReferences
         for relation in source.row_relations:
             source_index = relation.source_index
@@ -109,10 +116,13 @@ class Compliance:
             rows["ingestion_event_id"].append(source_row.ingestion_event_id)
             rows["first_name"].append(source_row.first_name)
             rows["last_name"].append(source_row.last_name)
+            rows["confidence"] = relation.confidence
+            rows["explanation"] = relation.match_description
         return DataFrame(rows)
 
     @staticmethod
     def _get_pdf_document(ingestion_event_id: str) -> pd.DataFrame:
+        engine = engines.get_engine("pdf")
         with PdfDbSession() as pdf_session:
             # only reasonable way to get into a dataframe
             query = (
@@ -120,7 +130,7 @@ class Compliance:
                 .filter(Fincen8300Rev4.ingestion_event_id == ingestion_event_id)
                 .statement
             )
-            df = pd.read_sql(query, pdf_session.engine)
+            df = pd.read_sql(query, engine)
             pdf_session.expunge_all()
             return df
 
@@ -203,7 +213,7 @@ class Compliance:
             return "No records in employee table"
 
         # first get ingestion event
-        r = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
+        doc_type = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
         if not r:
             logger.info(
                 "*****************************************************************************"
@@ -219,8 +229,6 @@ class Compliance:
                 "*****************************************************************************"
             )
             return "ingestion_event_id or document_type not found"
-
-        doc_type = r
 
         if doc_type == DocumentTypeEnum.FINCEN8300.value:
             df = self._get_pdf_document(ingestion_event_id)
@@ -250,7 +258,7 @@ class Compliance:
         results_df = self.generate_structured_row_matches(ds)
         num_records = results_df.shape[0]
 
-        if num_records <= 0:
+        if num_records == 0:
             logger.info(
                 "*****************************************************************************"
             )
@@ -262,9 +270,21 @@ class Compliance:
                 "*****************************************************************************"
             )
             return "No Entity Matches found. Request rejected."
-
-        # Write to EmployeeToComplianceRunEvent
-        row = results_df.iloc[0]
+        else:
+            # Assume only one employee matches a document
+            row = results_df.iloc[0]
+            logger.info(
+                "*****************************************************************************"
+            )
+            logger.info(
+                f"Found match for {row.first_name} {row.last_name} "
+                f"with confidence {row.confidence}, "
+                f"computed by {row.explanation}"
+            )
+            logger.info(
+                "*****************************************************************************"
+            )
+        # Write to EmployeeToComplianceRunEvent and add explanation
         with MainDbSession() as main_db:
             main_db.add(
                 EmployeeToComplianceRunEvent(
@@ -272,6 +292,16 @@ class Compliance:
                     compliance_run_event_id=ingestion_event_id,
                 )
             )
+            match_data = EntityMatchDatum(
+                confidence_threshold=str(
+                    self.row_mapping_config.get_confidence_threshold()
+                ),
+                confidence=str(row.confidence),
+                explanation=str(row.explanation),
+                matched_employee_id=str(row.employee_id),
+                run_event_id=ingestion_event_id,
+            )
+            main_db.add(match_data)
             main_db.commit()
 
         # Write to Fincen
@@ -287,7 +317,7 @@ class Compliance:
         )
 
         with PdfDbSession() as pdf_db:
-            pdf_db.query.pdf_db.query(Fincen8300Rev4).filter(
+            pdf_db.query(Fincen8300Rev4).filter(
                 Fincen8300Rev4.ingestion_event_id == ingestion_event_id
             ).delete()
 
