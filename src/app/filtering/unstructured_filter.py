@@ -16,7 +16,7 @@ class UnstructuredFilter:
     def filter(self, ingestion_uuid):
         """ Call this when pdf is in unstructured table, outputs (individual_df, raw_text) """
         doc_input = self._read_from_db(ingestion_uuid)
-        return self._extract_individuals(doc_input)
+        return self._extract_individuals(doc_input), doc_input.text
 
     def _read_from_db(self, ingestion_uuid):
         with PdfDbSession() as context:
