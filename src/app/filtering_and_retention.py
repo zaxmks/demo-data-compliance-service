@@ -255,7 +255,7 @@ class Compliance:
             )
         elif doc_type == DocumentTypeEnum.UNKNOWN.value:
             unstructured_filter = UnstructuredFilter()
-            people_match_df = unstructured_filter.filter(ingestion_event_id)
+            people_match_df, doc_text = unstructured_filter.filter(ingestion_event_id)
             f_vals = people_match_df.to_dict(orient="records")[
                 0
             ]  # assume one doc per ingestion_event
@@ -265,15 +265,6 @@ class Compliance:
             ds.map_rows_to(
                 self.employee, self.value_matching_config, self.row_mapping_config
             )
-
-            # Get the text
-            with PdfDbSession() as pdf_db:
-                doc = (
-                    pdf_db.query(UnstructuredDocPdf)
-                    .filter(UnstructuredDocPdf.ingestion_event_id == ingestion_event_id)
-                    .one_or_none()
-                )
-                doc_text = doc.text
 
         else:
             return "Invalid document type. Request rejected"
@@ -334,6 +325,7 @@ class Compliance:
                 del f_vals["ingestion_event_id"]
                 main_db.add(FincenMain(**f_vals))
             elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+                # noinspection PyUnboundLocalVariable
                 doc = UnstructuredDocMain(
                     first_name=f_vals["first_name"],
                     last_name=f_vals["last_name"],
@@ -364,6 +356,7 @@ class Compliance:
                 ).delete()
             else:
                 return "Invalid document type. Request rejected"
+            pdf_db.commit()
 
         logger.info(
             "After completion of PDF data migration, delete the file from the db."
