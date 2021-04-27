@@ -17,6 +17,8 @@ from src.core.db.models.main_models import (
     Fincen8300Rev4 as FincenMain,
     EntityMatchDatum,
 )
+from src.core.db.models.main_models import UnstructuredDocument as UnstructuredDocMain
+from src.core.db.models.pdf_models import UnstructuredDocument as UnstructuredDocPdf
 from src.core.db.models.pdf_models import (
     Fincen8300Rev4,
     IngestionEvent,
@@ -51,12 +53,24 @@ class Compliance:
             )
             self.row_mapping_config = RowMappingConfiguration(**row_mapping_config_json)
             self.fincen_column_relations = self._get_fincen_column_relations()
+            self.unstructured_column_relations = (
+                self._get_unstructured_column_relations()
+            )
 
     @staticmethod
     def _get_fincen_column_relations() -> List[ColumnRelation]:
         column_relations = [
             ColumnRelation("employee", "tin", "ssn", 1.0),
             ColumnRelation("employee", "dob", "date_of_birth", 1.0),
+            ColumnRelation("employee", "first_name", "first_name", 1.0),
+            ColumnRelation("employee", "last_name", "last_name", 1.0),
+        ]
+        return column_relations
+
+    @staticmethod
+    def _get_unstructured_column_relations() -> List[ColumnRelation]:
+        column_relations = [
+            ColumnRelation("employee", "ssn", "ssn", 1.0),
             ColumnRelation("employee", "first_name", "first_name", 1.0),
             ColumnRelation("employee", "last_name", "last_name", 1.0),
         ]
@@ -98,7 +112,6 @@ class Compliance:
         rows = {
             "first_name": [],  # just for sanity check
             "last_name": [],  # just for sanity check
-            "ingestion_event_id": [],
             "employee_id": [],
             "confidence": [],
             "explanation": [],
@@ -113,7 +126,6 @@ class Compliance:
             # noinspection PyUnresolvedReferences
             target_row = self.employee.get_data().iloc[target_index]
             rows["employee_id"].append(target_row.id)
-            rows["ingestion_event_id"].append(source_row.ingestion_event_id)
             rows["first_name"].append(source_row.first_name)
             rows["last_name"].append(source_row.last_name)
             rows["confidence"] = relation.confidence
@@ -214,7 +226,7 @@ class Compliance:
 
         # first get ingestion event
         doc_type = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
-        if not r:
+        if not doc_type:
             logger.info(
                 "*****************************************************************************"
             )
@@ -249,9 +261,20 @@ class Compliance:
             ]  # assume one doc per ingestion_event
             num_document_matches = people_match_df.shape[0]
             ds = DataSource(people_match_df)
+            ds.column_relations = self.unstructured_column_relations
+            ds.map_rows_to(
+                self.employee, self.value_matching_config, self.row_mapping_config
+            )
 
-            # TODO: Jonathan, insert code here to process output of UnstructuredFilter class
-            # essentially should be same thing that you did with fincen
+            # Get the text
+            with PdfDbSession() as pdf_db:
+                doc = (
+                    pdf_db.query(UnstructuredDocPdf)
+                    .filter(UnstructuredDocPdf.ingestion_event_id == ingestion_event_id)
+                    .one_or_none()
+                )
+                doc_text = doc.text
+
         else:
             return "Invalid document type. Request rejected"
 
@@ -304,11 +327,24 @@ class Compliance:
             main_db.add(match_data)
             main_db.commit()
 
-        # Write to Fincen
-        del f_vals["ingestion_event_id"]
-        f_vals["compliance_run_event_id"] = ingestion_event_id
+        # Write document to main database
         with MainDbSession() as main_db:
-            main_db.add(FincenMain(**f_vals))
+            if doc_type == DocumentTypeEnum.FINCEN8300.value:
+                f_vals["compliance_run_event_id"] = ingestion_event_id
+                del f_vals["ingestion_event_id"]
+                main_db.add(FincenMain(**f_vals))
+            elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+                doc = UnstructuredDocMain(
+                    first_name=f_vals["first_name"],
+                    last_name=f_vals["last_name"],
+                    ssn=f_vals["ssn"],
+                    date_of_birth=f_vals["date_of_birth"],
+                    text=doc_text,
+                    compliance_run_event_id=ingestion_event_id,
+                )
+                main_db.add(doc)
+            else:
+                return "Invalid document type. Request rejected"
             main_db.commit()
 
         logger.info(
@@ -316,10 +352,18 @@ class Compliance:
             "to the Main Ingestion Database"
         )
 
+        # Remove from pdf database
         with PdfDbSession() as pdf_db:
-            pdf_db.query(Fincen8300Rev4).filter(
-                Fincen8300Rev4.ingestion_event_id == ingestion_event_id
-            ).delete()
+            if doc_type == DocumentTypeEnum.FINCEN8300.value:
+                pdf_db.query(Fincen8300Rev4).filter(
+                    Fincen8300Rev4.ingestion_event_id == ingestion_event_id
+                ).delete()
+            elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+                pdf_db.query(UnstructuredDocPdf).filter(
+                    UnstructuredDocPdf.ingestion_event_id == ingestion_event_id
+                ).delete()
+            else:
+                return "Invalid document type. Request rejected"
 
         logger.info(
             "After completion of PDF data migration, delete the file from the db."

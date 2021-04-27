@@ -46,7 +46,11 @@ class Employee(Base):
 class Migration(Base):
     __tablename__ = "migrations"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        server_default=text("nextval('migrations_id_seq'::regclass)"),
+    )
     timestamp = Column(BigInteger, nullable=False)
     name = Column(String, nullable=False)
 
