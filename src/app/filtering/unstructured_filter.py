@@ -27,10 +27,7 @@ class UnstructuredFilter:
                 .filter(UnstructuredDocument.ingestion_event_id == ingestion_uuid)
                 .one_or_none()
             )
-            doc_input.name = json.loads(doc_input.name)
-            doc_input.dateOfBirth = json.loads(doc_input.dateOfBirth)
-            doc_input.ssn = json.loads(doc_input.ssn)
-            doc_input.zipCode = json.loads(doc_input.zipCode)
+            self._reformat_doc_input(doc_input)
 
             context.expunge(doc_input)
             return doc_input
