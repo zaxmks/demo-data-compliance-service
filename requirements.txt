@@ -10,8 +10,6 @@ editdistance==0.5.3
 fastapi==0.63.0
 fastapi-utils
 
-git+https://github.com/gretelai/gretel-tools.git
-gretel-tools
 gunicorn==20.1.0
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.0/en_core_web_sm-2.2.0.tar.gz#egg=en_core_web_sm
 httptools

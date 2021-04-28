@@ -1,7 +1,5 @@
 from typing import List
 
-from gretel_tools import headers
-
 from src.mapping.values.value_match import ValueMatch
 from src.mapping.values.value_matching_target import ValueMatchingTarget
 
@@ -13,13 +11,10 @@ class EmbeddingMatchingModel:
 
     def _get_model(self, embedding_model_type):
         """Get the embedding model to use."""
-        if embedding_model_type == "gretel":
-            return headers.HeaderAnalyzer()
-        else:
-            raise NotImplementedError(
-                "Embedding similarity model of type %s not currently supported"
-                % embedding_model_type
-            )
+        raise NotImplementedError(
+            "Embedding similarity model of type %s not currently supported"
+            % embedding_model_type
+        )
 
     def predict_single(
         self, src: str, tar: str, matching_target: ValueMatchingTarget

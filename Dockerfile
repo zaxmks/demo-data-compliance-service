@@ -23,8 +23,6 @@ RUN pip install --upgrade pip && pip install --ignore-installed --no-cache-dir -
 # Copy project files
 COPY . .
 
-RUN python -m src.install
-
 RUN python -m src.validate_pytorch
 
 # This should stay the entrypoint. Issue commands for new behavior.
