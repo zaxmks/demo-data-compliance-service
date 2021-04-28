@@ -2,7 +2,6 @@ import pytest
 
 import pandas as pd
 
-from src.clients.database_client import DatabaseClient
 from src.clients.s3_client import S3Client
 from src.sources.data_loader import DataLoader
 
