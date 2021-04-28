@@ -1,5 +1,6 @@
 import pandas as pd
 import logging
+import json
 
 from src.core.db.models.pdf_models import UnstructuredDocument
 from src.core.db.models.main_models import Employee
@@ -26,8 +27,19 @@ class UnstructuredFilter:
                 .filter(UnstructuredDocument.ingestion_event_id == ingestion_uuid)
                 .one_or_none()
             )
+            doc_input.name = json.loads(doc_input.name)
+            doc_input.dateOfBirth = json.loads(doc_input.dateOfBirth)
+            doc_input.ssn = json.loads(doc_input.ssn)
+            doc_input.zipCode = json.loads(doc_input.zipCode)
+
             context.expunge(doc_input)
             return doc_input
+
+    def _reformat_doc_input(self, doc_input: UnstructuredDocument):
+        doc_input.name = json.loads(doc_input.name)
+        doc_input.dateOfBirth = json.loads(doc_input.dateOfBirth)
+        doc_input.ssn = json.loads(doc_input.ssn)
+        doc_input.zipCode = json.loads(doc_input.zipCode)
 
     def _extract_individuals(self, doc_input):
         db_matches = self._get_name_matches(doc_input)
@@ -37,12 +49,12 @@ class UnstructuredFilter:
 
         for employee in db_matches:
             match = UnstructuredMatch()
-            if doc_input.ssn and int(employee.ssn) in doc_input.ssn[match.SSN]:
+            if doc_input.ssn and int(employee.ssn) in doc_input.ssn:
                 match.set_true(match.SSN)
 
             if (
                 doc_input.dateOfBirth
-                and employee.date_of_birth in doc_input.dateOfBirth[match.DATE_OF_BIRTH]
+                and employee.date_of_birth in doc_input.dateOfBirth
             ):
                 match.set_true(match.DATE_OF_BIRTH)
 
@@ -72,12 +84,10 @@ class UnstructuredFilter:
         """
         with MainDbSession() as context:
             first_name_rows = context.query(Employee).filter(
-                Employee.first_name.in_(doc_input.name["name"])
+                Employee.first_name.in_(doc_input.name)
             )
             last_name_rows = (
-                context.query(Employee).filter(
-                    Employee.last_name.in_(doc_input.name["name"])
-                )
+                context.query(Employee).filter(Employee.last_name.in_(doc_input.name))
             ).subquery()
 
             result = first_name_rows.join(
