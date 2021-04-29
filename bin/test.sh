@@ -22,4 +22,4 @@
 
 #source bin/set_docker_runtime.sh
 
-docker-compose run --rm app python -m pytest -p no:warnings
+docker-compose run --rm app python -m pytest -p no:warnings "$@"
