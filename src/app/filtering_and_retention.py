@@ -146,9 +146,7 @@ class Compliance:
             pdf_session.expunge_all()
             return df
 
-    @staticmethod
-    def get_ingestion_event_and_write_to_compliance(ingestion_event_id: str):
-        # using the ingestion event id, we grab the pdf data
+    def _get_ingestion_event_by_id(self, ingestion_event_id: str):
         with PdfDbSession() as pdf_db:
             result = (
                 pdf_db.query(IngestionEvent)
@@ -157,47 +155,68 @@ class Compliance:
             )
             if not result:
                 return None
-            with MainDbSession() as main_db:
-                parse_type = (
-                    pdf_db.query(ParsingStrategyType)
-                    .filter(ParsingStrategyType.id == result.parsing_strategy_type_id)
-                    .one_or_none()
+            pdf_db.expunge_all()
+            return result
+
+    def _get_document_type_by_name(
+        self, doc_type_name: DocumentTypeEnum
+    ) -> DocumentType:
+        with MainDbSession() as main_db:
+            doc_type = (
+                main_db.query(DocumentType)
+                .filter_by(name=doc_type_name.value)
+                .one_or_none()
+            )
+            main_db.expunge_all()
+            return doc_type
+
+    def _get_document_type_by_parse_strategy_type(
+        self, parse_type: ParsingStrategyType
+    ) -> DocumentType:
+        with MainDbSession() as main_db:
+            if parse_type.name == "configuration_parse":
+                doc_type = self._get_document_type_by_name(DocumentTypeEnum.FINCEN8300)
+            elif parse_type.name == "unstructured":
+                doc_type = self._get_document_type_by_name(DocumentTypeEnum.UNKNOWN)
+                logger.info(f"document type {doc_type.name}")
+            main_db.expunge_all()
+            return doc_type
+
+    def _write_compliance_run_event(
+        self, ingestion_event: IngestionEvent, doc_type: DocumentType
+    ):
+        with MainDbSession() as main_db:
+            compliance_run_event = ComplianceRunEvent(
+                id=ingestion_event.id,
+                s3_bucket=ingestion_event.s3_bucket,
+                s3_key=ingestion_event.s3_key,
+                was_redacted=False,
+                status="ok",
+                document_type_id=doc_type.id,
+            )
+            main_db.add(compliance_run_event)
+            main_db.commit()
+            main_db.expunge_all()
+            logger.info("Finished writing to ComplianceRunEvent")
+            return compliance_run_event
+
+    def get_ingestion_event_and_write_to_compliance(self, ingestion_event_id: str):
+        # using the ingestion event id, we grab the pdf data
+        ingestion_event = self._get_ingestion_event_by_id(ingestion_event_id)
+        with PdfDbSession() as pdf_db:
+            parse_type = (
+                pdf_db.query(ParsingStrategyType)
+                .filter(
+                    ParsingStrategyType.id == ingestion_event.parsing_strategy_type_id
                 )
-                if parse_type.name == "configuration_parse":
-                    doc_type = (
-                        main_db.query(DocumentType)
-                        .filter(
-                            DocumentType.name.like(
-                                f"%{DocumentTypeEnum.FINCEN8300.value}%"
-                            )
-                        )
-                        .one_or_none()
-                    )
-                elif parse_type.name == "unstructured":
-                    doc_type = (
-                        main_db.query(DocumentType)
-                        .filter(
-                            DocumentType.name.like(
-                                f"%{DocumentTypeEnum.UNKNOWN.value}%"
-                            )
-                        )
-                        .one_or_none()
-                    )
-                if not doc_type:
-                    return None
-                main_db.add(
-                    ComplianceRunEvent(
-                        id=ingestion_event_id,
-                        s3_bucket=result.s3_bucket,
-                        s3_key=result.s3_key,
-                        was_redacted=False,
-                        status="ok",
-                        document_type_id=doc_type.id,
-                    )
-                )
-                main_db.commit()
-                doc_type_name = doc_type.name
-        return doc_type_name
+                .one_or_none()
+            )
+        doc_type = self._get_document_type_by_parse_strategy_type(parse_type)
+        if not doc_type:
+            return None
+
+        self._write_compliance_run_event(ingestion_event, doc_type)
+        return doc_type.name
 
     def filter_and_retain(self, ingestion_event_id: str):
         logger.info(
@@ -225,8 +244,10 @@ class Compliance:
             return "No records in employee table"
 
         # first get ingestion event
-        doc_type = self.get_ingestion_event_and_write_to_compliance(ingestion_event_id)
-        if not doc_type:
+        doc_type_name = self.get_ingestion_event_and_write_to_compliance(
+            ingestion_event_id
+        )
+        if not doc_type_name:
             logger.info(
                 "*****************************************************************************"
             )
@@ -241,8 +262,8 @@ class Compliance:
                 "*****************************************************************************"
             )
             return "ingestion_event_id or document_type not found"
-
-        if doc_type == DocumentTypeEnum.FINCEN8300.value:
+        logger.info(f"Found document of type: {doc_type_name}")
+        if doc_type_name == DocumentTypeEnum.FINCEN8300.value:
             df = self._get_pdf_document(ingestion_event_id)
             f_vals = df.to_dict(orient="records")[
                 0
@@ -253,24 +274,28 @@ class Compliance:
             ds.map_rows_to(
                 self.employee, self.value_matching_config, self.row_mapping_config
             )
-        elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+            results_df = self.generate_structured_row_matches(ds)
+            num_records = results_df.shape[0]
+        elif doc_type_name == DocumentTypeEnum.UNKNOWN.value:
             unstructured_filter = UnstructuredFilter()
             people_match_df, doc_text = unstructured_filter.filter(ingestion_event_id)
-            f_vals = people_match_df.to_dict(orient="records")[
-                0
-            ]  # assume one doc per ingestion_event
-            num_document_matches = people_match_df.shape[0]
-            ds = DataSource(people_match_df)
-            ds.column_relations = self.unstructured_column_relations
-            ds.map_rows_to(
-                self.employee, self.value_matching_config, self.row_mapping_config
-            )
+            if len(people_match_df) > 0:
+                f_vals = people_match_df.to_dict(orient="records")[
+                    0
+                ]  # assume one person per document
+                num_document_matches = people_match_df.shape[0]
+                ds = DataSource(people_match_df)
+                ds.column_relations = self.unstructured_column_relations
+                ds.map_rows_to(
+                    self.employee, self.value_matching_config, self.row_mapping_config
+                )
+                results_df = self.generate_structured_row_matches(ds)
+                num_records = results_df.shape[0]
+            else:
+                num_records = 0
 
         else:
             return "Invalid document type. Request rejected"
-
-        results_df = self.generate_structured_row_matches(ds)
-        num_records = results_df.shape[0]
 
         if num_records == 0:
             logger.info(
@@ -320,11 +345,11 @@ class Compliance:
 
         # Write document to main database
         with MainDbSession() as main_db:
-            if doc_type == DocumentTypeEnum.FINCEN8300.value:
+            if doc_type_name == DocumentTypeEnum.FINCEN8300.value:
                 f_vals["compliance_run_event_id"] = ingestion_event_id
                 del f_vals["ingestion_event_id"]
                 main_db.add(FincenMain(**f_vals))
-            elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+            elif doc_type_name == DocumentTypeEnum.UNKNOWN.value:
                 # noinspection PyUnboundLocalVariable
                 doc = UnstructuredDocMain(
                     first_name=f_vals["first_name"],
@@ -346,11 +371,11 @@ class Compliance:
 
         # Remove from pdf database
         with PdfDbSession() as pdf_db:
-            if doc_type == DocumentTypeEnum.FINCEN8300.value:
+            if doc_type_name == DocumentTypeEnum.FINCEN8300.value:
                 pdf_db.query(Fincen8300Rev4).filter(
                     Fincen8300Rev4.ingestion_event_id == ingestion_event_id
                 ).delete()
-            elif doc_type == DocumentTypeEnum.UNKNOWN.value:
+            elif doc_type_name == DocumentTypeEnum.UNKNOWN.value:
                 pdf_db.query(UnstructuredDocPdf).filter(
                     UnstructuredDocPdf.ingestion_event_id == ingestion_event_id
                 ).delete()
