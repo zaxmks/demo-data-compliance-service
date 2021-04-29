@@ -48,10 +48,10 @@ class Compliance:
             row_mapping_config_json = self._load_config(
                 "config/mapping/weighted_linear_default.json"
             )
-            self.value_matching_config = ValueMatchingConfiguration(
+            self.value_matching_config = ValueMatchingConfiguration.from_json(
                 **value_matching_config_json
             )
-            self.row_mapping_config = RowMappingConfiguration(**row_mapping_config_json)
+            self.row_mapping_config = RowMappingConfiguration.from_json(**row_mapping_config_json)
             self.fincen_column_relations = self._get_fincen_column_relations()
             self.unstructured_column_relations = (
                 self._get_unstructured_column_relations()
