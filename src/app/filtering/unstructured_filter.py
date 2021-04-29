@@ -1,6 +1,6 @@
 import pandas as pd
 import logging
-import json
+import ast
 
 from src.core.db.models.pdf_models import UnstructuredDocument
 from src.core.db.models.main_models import Employee
@@ -32,13 +32,17 @@ class UnstructuredFilter:
             return doc_input
 
     def _convert_doc_input(self, doc_input):
-        doc_input.name = json.loads(str(doc_input.name)) if doc_input.name else None
-        doc_input.ssn = json.loads(str(doc_input.ssn)) if doc_input.ssn else None
+        doc_input.name = (
+            ast.literal_eval(str(doc_input.name)) if doc_input.name else None
+        )
+        doc_input.ssn = ast.literal_eval(str(doc_input.ssn)) if doc_input.ssn else None
         doc_input.dateOfBirth = (
-            json.loads(str(doc_input.dateOfBirth)) if doc_input.dateOfBirth else None
+            ast.literal_eval(str(doc_input.dateOfBirth))
+            if doc_input.dateOfBirth
+            else None
         )
         doc_input.zipCode = (
-            json.loads(str(doc_input.zipCode)) if doc_input.zipCode else None
+            ast.literal_eval(str(doc_input.zipCode)) if doc_input.zipCode else None
         )
 
     def _extract_individuals(self, doc_input):
