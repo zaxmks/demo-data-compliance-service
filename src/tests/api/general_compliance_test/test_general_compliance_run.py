@@ -11,6 +11,11 @@ from src.tests.api.general_compliance_test.fixture import (
     setup_main_seed_data,
     setup_pdf_seed_data,
 )
+from src.core.db.models.main_models import (
+    ComplianceRunEvent,
+    Employee,
+    EmployeeToComplianceRunEvent,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -40,3 +45,25 @@ class GeneralComplianceTest(DbTestCase):
         assert response._content == (
             b"Num documents matched: 1, Num employees matched: 1"
         )
+
+        with MainDbSession() as context:
+            compliance_run_event = (
+                context.query(ComplianceRunEvent)
+                .filter_by(id=ingestion_event_id)
+                .one_or_none()
+            )
+            compliance_run_event_to_employee = (
+                context.query(EmployeeToComplianceRunEvent)
+                .filter_by(compliance_run_event_id=compliance_run_event.id)
+                .one_or_none()
+            )
+            employee = (
+                context.query(Employee)
+                .filter_by(id=compliance_run_event_to_employee.employee_id)
+                .one_or_none()
+            )
+            context.expunge(employee)
+
+        assert employee.first_name == "Jacqueline"
+        assert employee.last_name == "Baranov"
+        assert employee.ssn == "761870877"
