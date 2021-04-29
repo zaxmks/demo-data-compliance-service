@@ -1,6 +1,6 @@
 import pandas as pd
 import logging
-import ast
+import json
 
 from src.core.db.models.pdf_models import UnstructuredDocument
 from src.core.db.models.main_models import Employee
@@ -32,17 +32,13 @@ class UnstructuredFilter:
             return doc_input
 
     def _convert_doc_input(self, doc_input):
-        doc_input.name = (
-            ast.literal_eval(str(doc_input.name)) if doc_input.name else None
-        )
-        doc_input.ssn = ast.literal_eval(str(doc_input.ssn)) if doc_input.ssn else None
+        doc_input.name = json.loads(str(doc_input.name)) if doc_input.name else None
+        doc_input.ssn = json.loads(str(doc_input.ssn)) if doc_input.ssn else None
         doc_input.dateOfBirth = (
-            ast.literal_eval(str(doc_input.dateOfBirth))
-            if doc_input.dateOfBirth
-            else None
+            json.loads(str(doc_input.dateOfBirth)) if doc_input.dateOfBirth else None
         )
         doc_input.zipCode = (
-            ast.literal_eval(str(doc_input.zipCode)) if doc_input.zipCode else None
+            json.loads(str(doc_input.zipCode)) if doc_input.zipCode else None
         )
 
     def _extract_individuals(self, doc_input):
@@ -71,9 +67,16 @@ class UnstructuredFilter:
                 or match.is_match(match.SSN)
                 or match.is_match(match.DATE_OF_BIRTH)
             ):
+                employee_dict = employee.__dict__
+                valid_employee_dict = {}
+                for key, val in employee_dict.items():
+                    if match.is_match(key):
+                        valid_employee_dict[key] = val
+
                 individual_df = individual_df.append(
-                    pd.DataFrame.from_records([self.row2dict(employee)])
+                    pd.DataFrame.from_records([valid_employee_dict])
                 )
+                individual_df = individual_df.where(pd.notnull(individual_df), None)
 
             match_types.append(match)
 
@@ -82,13 +85,6 @@ class UnstructuredFilter:
         )
 
         return individual_df
-
-    def row2dict(self, row):
-        d = {}
-        for column in row.__table__.columns:
-            d[column.name] = str(getattr(row, column.name))
-
-        return d
 
     def _get_name_matches(self, doc_input):
         """
