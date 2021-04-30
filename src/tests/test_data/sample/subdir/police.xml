@@ -1,0 +1,1168 @@
+<?xml version="1.0"?>
+<response>
+  <row>
+    <row _id="row-587w_y6bm_qjbf" _uuid="00000000-0000-0000-0691-C4A2289F4A0A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-587w_y6bm_qjbf">
+      <department>STATE POLICE</department>
+      <population>510518</population>
+      <employee_rate_per_1000_pop>2.34</employee_rate_per_1000_pop>
+      <total>1197</total>
+      <sworn_male>883</sworn_male>
+      <sworn_female>83</sworn_female>
+      <civilian_male>92</civilian_male>
+      <civilian_female>139</civilian_female>
+    </row>
+    <row _id="row-9d4y_apeb.s9kn" _uuid="00000000-0000-0000-26ED-083F7715FBEE" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9d4y_apeb.s9kn">
+      <department>ANSONIA</department>
+      <county>New Haven</county>
+      <population>18647</population>
+      <employee_rate_per_1000_pop>2.68</employee_rate_per_1000_pop>
+      <total>50</total>
+      <sworn_male>40</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-iszd~t66r-rmew" _uuid="00000000-0000-0000-5AAB-52D3BB44C912" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-iszd~t66r-rmew">
+      <department>AVON</department>
+      <county>Hartford</county>
+      <population>18397</population>
+      <employee_rate_per_1000_pop>2.12</employee_rate_per_1000_pop>
+      <total>39</total>
+      <sworn_male>27</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>8</civilian_female>
+    </row>
+    <row _id="row-a8n5_5b8i-2pcn" _uuid="00000000-0000-0000-9431-FA9D35DEB614" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-a8n5_5b8i-2pcn">
+      <department>BERLIN</department>
+      <county>Hartford</county>
+      <population>20601</population>
+      <employee_rate_per_1000_pop>2.62</employee_rate_per_1000_pop>
+      <total>54</total>
+      <sworn_male>38</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-zd3k-d2i2.p2r3" _uuid="00000000-0000-0000-7CD3-70176B9F2ACD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-zd3k-d2i2.p2r3">
+      <department>BETHEL</department>
+      <county>Fairfield</county>
+      <population>19796</population>
+      <employee_rate_per_1000_pop>2.53</employee_rate_per_1000_pop>
+      <total>50</total>
+      <sworn_male>32</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>7</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-p7jx~sr32_duf7" _uuid="00000000-0000-0000-79AD-A1761B26603A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-p7jx~sr32_duf7">
+      <department>BLOOMFIELD</department>
+      <county>Hartford</county>
+      <population>20667</population>
+      <employee_rate_per_1000_pop>2.81</employee_rate_per_1000_pop>
+      <total>58</total>
+      <sworn_male>37</sworn_male>
+      <sworn_female>9</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>8</civilian_female>
+    </row>
+    <row _id="row-5s9q.k6mt~3q8y" _uuid="00000000-0000-0000-A5BE-A1E3385D7C52" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-5s9q.k6mt~3q8y">
+      <department>BRANFORD</department>
+      <county>New Haven</county>
+      <population>28027</population>
+      <employee_rate_per_1000_pop>2.35</employee_rate_per_1000_pop>
+      <total>66</total>
+      <sworn_male>47</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>8</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-7fkz-bqah.a5m5" _uuid="00000000-0000-0000-090D-280B156915B4" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-7fkz-bqah.a5m5">
+      <department>BRIDGEPORT</department>
+      <county>Fairfield</county>
+      <population>146110</population>
+      <employee_rate_per_1000_pop>3.02</employee_rate_per_1000_pop>
+      <total>441</total>
+      <sworn_male>355</sworn_male>
+      <sworn_female>33</sworn_female>
+      <civilian_male>24</civilian_male>
+      <civilian_female>29</civilian_female>
+    </row>
+    <row _id="row-a62s~766k.55p8" _uuid="00000000-0000-0000-4661-50A256E25B21" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-a62s~766k.55p8">
+      <department>BRISTOL</department>
+      <county>Hartford</county>
+      <population>60090</population>
+      <employee_rate_per_1000_pop>2.41</employee_rate_per_1000_pop>
+      <total>145</total>
+      <sworn_male>117</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>13</civilian_male>
+      <civilian_female>12</civilian_female>
+    </row>
+    <row _id="row-eu28_3twb.2qt3" _uuid="00000000-0000-0000-B7D1-E4A699BBBAE8" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-eu28_3twb.2qt3">
+      <department>BROOKFIELD</department>
+      <county>Fairfield</county>
+      <population>17203</population>
+      <employee_rate_per_1000_pop>2.56</employee_rate_per_1000_pop>
+      <total>44</total>
+      <sworn_male>32</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-kmi9_h8ia-pdfv" _uuid="00000000-0000-0000-F2A7-D7F1685E783A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-kmi9_h8ia-pdfv">
+      <department>CANTON</department>
+      <county>Hartford</county>
+      <population>10285</population>
+      <employee_rate_per_1000_pop>1.94</employee_rate_per_1000_pop>
+      <total>20</total>
+      <sworn_male>15</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-zkab-ayec_xraq" _uuid="00000000-0000-0000-51C0-7ADF5041FB3E" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-zkab-ayec_xraq">
+      <department>CHESHIRE</department>
+      <county>New Haven</county>
+      <population>29282</population>
+      <employee_rate_per_1000_pop>1.95</employee_rate_per_1000_pop>
+      <total>57</total>
+      <sworn_male>39</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-rvxr~e5g6~q3nz" _uuid="00000000-0000-0000-61E6-AF2B9E238F33" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-rvxr~e5g6~q3nz">
+      <department>CLINTON</department>
+      <county>Middlesex</county>
+      <population>12915</population>
+      <employee_rate_per_1000_pop>2.86</employee_rate_per_1000_pop>
+      <total>37</total>
+      <sworn_male>26</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-pf4p~w7bn.ddws" _uuid="00000000-0000-0000-D6D6-884735F00B94" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-pf4p~w7bn.ddws">
+      <department>COVENTRY</department>
+      <county>Tolland</county>
+      <population>12431</population>
+      <employee_rate_per_1000_pop>1.69</employee_rate_per_1000_pop>
+      <total>21</total>
+      <sworn_male>13</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-i3p8~hnv8_uswr" _uuid="00000000-0000-0000-E953-3779738C154B" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-i3p8~hnv8_uswr">
+      <department>CROMWELL</department>
+      <county>Middlesex</county>
+      <population>13953</population>
+      <employee_rate_per_1000_pop>2.51</employee_rate_per_1000_pop>
+      <total>35</total>
+      <sworn_male>23</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-fejy-uqqv.sgru" _uuid="00000000-0000-0000-A985-B337D059EAC3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-fejy-uqqv.sgru">
+      <department>DANBURY</department>
+      <county>Fairfield</county>
+      <population>85614</population>
+      <employee_rate_per_1000_pop>1.68</employee_rate_per_1000_pop>
+      <total>144</total>
+      <sworn_male>126</sworn_male>
+      <sworn_female>13</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-qkfq-yup9.z3c6" _uuid="00000000-0000-0000-7F7A-DDA6017D0790" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-qkfq-yup9.z3c6">
+      <department>DARIEN</department>
+      <county>Fairfield</county>
+      <population>21910</population>
+      <employee_rate_per_1000_pop>2.60</employee_rate_per_1000_pop>
+      <total>57</total>
+      <sworn_male>42</sworn_male>
+      <sworn_female>7</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-9xup~53zi_sunn" _uuid="00000000-0000-0000-C6A6-677DDABF6FC4" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9xup~53zi_sunn">
+      <department>DERBY</department>
+      <county>New Haven</county>
+      <population>12586</population>
+      <employee_rate_per_1000_pop>2.86</employee_rate_per_1000_pop>
+      <total>36</total>
+      <sworn_male>31</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-mrgq-fkb9-a8dt" _uuid="00000000-0000-0000-6727-F41D25550F97" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-mrgq-fkb9-a8dt">
+      <department>EAST HAMPTON</department>
+      <county>Middlesex</county>
+      <population>12855</population>
+      <employee_rate_per_1000_pop>1.40</employee_rate_per_1000_pop>
+      <total>18</total>
+      <sworn_male>16</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-9ddh.bnnj~gpdf" _uuid="00000000-0000-0000-4C7F-21258B719957" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9ddh.bnnj~gpdf">
+      <department>EAST HARTFORD</department>
+      <county>Hartford</county>
+      <population>50067</population>
+      <employee_rate_per_1000_pop>3.18</employee_rate_per_1000_pop>
+      <total>159</total>
+      <sworn_male>108</sworn_male>
+      <sworn_female>17</sworn_female>
+      <civilian_male>12</civilian_male>
+      <civilian_female>22</civilian_female>
+    </row>
+    <row _id="row-izef-qrfp-4ivc" _uuid="00000000-0000-0000-6F7B-5311634F360A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-izef-qrfp-4ivc">
+      <department>EAST HAVEN</department>
+      <county>New Haven</county>
+      <population>28739</population>
+      <employee_rate_per_1000_pop>1.95</employee_rate_per_1000_pop>
+      <total>56</total>
+      <sworn_male>48</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-j2yh_i8ka_ptuc" _uuid="00000000-0000-0000-70E3-2233463BC20B" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-j2yh_i8ka_ptuc">
+      <department>EAST LYME</department>
+      <county>New London</county>
+      <population>18849</population>
+      <employee_rate_per_1000_pop>1.54</employee_rate_per_1000_pop>
+      <total>29</total>
+      <sworn_male>20</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-9g4q_s4fw-37sf" _uuid="00000000-0000-0000-6202-80C6629BF8F3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9g4q_s4fw-37sf">
+      <department>EAST WINDSOR</department>
+      <county>Hartford</county>
+      <population>11383</population>
+      <employee_rate_per_1000_pop>2.99</employee_rate_per_1000_pop>
+      <total>34</total>
+      <sworn_male>23</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-smmz~gbr9~ugds" _uuid="00000000-0000-0000-DF53-B1ED278D6B3A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-smmz~gbr9~ugds">
+      <department>EASTON</department>
+      <county>Fairfield</county>
+      <population>7570</population>
+      <employee_rate_per_1000_pop>2.25</employee_rate_per_1000_pop>
+      <total>17</total>
+      <sworn_male>14</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-27ki.i893-fj37" _uuid="00000000-0000-0000-B901-FCB738B02EB3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-27ki.i893-fj37">
+      <department>ENFIELD</department>
+      <county>Hartford</county>
+      <population>44321</population>
+      <employee_rate_per_1000_pop>2.55</employee_rate_per_1000_pop>
+      <total>113</total>
+      <sworn_male>82</sworn_male>
+      <sworn_female>10</sworn_female>
+      <civilian_male>10</civilian_male>
+      <civilian_female>11</civilian_female>
+    </row>
+    <row _id="row-9pt6-j9qr~ti55" _uuid="00000000-0000-0000-CFEF-55026497C4FB" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9pt6-j9qr~ti55">
+      <department>FAIRFIELD</department>
+      <county>Fairfield</county>
+      <population>61402</population>
+      <employee_rate_per_1000_pop>1.76</employee_rate_per_1000_pop>
+      <total>108</total>
+      <sworn_male>96</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-93pv-hv6x_5s3t" _uuid="00000000-0000-0000-6D29-8D8B45C5167D" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-93pv-hv6x_5s3t">
+      <department>FARMINGTON</department>
+      <county>Hartford</county>
+      <population>25551</population>
+      <employee_rate_per_1000_pop>2.35</employee_rate_per_1000_pop>
+      <total>60</total>
+      <sworn_male>40</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>7</civilian_male>
+      <civilian_female>9</civilian_female>
+    </row>
+    <row _id="row-pwzp_mk8c.9h5e" _uuid="00000000-0000-0000-2752-204ACE9DA4EA" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-pwzp_mk8c.9h5e">
+      <department>GLASTONBURY</department>
+      <county>Hartford</county>
+      <population>34606</population>
+      <employee_rate_per_1000_pop>2.23</employee_rate_per_1000_pop>
+      <total>77</total>
+      <sworn_male>48</sworn_male>
+      <sworn_female>8</sworn_female>
+      <civilian_male>11</civilian_male>
+      <civilian_female>10</civilian_female>
+    </row>
+    <row _id="row-auzj~mfjx-9kv4" _uuid="00000000-0000-0000-54A1-F4CD50B442DA" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-auzj~mfjx-9kv4">
+      <department>GRANBY</department>
+      <county>Hartford</county>
+      <population>11241</population>
+      <employee_rate_per_1000_pop>1.87</employee_rate_per_1000_pop>
+      <total>21</total>
+      <sworn_male>13</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-598m.fxbs.279c" _uuid="00000000-0000-0000-E82B-B35C12B26FF3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-598m.fxbs.279c">
+      <department>GREENWICH</department>
+      <county>Fairfield</county>
+      <population>62531</population>
+      <employee_rate_per_1000_pop>2.88</employee_rate_per_1000_pop>
+      <total>180</total>
+      <sworn_male>139</sworn_male>
+      <sworn_female>14</sworn_female>
+      <civilian_male>14</civilian_male>
+      <civilian_female>13</civilian_female>
+    </row>
+    <row _id="row-cgvn~bfwz~csgi" _uuid="00000000-0000-0000-815F-D10C1897EBF9" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-cgvn~bfwz~csgi">
+      <department>GROTON CITY</department>
+      <county>New London</county>
+      <population>9093</population>
+      <employee_rate_per_1000_pop>3.85</employee_rate_per_1000_pop>
+      <total>35</total>
+      <sworn_male>24</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-qs3s~ki6n-4wmr" _uuid="00000000-0000-0000-9CB3-2398618284DD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-qs3s~ki6n-4wmr">
+      <department>GROTON LONG PT.</department>
+      <county>New London</county>
+      <population>506</population>
+      <employee_rate_per_1000_pop>9.88</employee_rate_per_1000_pop>
+      <total>5</total>
+      <sworn_male>5</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>0</civilian_female>
+    </row>
+    <row _id="row-9kst.39az-kgfp" _uuid="00000000-0000-0000-1009-C89D7F83364C" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9kst.39az-kgfp">
+      <department>GROTON TOWN</department>
+      <county>New London</county>
+      <population>29524</population>
+      <employee_rate_per_1000_pop>2.30</employee_rate_per_1000_pop>
+      <total>68</total>
+      <sworn_male>53</sworn_male>
+      <sworn_female>10</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-b4zb~bjdq~vguc" _uuid="00000000-0000-0000-9717-34372D0D2561" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-b4zb~bjdq~vguc">
+      <department>GUILFORD</department>
+      <county>New Haven</county>
+      <population>22259</population>
+      <employee_rate_per_1000_pop>2.02</employee_rate_per_1000_pop>
+      <total>45</total>
+      <sworn_male>30</sworn_male>
+      <sworn_female>7</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-8sa2.z2xf_q3ni" _uuid="00000000-0000-0000-8786-20896598B4E1" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-8sa2.z2xf_q3ni">
+      <department>HAMDEN</department>
+      <county>New Haven</county>
+      <population>61042</population>
+      <employee_rate_per_1000_pop>2.18</employee_rate_per_1000_pop>
+      <total>133</total>
+      <sworn_male>99</sworn_male>
+      <sworn_female>8</sworn_female>
+      <civilian_male>11</civilian_male>
+      <civilian_female>15</civilian_female>
+    </row>
+    <row _id="row-x445_akma-jj3p" _uuid="00000000-0000-0000-931E-45882F0BB4BD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-x445_akma-jj3p">
+      <department>HARTFORD</department>
+      <county>Hartford</county>
+      <population>122891</population>
+      <employee_rate_per_1000_pop>3.54</employee_rate_per_1000_pop>
+      <total>435</total>
+      <sworn_male>345</sworn_male>
+      <sworn_female>45</sworn_female>
+      <civilian_male>22</civilian_male>
+      <civilian_female>23</civilian_female>
+    </row>
+    <row _id="row-6epd-bp5g~pchr" _uuid="00000000-0000-0000-BC77-525EEFCC32E4" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-6epd-bp5g~pchr">
+      <department>LEDYARD</department>
+      <county>New London</county>
+      <population>14889</population>
+      <employee_rate_per_1000_pop>1.88</employee_rate_per_1000_pop>
+      <total>28</total>
+      <sworn_male>21</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-3h8v_x7tt-sx6f" _uuid="00000000-0000-0000-D62F-354DC29097B3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-3h8v_x7tt-sx6f">
+      <department>MADISON</department>
+      <county>New Haven</county>
+      <population>18130</population>
+      <employee_rate_per_1000_pop>2.21</employee_rate_per_1000_pop>
+      <total>40</total>
+      <sworn_male>23</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-7jcb-ir4z~zuzh" _uuid="00000000-0000-0000-9CCA-2B450A4398D7" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-7jcb-ir4z~zuzh">
+      <department>MANCHESTER</department>
+      <county>Hartford</county>
+      <population>57808</population>
+      <employee_rate_per_1000_pop>2.42</employee_rate_per_1000_pop>
+      <total>140</total>
+      <sworn_male>96</sworn_male>
+      <sworn_female>13</sworn_female>
+      <civilian_male>15</civilian_male>
+      <civilian_female>16</civilian_female>
+    </row>
+    <row _id="row-x8xm.5r6u.bqiw" _uuid="00000000-0000-0000-72BC-8E90D8B86C5E" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-x8xm.5r6u.bqiw">
+      <department>MERIDEN</department>
+      <county>New Haven</county>
+      <population>59417</population>
+      <employee_rate_per_1000_pop>2.07</employee_rate_per_1000_pop>
+      <total>123</total>
+      <sworn_male>99</sworn_male>
+      <sworn_female>12</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-frtx-34u5.pw4c" _uuid="00000000-0000-0000-EB30-393185BB6E59" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-frtx-34u5.pw4c">
+      <department>MIDDLEBURY</department>
+      <county>New Haven</county>
+      <population>7651</population>
+      <employee_rate_per_1000_pop>1.70</employee_rate_per_1000_pop>
+      <total>13</total>
+      <sworn_male>10</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-hdhk.ntik.rswb" _uuid="00000000-0000-0000-AD00-0C1A49A715C6" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-hdhk.ntik.rswb">
+      <department>MIDDLETOWN</department>
+      <county>Middlesex</county>
+      <population>46363</population>
+      <employee_rate_per_1000_pop>2.76</employee_rate_per_1000_pop>
+      <total>128</total>
+      <sworn_male>105</sworn_male>
+      <sworn_female>9</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>12</civilian_female>
+    </row>
+    <row _id="row-u8u8~gwff_e72g" _uuid="00000000-0000-0000-043F-8D518E16EB5F" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-u8u8~gwff_e72g">
+      <department>MILFORD</department>
+      <county>New Haven</county>
+      <population>54265</population>
+      <employee_rate_per_1000_pop>2.45</employee_rate_per_1000_pop>
+      <total>133</total>
+      <sworn_male>100</sworn_male>
+      <sworn_female>15</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>14</civilian_female>
+    </row>
+    <row _id="row-riuf_xx83.jtyy" _uuid="00000000-0000-0000-8C3E-6732F86A7486" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-riuf_xx83.jtyy">
+      <department>MONROE</department>
+      <county>Fairfield</county>
+      <population>19682</population>
+      <employee_rate_per_1000_pop>2.79</employee_rate_per_1000_pop>
+      <total>55</total>
+      <sworn_male>36</sworn_male>
+      <sworn_female>7</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-qc8k_sbfs_huaw" _uuid="00000000-0000-0000-37B8-CC5B30968E4A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-qc8k_sbfs_huaw">
+      <department>NAUGATUCK</department>
+      <county>New Haven</county>
+      <population>31310</population>
+      <employee_rate_per_1000_pop>2.27</employee_rate_per_1000_pop>
+      <total>71</total>
+      <sworn_male>54</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-ncbx_nm2n~iapk" _uuid="00000000-0000-0000-5BED-0F79809099CC" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ncbx_nm2n~iapk">
+      <department>NEW BRITAIN</department>
+      <county>Hartford</county>
+      <population>72442</population>
+      <employee_rate_per_1000_pop>2.29</employee_rate_per_1000_pop>
+      <total>166</total>
+      <sworn_male>141</sworn_male>
+      <sworn_female>17</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-axsm_k36k.v3k3" _uuid="00000000-0000-0000-2B22-C72AFC7C3D30" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-axsm_k36k.v3k3">
+      <department>NEW CANAAN</department>
+      <county>Fairfield</county>
+      <population>20364</population>
+      <employee_rate_per_1000_pop>2.55</employee_rate_per_1000_pop>
+      <total>52</total>
+      <sworn_male>43</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-rmrq_cxvb_n42k" _uuid="00000000-0000-0000-EF7B-AB6DA66F6DA7" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-rmrq_cxvb_n42k">
+      <department>NEW HAVEN</department>
+      <county>New Haven</county>
+      <population>129953</population>
+      <employee_rate_per_1000_pop>3.66</employee_rate_per_1000_pop>
+      <total>476</total>
+      <sworn_male>359</sworn_male>
+      <sworn_female>68</sworn_female>
+      <civilian_male>11</civilian_male>
+      <civilian_female>38</civilian_female>
+    </row>
+    <row _id="row-uxjz_ehdt.y5fm" _uuid="00000000-0000-0000-555C-F8E1978737F4" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-uxjz_ehdt.y5fm">
+      <department>NEW LONDON</department>
+      <county>New London</county>
+      <population>26880</population>
+      <employee_rate_per_1000_pop>3.09</employee_rate_per_1000_pop>
+      <total>83</total>
+      <sworn_male>62</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>12</civilian_female>
+    </row>
+    <row _id="row-r9bd.zakf_x5iw" _uuid="00000000-0000-0000-B24B-51833EC7BF9A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-r9bd.zakf_x5iw">
+      <department>NEW MILFORD</department>
+      <county>Litchfield</county>
+      <population>26993</population>
+      <employee_rate_per_1000_pop>1.96</employee_rate_per_1000_pop>
+      <total>53</total>
+      <sworn_male>37</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-jqx4~fb23~8vte" _uuid="00000000-0000-0000-6F79-EAD0C845981D" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-jqx4~fb23~8vte">
+      <department>NEWINGTON</department>
+      <county>Hartford</county>
+      <population>30402</population>
+      <employee_rate_per_1000_pop>2.01</employee_rate_per_1000_pop>
+      <total>61</total>
+      <sworn_male>44</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-7q9h~65i9~8pyq" _uuid="00000000-0000-0000-9CC9-EBC2EB153047" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-7q9h~65i9~8pyq">
+      <department>NEWTOWN</department>
+      <county>Fairfield</county>
+      <population>27908</population>
+      <employee_rate_per_1000_pop>1.76</employee_rate_per_1000_pop>
+      <total>49</total>
+      <sworn_male>38</sworn_male>
+      <sworn_female>7</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-anbv_uudf-u5vw" _uuid="00000000-0000-0000-1463-779290F638B3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-anbv_uudf-u5vw">
+      <department>NORTH BRANFORD</department>
+      <county>New Haven</county>
+      <population>14163</population>
+      <employee_rate_per_1000_pop>1.91</employee_rate_per_1000_pop>
+      <total>27</total>
+      <sworn_male>21</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-udbe-sqp2.2hc9" _uuid="00000000-0000-0000-276F-5BD76C34EAA7" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-udbe-sqp2.2hc9">
+      <department>NORTH HAVEN</department>
+      <county>New Haven</county>
+      <population>23646</population>
+      <employee_rate_per_1000_pop>2.45</employee_rate_per_1000_pop>
+      <total>58</total>
+      <sworn_male>46</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-4zhc_gxbj.9tx5" _uuid="00000000-0000-0000-9476-0D72279AC4AD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-4zhc_gxbj.9tx5">
+      <department>NORWALK</department>
+      <county>Fairfield</county>
+      <population>88849</population>
+      <employee_rate_per_1000_pop>2.45</employee_rate_per_1000_pop>
+      <total>218</total>
+      <sworn_male>162</sworn_male>
+      <sworn_female>17</sworn_female>
+      <civilian_male>23</civilian_male>
+      <civilian_female>16</civilian_female>
+    </row>
+    <row _id="row-93a7-xmga~5wu8" _uuid="00000000-0000-0000-1AFC-8097BDC76ACD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-93a7-xmga~5wu8">
+      <department>NORWICH</department>
+      <county>New London</county>
+      <population>39393</population>
+      <employee_rate_per_1000_pop>2.56</employee_rate_per_1000_pop>
+      <total>101</total>
+      <sworn_male>77</sworn_male>
+      <sworn_female>7</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>12</civilian_female>
+    </row>
+    <row _id="row-mdsg.y2rd.ufkj" _uuid="00000000-0000-0000-8218-DA69D0D99E37" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-mdsg.y2rd.ufkj">
+      <department>OLD SAYBROOK</department>
+      <county>Middlesex</county>
+      <population>10070</population>
+      <employee_rate_per_1000_pop>2.48</employee_rate_per_1000_pop>
+      <total>25</total>
+      <sworn_male>14</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-kdi6~e83i.h845" _uuid="00000000-0000-0000-C1A8-EAF20FB4AB32" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-kdi6~e83i.h845">
+      <department>ORANGE</department>
+      <county>New Haven</county>
+      <population>13904</population>
+      <employee_rate_per_1000_pop>4.03</employee_rate_per_1000_pop>
+      <total>56</total>
+      <sworn_male>42</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-vda9_zmac~u3zc" _uuid="00000000-0000-0000-7F73-F62E5F5DEF6E" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-vda9_zmac~u3zc">
+      <department>PLAINFIELD</department>
+      <county>Windham</county>
+      <population>15011</population>
+      <employee_rate_per_1000_pop>1.47</employee_rate_per_1000_pop>
+      <total>22</total>
+      <sworn_male>17</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-3hhv.3v8d.az2k" _uuid="00000000-0000-0000-2A1F-B25BE262708F" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-3hhv.3v8d.az2k">
+      <department>PLAINVILLE</department>
+      <county>Hartford</county>
+      <population>17669</population>
+      <employee_rate_per_1000_pop>2.55</employee_rate_per_1000_pop>
+      <total>45</total>
+      <sworn_male>35</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-4wny-uavg_aa5a" _uuid="00000000-0000-0000-8244-B947ED90BFEC" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-4wny-uavg_aa5a">
+      <department>PLYMOUTH</department>
+      <county>Litchfield</county>
+      <population>11671</population>
+      <employee_rate_per_1000_pop>2.48</employee_rate_per_1000_pop>
+      <total>29</total>
+      <sworn_male>22</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-eezq.mrhk-4r2m" _uuid="00000000-0000-0000-CE50-A35D97F9B371" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-eezq.mrhk-4r2m">
+      <department>PORTLAND</department>
+      <county>Middlesex</county>
+      <population>9324</population>
+      <employee_rate_per_1000_pop>1.39</employee_rate_per_1000_pop>
+      <total>13</total>
+      <sworn_male>12</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>0</civilian_female>
+    </row>
+    <row _id="row-esxz-tc3d-dzjh" _uuid="00000000-0000-0000-604C-59C0F81568CE" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-esxz-tc3d-dzjh">
+      <department>PUTNAM MUNICIPAL</department>
+      <county>Windham</county>
+      <population>6970</population>
+      <employee_rate_per_1000_pop>2.73</employee_rate_per_1000_pop>
+      <total>19</total>
+      <sworn_male>14</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-tr8q~iugw.nkke" _uuid="00000000-0000-0000-F4DF-F0591C34B3BD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-tr8q~iugw.nkke">
+      <department>REDDING</department>
+      <county>Fairfield</county>
+      <population>9223</population>
+      <employee_rate_per_1000_pop>2.49</employee_rate_per_1000_pop>
+      <total>23</total>
+      <sworn_male>13</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>0</civilian_female>
+    </row>
+    <row _id="row-dj5f.pbhz~6vrx" _uuid="00000000-0000-0000-5FC5-7E913670D20B" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-dj5f.pbhz~6vrx">
+      <department>RIDGEFIELD</department>
+      <county>Fairfield</county>
+      <population>25127</population>
+      <employee_rate_per_1000_pop>1.87</employee_rate_per_1000_pop>
+      <total>47</total>
+      <sworn_male>38</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-qp3x-piup_ngrj" _uuid="00000000-0000-0000-DE5E-C9FD601C3300" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-qp3x-piup_ngrj">
+      <department>ROCKY HILL</department>
+      <county>Hartford</county>
+      <population>20189</population>
+      <employee_rate_per_1000_pop>2.48</employee_rate_per_1000_pop>
+      <total>50</total>
+      <sworn_male>31</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>7</civilian_male>
+      <civilian_female>8</civilian_female>
+    </row>
+    <row _id="row-8icv-ww9d.wmrq" _uuid="00000000-0000-0000-38C3-CC1DFF9E9C56" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-8icv-ww9d.wmrq">
+      <department>SEYMOUR</department>
+      <county>New Haven</county>
+      <population>16555</population>
+      <employee_rate_per_1000_pop>2.48</employee_rate_per_1000_pop>
+      <total>41</total>
+      <sworn_male>35</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-ctmr.849x-2kxh" _uuid="00000000-0000-0000-8EE7-C4326B591174" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ctmr.849x-2kxh">
+      <department>SHELTON</department>
+      <county>Fairfield</county>
+      <population>41625</population>
+      <employee_rate_per_1000_pop>1.39</employee_rate_per_1000_pop>
+      <total>58</total>
+      <sworn_male>47</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-47qd_ddt6~p37w" _uuid="00000000-0000-0000-6FBA-28DCF1A12F74" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-47qd_ddt6~p37w">
+      <department>SIMSBURY</department>
+      <county>Hartford</county>
+      <population>24559</population>
+      <employee_rate_per_1000_pop>1.95</employee_rate_per_1000_pop>
+      <total>48</total>
+      <sworn_male>33</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>8</civilian_female>
+    </row>
+    <row _id="row-ercf~t7sz.58xy" _uuid="00000000-0000-0000-E0DF-084B28109B53" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ercf~t7sz.58xy">
+      <department>SOUTH WINDSOR</department>
+      <county>Hartford</county>
+      <population>25740</population>
+      <employee_rate_per_1000_pop>2.10</employee_rate_per_1000_pop>
+      <total>54</total>
+      <sworn_male>36</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-j4eq_hfnx-np44" _uuid="00000000-0000-0000-EE8E-E527DDAE130A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-j4eq_hfnx-np44">
+      <department>SOUTHINGTON</department>
+      <county>Hartford</county>
+      <population>43769</population>
+      <employee_rate_per_1000_pop>1.94</employee_rate_per_1000_pop>
+      <total>85</total>
+      <sworn_male>59</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>11</civilian_male>
+      <civilian_female>10</civilian_female>
+    </row>
+    <row _id="row-sgj5-g6js_7f2r" _uuid="00000000-0000-0000-8D4C-637A87A022E9" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-sgj5-g6js_7f2r">
+      <department>STAMFORD</department>
+      <county>Fairfield</county>
+      <population>130189</population>
+      <employee_rate_per_1000_pop>2.56</employee_rate_per_1000_pop>
+      <total>333</total>
+      <sworn_male>254</sworn_male>
+      <sworn_female>29</sworn_female>
+      <civilian_male>23</civilian_male>
+      <civilian_female>27</civilian_female>
+    </row>
+    <row _id="row-5chq.uh96~msz2" _uuid="00000000-0000-0000-D6C2-F8FB2E87DABA" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-5chq.uh96~msz2">
+      <department>STONINGTON</department>
+      <county>New London</county>
+      <population>18666</population>
+      <employee_rate_per_1000_pop>2.63</employee_rate_per_1000_pop>
+      <total>49</total>
+      <sworn_male>34</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>6</civilian_female>
+    </row>
+    <row _id="row-wcv2_hu83~4vrz" _uuid="00000000-0000-0000-48E2-E78C79403228" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-wcv2_hu83~4vrz">
+      <department>STRATFORD</department>
+      <county>Fairfield</county>
+      <population>52263</population>
+      <employee_rate_per_1000_pop>2.12</employee_rate_per_1000_pop>
+      <total>111</total>
+      <sworn_male>91</sworn_male>
+      <sworn_female>13</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-7yic.tgtv~5dpt" _uuid="00000000-0000-0000-A855-17714333D731" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-7yic.tgtv~5dpt">
+      <department>SUFFIELD</department>
+      <county>Hartford</county>
+      <population>15602</population>
+      <employee_rate_per_1000_pop>1.67</employee_rate_per_1000_pop>
+      <total>26</total>
+      <sworn_male>21</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-kpur_i5aa-zdjt" _uuid="00000000-0000-0000-89B6-BE7257778A3D" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-kpur_i5aa-zdjt">
+      <department>THOMASTON</department>
+      <county>Litchfield</county>
+      <population>7548</population>
+      <employee_rate_per_1000_pop>3.71</employee_rate_per_1000_pop>
+      <total>28</total>
+      <sworn_male>17</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-9wcm~j9dk_jmae" _uuid="00000000-0000-0000-A515-2D90897614EC" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9wcm~j9dk_jmae">
+      <department>TORRINGTON</department>
+      <county>Litchfield</county>
+      <population>34372</population>
+      <employee_rate_per_1000_pop>2.62</employee_rate_per_1000_pop>
+      <total>90</total>
+      <sworn_male>76</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>8</civilian_female>
+    </row>
+    <row _id="row-i9p9~pt39_efb8" _uuid="00000000-0000-0000-4BFB-FA323C726DA1" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-i9p9~pt39_efb8">
+      <department>TRUMBULL</department>
+      <county>Fairfield</county>
+      <population>36265</population>
+      <employee_rate_per_1000_pop>2.45</employee_rate_per_1000_pop>
+      <total>89</total>
+      <sworn_male>73</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-tty7_8mks~b33h" _uuid="00000000-0000-0000-A76E-CA73F85455E2" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-tty7_8mks~b33h">
+      <department>VERNON</department>
+      <county>Tolland</county>
+      <population>29142</population>
+      <employee_rate_per_1000_pop>2.13</employee_rate_per_1000_pop>
+      <total>62</total>
+      <sworn_male>45</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-xzva-js3y_hxgi" _uuid="00000000-0000-0000-E1BA-362C6E7A05C5" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-xzva-js3y_hxgi">
+      <department>WALLINGFORD</department>
+      <county>New Haven</county>
+      <population>44577</population>
+      <employee_rate_per_1000_pop>1.95</employee_rate_per_1000_pop>
+      <total>87</total>
+      <sworn_male>58</sworn_male>
+      <sworn_female>8</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>15</civilian_female>
+    </row>
+    <row _id="row-j7ax-iixi-zzwe" _uuid="00000000-0000-0000-CA49-E86B5DE749CF" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-j7ax-iixi-zzwe">
+      <department>WATERBURY</department>
+      <county>New Haven</county>
+      <population>107924</population>
+      <employee_rate_per_1000_pop>2.97</employee_rate_per_1000_pop>
+      <total>321</total>
+      <sworn_male>254</sworn_male>
+      <sworn_female>23</sworn_female>
+      <civilian_male>19</civilian_male>
+      <civilian_female>25</civilian_female>
+    </row>
+    <row _id="row-put3-v798_pp5r" _uuid="00000000-0000-0000-9E7D-9F646ABBAD0B" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-put3-v798_pp5r">
+      <department>WATERFORD</department>
+      <county>New London</county>
+      <population>19034</population>
+      <employee_rate_per_1000_pop>2.63</employee_rate_per_1000_pop>
+      <total>50</total>
+      <sworn_male>39</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-psh4_w2kn-ttsh" _uuid="00000000-0000-0000-38A4-03ACFADA3E13" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-psh4_w2kn-ttsh">
+      <department>WATERTOWN</department>
+      <county>Litchfield</county>
+      <population>21672</population>
+      <employee_rate_per_1000_pop>2.12</employee_rate_per_1000_pop>
+      <total>46</total>
+      <sworn_male>33</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-cmi5~njv2~3nqu" _uuid="00000000-0000-0000-9D2E-DFD917687F27" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-cmi5~njv2~3nqu">
+      <department>WEST HARTFORD</department>
+      <county>Hartford</county>
+      <population>62812</population>
+      <employee_rate_per_1000_pop>2.24</employee_rate_per_1000_pop>
+      <total>141</total>
+      <sworn_male>110</sworn_male>
+      <sworn_female>12</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>13</civilian_female>
+    </row>
+    <row _id="row-ftpv-j5p6.2nnb" _uuid="00000000-0000-0000-DEFB-8272A748158E" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ftpv-j5p6.2nnb">
+      <department>WEST HAVEN</department>
+      <county>New Haven</county>
+      <population>54342</population>
+      <employee_rate_per_1000_pop>2.45</employee_rate_per_1000_pop>
+      <total>133</total>
+      <sworn_male>106</sworn_male>
+      <sworn_female>12</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>14</civilian_female>
+    </row>
+    <row _id="row-nwpi_45k6_p2qb" _uuid="00000000-0000-0000-FAD5-D1BE6D4D13E7" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-nwpi_45k6_p2qb">
+      <department>WESTON</department>
+      <county>Fairfield</county>
+      <population>10320</population>
+      <employee_rate_per_1000_pop>1.65</employee_rate_per_1000_pop>
+      <total>17</total>
+      <sworn_male>16</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-ndtk-wy6t-yg4v" _uuid="00000000-0000-0000-1C2C-DF3BCDB41EBC" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ndtk-wy6t-yg4v">
+      <department>WESTPORT</department>
+      <county>Fairfield</county>
+      <population>28079</population>
+      <employee_rate_per_1000_pop>2.74</employee_rate_per_1000_pop>
+      <total>77</total>
+      <sworn_male>54</sworn_male>
+      <sworn_female>10</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-gvy9~vj9p~6t9h" _uuid="00000000-0000-0000-3B18-EC83062061BC" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-gvy9~vj9p~6t9h">
+      <department>WETHERSFIELD</department>
+      <county>Hartford</county>
+      <population>26116</population>
+      <employee_rate_per_1000_pop>2.45</employee_rate_per_1000_pop>
+      <total>64</total>
+      <sworn_male>44</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>7</civilian_male>
+      <civilian_female>9</civilian_female>
+    </row>
+    <row _id="row-7zrr.e8m6.5jti" _uuid="00000000-0000-0000-9A22-7A54F0F6F2B6" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-7zrr.e8m6.5jti">
+      <department>WILLIMANTIC</department>
+      <county>Windham</county>
+      <population>17768</population>
+      <employee_rate_per_1000_pop>2.70</employee_rate_per_1000_pop>
+      <total>48</total>
+      <sworn_male>40</sworn_male>
+      <sworn_female>3</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-68tv-guuu.wmit" _uuid="00000000-0000-0000-0506-5BCDFD845066" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-68tv-guuu.wmit">
+      <department>WILTON</department>
+      <county>Fairfield</county>
+      <population>18643</population>
+      <employee_rate_per_1000_pop>2.57</employee_rate_per_1000_pop>
+      <total>48</total>
+      <sworn_male>39</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-b3d3~hevq.hf3s" _uuid="00000000-0000-0000-978D-F455D5CB2CB0" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-b3d3~hevq.hf3s">
+      <department>WINCHESTER</department>
+      <county>Litchfield</county>
+      <population>10677</population>
+      <employee_rate_per_1000_pop>2.44</employee_rate_per_1000_pop>
+      <total>26</total>
+      <sworn_male>19</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>2</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-88f3~rnej~9sf2" _uuid="00000000-0000-0000-F6A0-B6063AB46B88" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-88f3~rnej~9sf2">
+      <department>WINDSOR</department>
+      <county>Hartford</county>
+      <population>28836</population>
+      <employee_rate_per_1000_pop>2.25</employee_rate_per_1000_pop>
+      <total>65</total>
+      <sworn_male>39</sworn_male>
+      <sworn_female>13</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>13</civilian_female>
+    </row>
+    <row _id="row-im6w~vmx2~taae" _uuid="00000000-0000-0000-F046-7CEE0446F320" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-im6w~vmx2~taae">
+      <department>WINDSOR LOCKS</department>
+      <county>Hartford</county>
+      <population>12513</population>
+      <employee_rate_per_1000_pop>2.64</employee_rate_per_1000_pop>
+      <total>33</total>
+      <sworn_male>25</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-y9gw_zixw-xcp7" _uuid="00000000-0000-0000-6812-2EDDC98395B3" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-y9gw_zixw-xcp7">
+      <department>WOLCOTT</department>
+      <county>New Haven</county>
+      <population>16632</population>
+      <employee_rate_per_1000_pop>1.86</employee_rate_per_1000_pop>
+      <total>31</total>
+      <sworn_male>21</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>8</civilian_female>
+    </row>
+    <row _id="row-4jdi_r9ap.3yb9" _uuid="00000000-0000-0000-AFDB-508BD52F402B" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-4jdi_r9ap.3yb9">
+      <department>WOODBRIDGE</department>
+      <county>New Haven</county>
+      <population>8816</population>
+      <employee_rate_per_1000_pop>3.63</employee_rate_per_1000_pop>
+      <total>32</total>
+      <sworn_male>24</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>5</civilian_female>
+    </row>
+    <row _id="row-vf3u.nk5p-tram" _uuid="00000000-0000-0000-F847-802371A89AEE" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-vf3u.nk5p-tram">
+      <department>C.C.S.U.</department>
+      <county>Hartford</county>
+      <total>25</total>
+      <sworn_male>16</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-sier~rzuh-crt9" _uuid="00000000-0000-0000-643B-CBA509249EDB" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-sier~rzuh-crt9">
+      <department>E.C.S.U.</department>
+      <county>Windham</county>
+      <total>22</total>
+      <sworn_male>9</sworn_male>
+      <sworn_female>5</sworn_female>
+      <civilian_male>5</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-wsjv~4tsp_yfpn" _uuid="00000000-0000-0000-8DEF-D3D21796C6DE" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-wsjv~4tsp_yfpn">
+      <department>S.C.S.U.</department>
+      <county>New Haven</county>
+      <total>29</total>
+      <sworn_male>19</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>3</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-jhqg-y8rb.y7n8" _uuid="00000000-0000-0000-A9DF-06243124DA27" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-jhqg-y8rb.y7n8">
+      <department>W.C.S.U.</department>
+      <county>Fairfield</county>
+      <total>18</total>
+      <sworn_male>12</sworn_male>
+      <sworn_female>0</sworn_female>
+      <civilian_male>4</civilian_male>
+      <civilian_female>2</civilian_female>
+    </row>
+    <row _id="row-ykxw_dqd9.vehx" _uuid="00000000-0000-0000-7599-388DC15D4430" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ykxw_dqd9.vehx">
+      <department>DMV</department>
+      <total>56</total>
+      <sworn_male>47</sworn_male>
+      <sworn_female>4</sworn_female>
+      <civilian_male>1</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-2dmk.y83m-6ta7" _uuid="00000000-0000-0000-34AF-FFDFEBBDD37F" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-2dmk.y83m-6ta7">
+      <department>UCONN-STORRS</department>
+      <county>Tolland</county>
+      <total>97</total>
+      <sworn_male>66</sworn_male>
+      <sworn_female>11</sworn_female>
+      <civilian_male>9</civilian_male>
+      <civilian_female>11</civilian_female>
+    </row>
+    <row _id="row-mmij-t5hx~3mjs" _uuid="00000000-0000-0000-A49D-9ADE7767F1D8" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-mmij-t5hx~3mjs">
+      <department>UCONN HEALTH CTR</department>
+      <county>Hartford</county>
+      <total>40</total>
+      <sworn_male>15</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>16</civilian_male>
+      <civilian_female>7</civilian_female>
+    </row>
+    <row _id="row-i9is.zavh_68rp" _uuid="00000000-0000-0000-0B6A-650F7F331748" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-i9is.zavh_68rp">
+      <department>YALE</department>
+      <county>New Haven</county>
+      <total>106</total>
+      <sworn_male>70</sworn_male>
+      <sworn_female>19</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>11</civilian_female>
+    </row>
+    <row _id="row-x758~4wug~uqzt" _uuid="00000000-0000-0000-7019-3A92332ED56A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-x758~4wug~uqzt">
+      <department>STATE CAPITOL</department>
+      <county>Hartford</county>
+      <total>44</total>
+      <sworn_male>32</sworn_male>
+      <sworn_female>1</sworn_female>
+      <civilian_male>8</civilian_male>
+      <civilian_female>3</civilian_female>
+    </row>
+    <row _id="row-ac2i-dis7_vsxa" _uuid="00000000-0000-0000-FCD1-D96D95B3F23A" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-ac2i-dis7_vsxa">
+      <department>METROPOLITAN TA</department>
+      <total>38</total>
+      <sworn_male>31</sworn_male>
+      <sworn_female>6</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-9gh2-qr4x~pm4r" _uuid="00000000-0000-0000-C3D7-A7FFA7426446" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-9gh2-qr4x~pm4r">
+      <department>MASHANTUCKET PEQ</department>
+      <county>New London</county>
+      <total>35</total>
+      <sworn_male>23</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>6</civilian_male>
+      <civilian_female>4</civilian_female>
+    </row>
+    <row _id="row-pwbu~inva-fdfk" _uuid="00000000-0000-0000-61C7-6C032686A58C" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-pwbu~inva-fdfk">
+      <department>MOHEGAN TRIBAL</department>
+      <county>New London</county>
+      <total>29</total>
+      <sworn_male>26</sworn_male>
+      <sworn_female>2</sworn_female>
+      <civilian_male>0</civilian_male>
+      <civilian_female>1</civilian_female>
+    </row>
+    <row _id="row-yhdf_dfyn~wzs8" _uuid="00000000-0000-0000-3672-56F01436E4DD" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-yhdf_dfyn~wzs8">
+      <department>TOTAL</department>
+      <population>3588184</population>
+      <employee_rate_per_1000_pop>2.61</employee_rate_per_1000_pop>
+      <total>9380</total>
+      <sworn_male>7046</sworn_male>
+      <sworn_female>804</sworn_female>
+      <civilian_male>623</civilian_male>
+      <civilian_female>907</civilian_female>
+    </row>
+    <row _id="row-4d8z~wiir.v8if" _uuid="00000000-0000-0000-4E26-3E15417E1EB6" _position="0" _address="https://data.ct.gov/resource/tcgk-r7gt/row-4d8z~wiir.v8if">
+      <department>1 FBI provides these population numbers.</department>
+    </row>
+  </row>
+</response>

@@ -5,7 +5,6 @@ import tempfile
 import pandas as pd
 from pdfminer.high_level import extract_text
 
-from src.clients.database_client import DatabaseClient
 from src.clients.s3_client import S3Client
 from src.sources.xml_parser import XMLParser
 
@@ -20,14 +19,7 @@ class DataLoader:
         """Load the data, inferring the type."""
 
         remote_name = None
-        if isinstance(self.data_source, str) and isinstance(
-            self.client, DatabaseClient
-        ):
-            data = self.client.read_sql("SELECT * FROM %s" % self.data_source)
-            structured = True
-            name = self.data_source
-            return
-        elif isinstance(self.data_source, str) and isinstance(self.client, S3Client):
+        if isinstance(self.data_source, str) and isinstance(self.client, S3Client):
             remote_name = str(self.data_source)
             self._sync_s3_source()
         if isinstance(self.data_source, str) and self.data_source.endswith(".csv"):
