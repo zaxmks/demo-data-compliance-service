@@ -57,7 +57,7 @@ class UnstructuredFilter:
 
         for employee in db_matches:
             match = UnstructuredMatch()
-            if doc_input.ssn and int(employee.ssn) in doc_input.ssn:
+            if doc_input.ssn and employee.ssn in doc_input.ssn:
                 match.set_true(match.SSN)
 
             if (
