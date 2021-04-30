@@ -7,6 +7,7 @@ coverage==5.2.1
 dataclasses-json==0.5.2
 dvc==1.11.10
 editdistance==0.5.3
+factory-boy==3.2.0
 fastapi==0.63.0
 fastapi-utils
 
