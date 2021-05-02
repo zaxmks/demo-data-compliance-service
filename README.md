@@ -174,12 +174,12 @@ You can see a complete list of test configuration options using `--help`.
 
 #### Interactive Shell
 
-The `task test` script starts a Docker container in interactive mode and drops you into a bash
+The `task shell` script starts a Docker container in interactive mode and drops you into a bash
 prompt. This can be useful when using an interactive debugger to step through code.
 
 ```sh
 # run docker image in interactive bash shell
-$ task test
+task shell
 ```
 
 <!-- CONTRIBUTING -->
