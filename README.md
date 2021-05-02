@@ -113,7 +113,7 @@ brew install awscli
 
 1. Run your docker-compose setup.
 ```shell
-task test
+task build
 ```
 2. Pull down our `raw-data` repo, and run the following commands:
 ```shell
