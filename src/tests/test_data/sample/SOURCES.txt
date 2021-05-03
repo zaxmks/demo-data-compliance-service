@@ -1,0 +1,15 @@
+SOURCE: news_articles.csv
+URL: https://www.kaggle.com/snapcrack/all-the-news?select=articles1.csv
+DESCRIPTION: First 10 rows with data from 'articles1.csv'
+
+SOURCE: Michael B's sample PEOPLE.txt database + news article mentions
+URL: https://github.com/MKS2DesignLab/raw-data
+DESCRIPTION: 200 random selections from the people database and 50 manually-selected names mentioned in news_articles.csv
+
+SOURCE: Connecticut State Police Directory
+URL: https://data.ct.gov/resource/tcgk-r7gt/row-9d4y_apeb.s9kn
+DESCRIPTION: Demographic data for state police departments
+
+SOURCE: Fake Employee Database
+URL: https://www.devx.com/supportitems/showSupportItem.php?co=38898&supportitem=listing1
+DESCRIPTION: Fake employee database put together by an app development tutorial website (DevX)

@@ -1,0 +1,1515 @@
+{
+    "providerViews": [
+        {
+            "provider": "EFX",
+            "summary": {
+                "id": "report-002-EFX",
+                "reportGenerated": 1455166800000,
+                "creditFileSecurityFreezeFlag": false,
+                "reportType": "US_3B",
+                "provider": "EFX",
+                "subject": {
+                    "provider": "EFX",
+                    "currentName": {
+                        "lastName": "GUY",
+                        "firstName": "BAHD",
+                        "middleName": null,
+                        "suffix": null
+                    },
+                    "aliases": [],
+                    "currentAddress": null,
+                    "previousAddresses": [],
+                    "homePhone": null,
+                    "mobilePhone": null,
+                    "nationalIdentifier": "xxxxx 7000",
+                    "dateOfBirth": null,
+                    "dateOfDeath": null,
+                    "employmentHistory": []
+                },
+                "creditScore": {
+                    "score": 650,
+                    "provider": "EFX",
+                    "scoreRanges": [],
+                    "loanRiskRanges": [],
+                    "scoreReasons": [
+                        {
+                            "code": "00014",
+                            "description": "LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "00004",
+                            "description": "TOO MANY BANK OR NATIONAL REVOLVING ACCOUNTS",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "00005",
+                            "description": "TOO MANY ACCOUNTS WITH BALANCES",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "00032",
+                            "description": "LACK OF RECENT INSTALLMENT LOAN INFORMATION",
+                            "creditScoreFactorEffect": null
+                        }
+                    ]
+                },
+                "revolvingAccounts": {
+                    "balance": {
+                        "amount": 3000.0,
+                        "currency": "USD"
+                    },
+                    "creditLimit": {
+                        "amount": 6900.0,
+                        "currency": "USD"
+                    },
+                    "available": {
+                        "amount": 3900.0,
+                        "currency": "USD"
+                    },
+                    "monthlyPaymentAmount": {
+                        "amount": 2.0,
+                        "currency": "USD"
+                    },
+                    "debtToCreditRatio": 43.0,
+                    "totalAccounts": 1,
+                    "totalNegativeAccounts": 0,
+                    "totalAccountsWithBalance": 1
+                },
+                "mortgageAccounts": null,
+                "installmentAccounts": null,
+                "otherAccounts": null,
+                "totalOpenAccounts": {
+                    "balance": {
+                        "amount": 3000.0,
+                        "currency": "USD"
+                    },
+                    "creditLimit": {
+                        "amount": 6900.0,
+                        "currency": "USD"
+                    },
+                    "available": {
+                        "amount": 3900.0,
+                        "currency": "USD"
+                    },
+                    "monthlyPaymentAmount": {
+                        "amount": 2.0,
+                        "currency": "USD"
+                    },
+                    "debtToCreditRatio": 43.0,
+                    "totalAccounts": 1,
+                    "totalNegativeAccounts": 0,
+                    "totalAccountsWithBalance": 1
+                },
+                "lengthOfCreditHistoryMonths": 0,
+                "totalNegativeAccounts": 0,
+                "averageAccountAgeMonths": 156,
+                "oldestAccountOpenDate": 1044075600000,
+                "oldestAccountName": "BEARS",
+                "mostRecentAccountOpenDate": 1044075600000,
+                "mostRecentAccountName": "BEARS",
+                "totalConsumerStatements": 0,
+                "mostRecentInquiryDate": null,
+                "mostRecentInquiryName": null,
+                "totalPersonalInformation": 1,
+                "totalInquires": 0,
+                "totalPublicRecords": 0,
+                "totalCollections": 0,
+                "disputeInformation": {
+                    "contactName": "CONSUMER DIRECT 3N1",
+                    "address": {
+                        "country": {
+                            "code": "USA",
+                            "name": null
+                        },
+                        "line1": "1550 PEACHTREE ST",
+                        "line2": null,
+                        "line3": "ATLANTA",
+                        "line4": "GA",
+                        "line5": "30309",
+                        "firstReportedDate": null,
+                        "lastReportedDate": null,
+                        "phone": null
+                    },
+                    "phone": {
+                        "countryCode": "1",
+                        "areaCode": "866",
+                        "exchange": "429",
+                        "extension": "2824"
+                    }
+                }
+            },
+            "revolvingAccounts": [
+                {
+                    "provider": "EFX",
+                    "id": "1528326",
+                    "accountOpen": true,
+                    "accountName": "BEARS",
+                    "contactInformation": {
+                        "contactName": "BEARS",
+                        "address": {
+                            "country": {
+                                "code": "USA",
+                                "name": null
+                            },
+                            "line1": "8725 W. SAHARA AVE MC 02 02 03",
+                            "line2": null,
+                            "line3": "THE LAKES",
+                            "line4": "NV",
+                            "line5": "89163",
+                            "firstReportedDate": null,
+                            "lastReportedDate": null,
+                            "phone": null
+                        },
+                        "phone": null
+                    },
+                    "accountNumber": "xxxxxxxxxxxx 4453",
+                    "accountStatus": "PAYS_AS_AGREED",
+                    "paymentResponsibility": "INDIVIDUAL",
+                    "highCreditAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "accountType": "REVOLVING",
+                    "creditLimitAmount": {
+                        "amount": 6900.0,
+                        "currency": "USD"
+                    },
+                    "termDurationMonths": 0,
+                    "termFrequency": null,
+                    "dateOpened": 1044075600000,
+                    "balanceAmount": {
+                        "amount": 3000.0,
+                        "currency": "USD"
+                    },
+                    "reportedDate": 1049173200000,
+                    "pastDueAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastPaymentDate": null,
+                    "actualPayment": null,
+                    "monthlyPayment": {
+                        "amount": 2.0,
+                        "currency": "USD"
+                    },
+                    "lastActivityDate": 1049173200000,
+                    "majorDelinquencyFirstReportedDate": null,
+                    "monthsReviewed": 2,
+                    "creditorClassification": "BANKING",
+                    "activityDesignator": "OPEN",
+                    "chargeOffAmount": null,
+                    "deferredPaymentStartDate": null,
+                    "balloonPaymentAmount": null,
+                    "balloonPaymentDate": null,
+                    "dateClosed": null,
+                    "loanType": {
+                        "code": "CreditCard",
+                        "description": "CREDITCARD"
+                    },
+                    "firstDelinquencyDate": null,
+                    "comments": [
+                        {
+                            "code": "CREDIT CARD",
+                            "description": "CREDIT CARD"
+                        },
+                        {
+                            "code": "AMT IN HIGH CREDIT IS CREDIT LIMIT",
+                            "description": "AMT IN HIGH CREDIT IS CREDIT LIMIT"
+                        }
+                    ],
+                    "paymentHistory": [],
+                    "trendedDataHistory": {
+                        "name": null,
+                        "trendedDataList": null
+                    },
+                    "isNegative": false
+                }
+            ],
+            "mortgageAccounts": [],
+            "installmentAccounts": [],
+            "otherAccounts": [],
+            "inquiries": [],
+            "consumerStatements": [],
+            "publicRecords": null,
+            "collections": []
+        },
+        {
+            "provider": "EXP",
+            "summary": {
+                "id": "report-002-EXP",
+                "reportGenerated": 1455166800000,
+                "creditFileSecurityFreezeFlag": false,
+                "reportType": "US_3B",
+                "provider": "EXP",
+                "subject": {
+                    "provider": "EXP",
+                    "currentName": {
+                        "lastName": "GUY",
+                        "firstName": "BAHD",
+                        "middleName": null,
+                        "suffix": null
+                    },
+                    "aliases": [],
+                    "currentAddress": null,
+                    "previousAddresses": [],
+                    "homePhone": null,
+                    "mobilePhone": null,
+                    "nationalIdentifier": "xxxxx 3412",
+                    "dateOfBirth": null,
+                    "dateOfDeath": null,
+                    "employmentHistory": []
+                },
+                "creditScore": {
+                    "score": 620,
+                    "provider": "EXP",
+                    "scoreRanges": [],
+                    "loanRiskRanges": [],
+                    "scoreReasons": [
+                        {
+                            "code": "40",
+                            "description": "DEROGATORY PUBLIC RECORD OR COLLECTION FILED ",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "33",
+                            "description": "PROPORTION OF LOAN BALANCES TO LOAN AMOUNTS IS TOO HIGH ",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "14",
+                            "description": "LENGTH OF TIME ACCOUNTS HAVE BEEN ESTABLISHED ",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "20",
+                            "description": "TIME SINCE DEROGATORY PUBLIC RECORD OR COLLECTION IS TOO SHORT",
+                            "creditScoreFactorEffect": null
+                        }
+                    ]
+                },
+                "revolvingAccounts": null,
+                "mortgageAccounts": null,
+                "installmentAccounts": {
+                    "balance": {
+                        "amount": 3763.0,
+                        "currency": "USD"
+                    },
+                    "creditLimit": {
+                        "amount": 3763.0,
+                        "currency": "USD"
+                    },
+                    "available": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "monthlyPaymentAmount": {
+                        "amount": 112.0,
+                        "currency": "USD"
+                    },
+                    "debtToCreditRatio": 100.0,
+                    "totalAccounts": 2,
+                    "totalNegativeAccounts": 0,
+                    "totalAccountsWithBalance": 2
+                },
+                "otherAccounts": null,
+                "totalOpenAccounts": {
+                    "balance": {
+                        "amount": 3763.0,
+                        "currency": "USD"
+                    },
+                    "creditLimit": {
+                        "amount": 3763.0,
+                        "currency": "USD"
+                    },
+                    "available": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "monthlyPaymentAmount": {
+                        "amount": 112.0,
+                        "currency": "USD"
+                    },
+                    "debtToCreditRatio": 100.0,
+                    "totalAccounts": 2,
+                    "totalNegativeAccounts": 0,
+                    "totalAccountsWithBalance": 2
+                },
+                "lengthOfCreditHistoryMonths": 0,
+                "totalNegativeAccounts": 0,
+                "averageAccountAgeMonths": 189,
+                "oldestAccountOpenDate": 949381200000,
+                "oldestAccountName": "AMERICAN AGENCIES",
+                "mostRecentAccountOpenDate": 962424000000,
+                "mostRecentAccountName": "NCSC-EC HOME",
+                "totalConsumerStatements": 0,
+                "mostRecentInquiryDate": null,
+                "mostRecentInquiryName": null,
+                "totalPersonalInformation": 1,
+                "totalInquires": 0,
+                "totalPublicRecords": 6,
+                "totalCollections": 1,
+                "disputeInformation": {
+                    "contactName": "CONSUMER DIRECT 3N1",
+                    "address": {
+                        "country": {
+                            "code": "USA",
+                            "name": null
+                        },
+                        "line1": "1550 PEACHTREE ST",
+                        "line2": null,
+                        "line3": "ATLANTA",
+                        "line4": "GA",
+                        "line5": "30309",
+                        "firstReportedDate": null,
+                        "lastReportedDate": null,
+                        "phone": null
+                    },
+                    "phone": {
+                        "countryCode": "1",
+                        "areaCode": "866",
+                        "exchange": "429",
+                        "extension": "2824"
+                    }
+                }
+            },
+            "revolvingAccounts": [],
+            "mortgageAccounts": [],
+            "installmentAccounts": [
+                {
+                    "provider": "EXP",
+                    "id": "1558667",
+                    "accountOpen": true,
+                    "accountName": "AMERICAN AGENCIES",
+                    "contactInformation": {
+                        "contactName": "AMERICAN AGENCIES",
+                        "address": {
+                            "country": {
+                                "code": "USA",
+                                "name": null
+                            },
+                            "line1": "230 S EUCLID ST",
+                            "line2": null,
+                            "line3": "ANAHEIM",
+                            "line4": "CA",
+                            "line5": "92802",
+                            "firstReportedDate": null,
+                            "lastReportedDate": null,
+                            "phone": null
+                        },
+                        "phone": {
+                            "countryCode": "1",
+                            "areaCode": "714",
+                            "exchange": "491",
+                            "extension": "3400"
+                        }
+                    },
+                    "accountNumber": "xxxxx 52",
+                    "accountStatus": "COLLECTION",
+                    "paymentResponsibility": "INDIVIDUAL",
+                    "highCreditAmount": {
+                        "amount": 413.0,
+                        "currency": "USD"
+                    },
+                    "accountType": "INSTALLMENT",
+                    "creditLimitAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "termDurationMonths": 0,
+                    "termFrequency": null,
+                    "dateOpened": 949381200000,
+                    "balanceAmount": {
+                        "amount": 413.0,
+                        "currency": "USD"
+                    },
+                    "reportedDate": 973054800000,
+                    "pastDueAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastPaymentDate": null,
+                    "actualPayment": null,
+                    "monthlyPayment": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastActivityDate": null,
+                    "majorDelinquencyFirstReportedDate": null,
+                    "monthsReviewed": 11,
+                    "creditorClassification": "COLLECTION_SERVICES",
+                    "activityDesignator": "OPEN",
+                    "chargeOffAmount": {
+                        "amount": 413.0,
+                        "currency": "USD"
+                    },
+                    "deferredPaymentStartDate": null,
+                    "balloonPaymentAmount": null,
+                    "balloonPaymentDate": null,
+                    "dateClosed": null,
+                    "loanType": {
+                        "code": "CollectionAttorney",
+                        "description": "COLLECTIONATTORNEY"
+                    },
+                    "firstDelinquencyDate": null,
+                    "comments": [
+                        {
+                            "code": "ORIGINAL CREDITOR: PACIFIC BELL / HISPA7144913400",
+                            "description": "ORIGINAL CREDITOR: PACIFIC BELL / HISPA7144913400"
+                        },
+                        {
+                            "code": "COLLECTION ACCOUNT",
+                            "description": "COLLECTION ACCOUNT"
+                        },
+                        {
+                            "code": "LAST PAID:",
+                            "description": "LAST PAID:"
+                        }
+                    ],
+                    "paymentHistory": [
+                        {
+                            "year": 2000,
+                            "january": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "february": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "march": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "april": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "may": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "june": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "july": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "august": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "september": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "october": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "november": {
+                                "monthType": "COLLECTION_CHARGEOFF",
+                                "value": "COLLECTION_CHARGEOFF"
+                            },
+                            "december": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            }
+                        },
+                        {
+                            "year": 2001,
+                            "january": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "february": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "march": {
+                                "monthType": "COLLECTION_CHARGEOFF",
+                                "value": "COLLECTION_CHARGEOFF"
+                            },
+                            "april": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "may": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "june": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "july": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "august": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "september": {
+                                "monthType": "COLLECTION_CHARGEOFF",
+                                "value": "COLLECTION_CHARGEOFF"
+                            },
+                            "october": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "november": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "december": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            }
+                        }
+                    ],
+                    "trendedDataHistory": {
+                        "name": null,
+                        "trendedDataList": null
+                    },
+                    "isNegative": false
+                },
+                {
+                    "provider": "EXP",
+                    "id": "1588458",
+                    "accountOpen": true,
+                    "accountName": "NCSC-EC HOME",
+                    "contactInformation": {
+                        "contactName": "NCSC-EC HOME",
+                        "address": {
+                            "country": {
+                                "code": "USA",
+                                "name": null
+                            },
+                            "line1": "PO BOX 2898",
+                            "line2": null,
+                            "line3": "PITTSBURGH",
+                            "line4": "PA",
+                            "line5": "15230",
+                            "firstReportedDate": null,
+                            "lastReportedDate": null,
+                            "phone": null
+                        },
+                        "phone": {
+                            "countryCode": "1",
+                            "areaCode": "BYM",
+                            "exchange": "AIL",
+                            "extension": "ONLY"
+                        }
+                    },
+                    "accountNumber": "xxxxxxxxxxxx 9940",
+                    "accountStatus": "PAYS_AS_AGREED",
+                    "paymentResponsibility": "INDIVIDUAL",
+                    "highCreditAmount": {
+                        "amount": 3350.0,
+                        "currency": "USD"
+                    },
+                    "accountType": "INSTALLMENT",
+                    "creditLimitAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "termDurationMonths": 36,
+                    "termFrequency": null,
+                    "dateOpened": 962424000000,
+                    "balanceAmount": {
+                        "amount": 3350.0,
+                        "currency": "USD"
+                    },
+                    "reportedDate": 965102400000,
+                    "pastDueAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastPaymentDate": null,
+                    "actualPayment": null,
+                    "monthlyPayment": {
+                        "amount": 112.0,
+                        "currency": "USD"
+                    },
+                    "lastActivityDate": null,
+                    "majorDelinquencyFirstReportedDate": null,
+                    "monthsReviewed": 1,
+                    "creditorClassification": "BANKING",
+                    "activityDesignator": "OPEN",
+                    "chargeOffAmount": null,
+                    "deferredPaymentStartDate": null,
+                    "balloonPaymentAmount": null,
+                    "balloonPaymentDate": null,
+                    "dateClosed": null,
+                    "loanType": {
+                        "code": "Unsecured",
+                        "description": "UNSECURED"
+                    },
+                    "firstDelinquencyDate": null,
+                    "comments": [
+                        {
+                            "code": "OPEN",
+                            "description": "OPEN"
+                        },
+                        {
+                            "code": "CURRENT ACCOUNT",
+                            "description": "CURRENT ACCOUNT"
+                        },
+                        {
+                            "code": "LAST PAID:",
+                            "description": "LAST PAID:"
+                        }
+                    ],
+                    "paymentHistory": [
+                        {
+                            "year": 2000,
+                            "january": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "february": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "march": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "april": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "may": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "june": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "july": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "august": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "september": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "october": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "november": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "december": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            }
+                        }
+                    ],
+                    "trendedDataHistory": {
+                        "name": null,
+                        "trendedDataList": null
+                    },
+                    "isNegative": false
+                }
+            ],
+            "otherAccounts": [],
+            "inquiries": [],
+            "consumerStatements": [],
+            "publicRecords": {
+                "provider": "EXP",
+                "bankruptcies": [
+                    {
+                        "id": null,
+                        "filedDate": 1423630800000,
+                        "reportedDate": null,
+                        "referenceNumber": "1000",
+                        "dispositionStatus": {
+                            "code": "Adjudicated",
+                            "description": "ADJUDICATED"
+                        },
+                        "courtName": "Gwinnett Court",
+                        "liability": null,
+                        "exemptAmount": {
+                            "amount": 50000.0,
+                            "currency": "USD"
+                        },
+                        "assetAmount": {
+                            "amount": 100000.0,
+                            "currency": "USD"
+                        }
+                    },
+                    {
+                        "id": null,
+                        "filedDate": 1392094800000,
+                        "reportedDate": null,
+                        "referenceNumber": "1001",
+                        "dispositionStatus": {
+                            "code": "Appealed",
+                            "description": "APPEALED"
+                        },
+                        "courtName": "Gwinnett Court",
+                        "liability": {
+                            "amount": 50000.0,
+                            "currency": "USD"
+                        },
+                        "exemptAmount": {
+                            "amount": 200000.0,
+                            "currency": "USD"
+                        },
+                        "assetAmount": null
+                    }
+                ],
+                "judgments": [
+                    {
+                        "id": null,
+                        "filedDate": null,
+                        "reportedDate": null,
+                        "courtName": "Forsyth county court",
+                        "defendant": "Jason Fayling",
+                        "amount": {
+                            "amount": 5000.0,
+                            "currency": "USD"
+                        },
+                        "caseDocumentNumber": "3001",
+                        "plaintiff": "Tim Begin",
+                        "verifiedDate": null,
+                        "status": {
+                            "code": "DISMISSED",
+                            "description": "Unresolved message: 'DISMISSED' in resouce bundle resolver: locale/creditReportBankruptcyDispositionStatusDescription"
+                        },
+                        "satisfiedDate": 1423630800000
+                    },
+                    {
+                        "id": null,
+                        "filedDate": null,
+                        "reportedDate": null,
+                        "courtName": "Forsyth county court",
+                        "defendant": "Jason Fayling",
+                        "amount": {
+                            "amount": 10000.0,
+                            "currency": "USD"
+                        },
+                        "caseDocumentNumber": "3002",
+                        "plaintiff": "Tim Begin",
+                        "verifiedDate": null,
+                        "status": {
+                            "code": "SETTLED",
+                            "description": "Unresolved message: 'SETTLED' in resouce bundle resolver: locale/creditReportBankruptcyDispositionStatusDescription"
+                        },
+                        "satisfiedDate": 1452488400000
+                    }
+                ],
+                "liens": [
+                    {
+                        "id": null,
+                        "filedDate": null,
+                        "reportedDate": null,
+                        "courtName": "Fulton county court",
+                        "caseDocumentNumber": "2000",
+                        "lienAmount": {
+                            "amount": 20000.0,
+                            "currency": "USD"
+                        },
+                        "verifiedDate": null,
+                        "status": "Paid"
+                    },
+                    {
+                        "id": null,
+                        "filedDate": null,
+                        "reportedDate": null,
+                        "courtName": "Fulton county court",
+                        "caseDocumentNumber": "2001",
+                        "lienAmount": {
+                            "amount": 30000.0,
+                            "currency": "USD"
+                        },
+                        "verifiedDate": null,
+                        "status": "Dismissed"
+                    }
+                ]
+            },
+            "collections": [
+                {
+                    "provider": "EXP",
+                    "id": "TRD0000",
+                    "reportedDate": 973054800000,
+                    "assignedDate": 949381200000,
+                    "agencyClient": "AMERICAN AGENCIES",
+                    "orginalAmountOwed": null,
+                    "accountNumber": "xxxxx 52",
+                    "accountDesignatorCode": "INDIVIDUAL_ACCOUNT",
+                    "balanceDate": 973054800000,
+                    "statusDate": 973054800000,
+                    "status": "OPEN",
+                    "amount": {
+                        "amount": 413.0,
+                        "currency": "USD"
+                    }
+                }
+            ]
+        },
+        {
+            "provider": "TU",
+            "summary": {
+                "id": "report-002-TU",
+                "reportGenerated": 1455166800000,
+                "creditFileSecurityFreezeFlag": false,
+                "reportType": "US_3B",
+                "provider": "TU",
+                "subject": {
+                    "provider": "TU",
+                    "currentName": {
+                        "lastName": "GUY",
+                        "firstName": "BAHD",
+                        "middleName": null,
+                        "suffix": null
+                    },
+                    "aliases": [],
+                    "currentAddress": null,
+                    "previousAddresses": [],
+                    "homePhone": null,
+                    "mobilePhone": null,
+                    "nationalIdentifier": "xxxxx 7000",
+                    "dateOfBirth": -328824000000,
+                    "dateOfDeath": null,
+                    "employmentHistory": []
+                },
+                "creditScore": {
+                    "score": 639,
+                    "provider": "TU",
+                    "scoreRanges": [],
+                    "loanRiskRanges": [],
+                    "scoreReasons": [
+                        {
+                            "code": "012",
+                            "description": "LENGTH OF TIME REVOLVING ACCOUNTS HAVE BEEN ESTABLISHED",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "029",
+                            "description": "NO RECENT BANKCARD BALANCES",
+                            "creditScoreFactorEffect": null
+                        },
+                        {
+                            "code": "005",
+                            "description": "TOO MANY ACCOUNTS WITH BALANCES",
+                            "creditScoreFactorEffect": null
+                        }
+                    ]
+                },
+                "revolvingAccounts": {
+                    "balance": {
+                        "amount": 3000.0,
+                        "currency": "USD"
+                    },
+                    "creditLimit": {
+                        "amount": 5400.0,
+                        "currency": "USD"
+                    },
+                    "available": {
+                        "amount": 2400.0,
+                        "currency": "USD"
+                    },
+                    "monthlyPaymentAmount": {
+                        "amount": 1500.0,
+                        "currency": "USD"
+                    },
+                    "debtToCreditRatio": 56.0,
+                    "totalAccounts": 1,
+                    "totalNegativeAccounts": 0,
+                    "totalAccountsWithBalance": 1
+                },
+                "mortgageAccounts": null,
+                "installmentAccounts": null,
+                "otherAccounts": null,
+                "totalOpenAccounts": {
+                    "balance": {
+                        "amount": 3000.0,
+                        "currency": "USD"
+                    },
+                    "creditLimit": {
+                        "amount": 5400.0,
+                        "currency": "USD"
+                    },
+                    "available": {
+                        "amount": 2400.0,
+                        "currency": "USD"
+                    },
+                    "monthlyPaymentAmount": {
+                        "amount": 1500.0,
+                        "currency": "USD"
+                    },
+                    "debtToCreditRatio": 56.0,
+                    "totalAccounts": 1,
+                    "totalNegativeAccounts": 0,
+                    "totalAccountsWithBalance": 1
+                },
+                "lengthOfCreditHistoryMonths": 0,
+                "totalNegativeAccounts": 0,
+                "averageAccountAgeMonths": 267,
+                "oldestAccountOpenDate": 752130000000,
+                "oldestAccountName": "CITI",
+                "mostRecentAccountOpenDate": 752130000000,
+                "mostRecentAccountName": "CITI",
+                "totalConsumerStatements": 0,
+                "mostRecentInquiryDate": null,
+                "mostRecentInquiryName": null,
+                "totalPersonalInformation": 1,
+                "totalInquires": 0,
+                "totalPublicRecords": 0,
+                "totalCollections": 0,
+                "disputeInformation": {
+                    "contactName": "CONSUMER DIRECT 3N1",
+                    "address": {
+                        "country": {
+                            "code": "USA",
+                            "name": null
+                        },
+                        "line1": "1550 PEACHTREE ST",
+                        "line2": null,
+                        "line3": "ATLANTA",
+                        "line4": "GA",
+                        "line5": "30309",
+                        "firstReportedDate": null,
+                        "lastReportedDate": null,
+                        "phone": null
+                    },
+                    "phone": {
+                        "countryCode": "1",
+                        "areaCode": "866",
+                        "exchange": "429",
+                        "extension": "2824"
+                    }
+                }
+            },
+            "revolvingAccounts": [
+                {
+                    "provider": "TU",
+                    "id": "54583",
+                    "accountOpen": false,
+                    "accountName": "BURDIN/FDSB",
+                    "contactInformation": {
+                        "contactName": "BURDIN/FDSB",
+                        "address": {
+                            "country": {
+                                "code": "USA",
+                                "name": null
+                            },
+                            "line1": "9111 DUKE BLVD",
+                            "line2": null,
+                            "line3": "MASON",
+                            "line4": "OH",
+                            "line5": "45040",
+                            "firstReportedDate": null,
+                            "lastReportedDate": null,
+                            "phone": null
+                        },
+                        "phone": {
+                            "countryCode": "1",
+                            "areaCode": "800",
+                            "exchange": "284",
+                            "extension": "7049"
+                        }
+                    },
+                    "accountNumber": "xxxxxx 4304",
+                    "accountStatus": "PAYS_AS_AGREED",
+                    "paymentResponsibility": "INDIVIDUAL",
+                    "highCreditAmount": {
+                        "amount": 1500.0,
+                        "currency": "USD"
+                    },
+                    "accountType": "REVOLVING",
+                    "creditLimitAmount": {
+                        "amount": 1500.0,
+                        "currency": "USD"
+                    },
+                    "termDurationMonths": 0,
+                    "termFrequency": "MIN",
+                    "dateOpened": 991368000000,
+                    "balanceAmount": {
+                        "amount": 141.0,
+                        "currency": "USD"
+                    },
+                    "reportedDate": 1046494800000,
+                    "pastDueAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastPaymentDate": null,
+                    "actualPayment": null,
+                    "monthlyPayment": {
+                        "amount": 5.0,
+                        "currency": "USD"
+                    },
+                    "lastActivityDate": 1046494800000,
+                    "majorDelinquencyFirstReportedDate": null,
+                    "monthsReviewed": 9,
+                    "creditorClassification": "DEPARTMENT_AND_MAIL_ORDER",
+                    "activityDesignator": "CLOSED",
+                    "chargeOffAmount": null,
+                    "deferredPaymentStartDate": null,
+                    "balloonPaymentAmount": null,
+                    "balloonPaymentDate": null,
+                    "dateClosed": null,
+                    "loanType": {
+                        "code": "ChargeAccount",
+                        "description": "CHARGEACCOUNT"
+                    },
+                    "firstDelinquencyDate": null,
+                    "comments": [],
+                    "paymentHistory": [
+                        {
+                            "year": 2003,
+                            "january": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "february": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "march": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "april": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "may": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "june": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "july": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "august": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "september": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "october": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "november": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "december": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            }
+                        }
+                    ],
+                    "trendedDataHistory": {
+                        "name": null,
+                        "trendedDataList": null
+                    },
+                    "isNegative": false
+                },
+                {
+                    "provider": "TU",
+                    "id": "52661",
+                    "accountOpen": false,
+                    "accountName": "WITCHES",
+                    "contactInformation": {
+                        "contactName": "WITCHES",
+                        "address": {
+                            "country": {
+                                "code": "USA",
+                                "name": null
+                            },
+                            "line1": "9111 DUKE BLVD",
+                            "line2": null,
+                            "line3": "MASON",
+                            "line4": "OH",
+                            "line5": "45040",
+                            "firstReportedDate": null,
+                            "lastReportedDate": null,
+                            "phone": null
+                        },
+                        "phone": {
+                            "countryCode": "1",
+                            "areaCode": "800",
+                            "exchange": "284",
+                            "extension": "7049"
+                        }
+                    },
+                    "accountNumber": "xxxxxxxx 4567",
+                    "accountStatus": "PAYS_AS_AGREED",
+                    "paymentResponsibility": "INDIVIDUAL",
+                    "highCreditAmount": {
+                        "amount": 500.0,
+                        "currency": "USD"
+                    },
+                    "accountType": "REVOLVING",
+                    "creditLimitAmount": {
+                        "amount": 500.0,
+                        "currency": "USD"
+                    },
+                    "termDurationMonths": 0,
+                    "termFrequency": null,
+                    "dateOpened": 1041397200000,
+                    "balanceAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "reportedDate": 1049173200000,
+                    "pastDueAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastPaymentDate": null,
+                    "actualPayment": null,
+                    "monthlyPayment": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastActivityDate": 1049173200000,
+                    "majorDelinquencyFirstReportedDate": null,
+                    "monthsReviewed": 3,
+                    "creditorClassification": "DEPARTMENT_AND_MAIL_ORDER",
+                    "activityDesignator": "CLOSED",
+                    "chargeOffAmount": null,
+                    "deferredPaymentStartDate": null,
+                    "balloonPaymentAmount": null,
+                    "balloonPaymentDate": null,
+                    "dateClosed": null,
+                    "loanType": {
+                        "code": "ChargeAccount",
+                        "description": "CHARGEACCOUNT"
+                    },
+                    "firstDelinquencyDate": null,
+                    "comments": [
+                        {
+                            "code": "COLLATERAL: BRCL3C DL1532",
+                            "description": "COLLATERAL: BRCL3C DL1532"
+                        }
+                    ],
+                    "paymentHistory": [],
+                    "trendedDataHistory": {
+                        "name": null,
+                        "trendedDataList": null
+                    },
+                    "isNegative": false
+                },
+                {
+                    "provider": "TU",
+                    "id": "53622",
+                    "accountOpen": true,
+                    "accountName": "CITI",
+                    "contactInformation": {
+                        "contactName": "CITI",
+                        "address": {
+                            "country": {
+                                "code": "USA",
+                                "name": null
+                            },
+                            "line1": "POB 6241",
+                            "line2": null,
+                            "line3": "SIOUX FALLS",
+                            "line4": "SD",
+                            "line5": "57117",
+                            "firstReportedDate": null,
+                            "lastReportedDate": null,
+                            "phone": null
+                        },
+                        "phone": {
+                            "countryCode": "1",
+                            "areaCode": "800",
+                            "exchange": "843",
+                            "extension": "0777"
+                        }
+                    },
+                    "accountNumber": "xxxxxxxx 3041",
+                    "accountStatus": "PAYS_AS_AGREED",
+                    "paymentResponsibility": "INDIVIDUAL",
+                    "highCreditAmount": {
+                        "amount": 5400.0,
+                        "currency": "USD"
+                    },
+                    "accountType": "REVOLVING",
+                    "creditLimitAmount": {
+                        "amount": 5400.0,
+                        "currency": "USD"
+                    },
+                    "termDurationMonths": 2,
+                    "termFrequency": null,
+                    "dateOpened": 752130000000,
+                    "balanceAmount": {
+                        "amount": 3000.0,
+                        "currency": "USD"
+                    },
+                    "reportedDate": 1049173200000,
+                    "pastDueAmount": {
+                        "amount": 0.0,
+                        "currency": "USD"
+                    },
+                    "lastPaymentDate": null,
+                    "actualPayment": null,
+                    "monthlyPayment": {
+                        "amount": 1500.0,
+                        "currency": "USD"
+                    },
+                    "lastActivityDate": 1049173200000,
+                    "majorDelinquencyFirstReportedDate": null,
+                    "monthsReviewed": 48,
+                    "creditorClassification": "BANKING",
+                    "activityDesignator": "OPEN",
+                    "chargeOffAmount": null,
+                    "deferredPaymentStartDate": null,
+                    "balloonPaymentAmount": null,
+                    "balloonPaymentDate": null,
+                    "dateClosed": null,
+                    "loanType": {
+                        "code": "CreditCard",
+                        "description": "CREDITCARD"
+                    },
+                    "firstDelinquencyDate": null,
+                    "comments": [],
+                    "paymentHistory": [
+                        {
+                            "year": 2003,
+                            "january": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "february": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "march": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            },
+                            "april": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "may": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "june": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "july": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "august": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "september": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "october": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "november": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "december": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            }
+                        },
+                        {
+                            "year": 2004,
+                            "january": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "february": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "march": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "april": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "may": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "june": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "july": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "august": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "september": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "october": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "november": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "december": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            }
+                        },
+                        {
+                            "year": 2005,
+                            "january": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "february": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "march": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "april": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "may": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "june": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "july": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "august": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "september": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "october": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "november": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "december": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            }
+                        },
+                        {
+                            "year": 2006,
+                            "january": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "february": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "march": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "april": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "may": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "june": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "july": {
+                                "monthType": "NO_DATA",
+                                "value": "NOT_REPORTED"
+                            },
+                            "august": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "september": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "october": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "november": {
+                                "monthType": "POSITIVE",
+                                "value": "PAYS_AS_AGREED"
+                            },
+                            "december": {
+                                "monthType": "NO_DATA",
+                                "value": "UNAVAILABLE"
+                            }
+                        }
+                    ],
+                    "trendedDataHistory": {
+                        "name": null,
+                        "trendedDataList": null
+                    },
+                    "isNegative": false
+                }
+            ],
+            "mortgageAccounts": [],
+            "installmentAccounts": [],
+            "otherAccounts": [],
+            "inquiries": [],
+            "consumerStatements": [],
+            "publicRecords": null,
+            "collections": []
+        }
+    ],
+    "id": "bahdguy-3B-002",
+    "reportType": "US_3B",
+    "generatedDate": 1455166800000
+}
