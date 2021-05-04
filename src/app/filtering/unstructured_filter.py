@@ -1,6 +1,7 @@
 import pandas as pd
 import logging
 import ast
+from datetime import datetime
 
 from src.core.db.models.pdf_models import UnstructuredDocument
 from src.core.db.models.main_models import Employee
@@ -45,6 +46,16 @@ class UnstructuredFilter:
             ast.literal_eval(str(doc_input.zipCode)) if doc_input.zipCode else None
         )
 
+        self._format_ssn(doc_input)
+
+    def _format_ssn(self, doc_input):
+        doc_input.ssn = [str(item) for item in doc_input.ssn]
+
+    def _format_dob(self, doc_input):
+        doc_input.dateOfBirth = [
+            datetime.strptime(item, "%m/%d/%Y").date() for item in doc_input.dateOfBirth
+        ]
+
     def _extract_individuals(self, doc_input):
         db_matches = self._get_name_matches(doc_input)
         keys = Employee.__table__.columns.keys()
@@ -57,12 +68,13 @@ class UnstructuredFilter:
 
         for employee in db_matches:
             match = UnstructuredMatch()
-            if doc_input.ssn and int(employee.ssn) in doc_input.ssn:
+            if doc_input.ssn and str(employee.ssn) in doc_input.ssn:
                 match.set_true(match.SSN)
 
             if (
                 doc_input.dateOfBirth
-                and employee.date_of_birth in doc_input.dateOfBirth
+                and datetime.strftime(employee.date_of_birth, "%m/%d/%Y")
+                in doc_input.dateOfBirth,
             ):
                 match.set_true(match.DATE_OF_BIRTH)
 
