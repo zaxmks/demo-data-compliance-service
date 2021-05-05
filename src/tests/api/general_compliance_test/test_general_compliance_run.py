@@ -1,6 +1,7 @@
 import re
 import logging
 import pytest
+import datetime
 
 import requests_mock
 from fastapi.testclient import TestClient
@@ -67,3 +68,7 @@ class GeneralComplianceTest(DbTestCase):
         assert employee.first_name == "Jacqueline"
         assert employee.last_name == "Baranov"
         assert employee.ssn == "761870877"
+        assert (
+            employee.date_of_birth
+            == datetime.datetime(year=1971, month=1, day=29).date()
+        )
