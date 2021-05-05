@@ -49,7 +49,8 @@ class UnstructuredFilter:
         self._format_ssn(doc_input)
 
     def _format_ssn(self, doc_input):
-        doc_input.ssn = [str(item) for item in doc_input.ssn]
+        if doc_input.ssn:
+            doc_input.ssn = [str(item) for item in doc_input.ssn]
 
     def _format_dob(self, doc_input):
         doc_input.dateOfBirth = [
