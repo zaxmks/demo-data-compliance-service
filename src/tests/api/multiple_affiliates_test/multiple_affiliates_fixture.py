@@ -21,7 +21,7 @@ def setup_pdf_seed_data(pdf_db_session):
         unstructured = UnstructuredDocument(
             id="8833fee8-ec15-4829-8d0d-fc7cf4206429",
             name=json.dumps(["Diane", "Meier", "Samantha", "Young"]),
-            ssn=json.dumps([686280445, 195501688]),
+            ssn=json.dumps(["686280445", "195501688"]),
             text="raw text",
             ingestion_event_id="99b8d772-c0a4-42ac-9bff-fe4409495988",
         )
