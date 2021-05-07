@@ -282,8 +282,6 @@ class Compliance:
             people_match_df.index = range(people_match_df.shape[0])
             if len(people_match_df) > 0:
                 f_vals_list = people_match_df.to_dict(orient="records")
-                logging.info("88888 peopleeeeiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-                logging.info(people_match_df.head())
                 ds = DataSource(people_match_df)
                 ds.column_relations = self.unstructured_column_relations
                 ds.map_rows_to(
