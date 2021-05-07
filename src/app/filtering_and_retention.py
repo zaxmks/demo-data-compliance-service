@@ -129,8 +129,8 @@ class Compliance:
             rows["employee_id"].append(target_row.id)
             rows["first_name"].append(source_row.first_name)
             rows["last_name"].append(source_row.last_name)
-            rows["confidence"] = relation.confidence
-            rows["explanation"] = relation.match_description
+            rows["confidence"].append(relation.confidence)
+            rows["explanation"].append(relation.match_description)
         return DataFrame(rows)
 
     @staticmethod
