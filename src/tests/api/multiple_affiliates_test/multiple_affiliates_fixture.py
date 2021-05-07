@@ -22,6 +22,7 @@ def setup_pdf_seed_data(pdf_db_session):
             id="8833fee8-ec15-4829-8d0d-fc7cf4206429",
             name=json.dumps(["Diane", "Meier", "Samantha", "Young"]),
             ssn=json.dumps(["686280445", "195501688"]),
+            dateOfBirth=json.dumps(["02/28/2057", "07/13/1981"]),
             text="raw text",
             ingestion_event_id="99b8d772-c0a4-42ac-9bff-fe4409495988",
         )
@@ -45,13 +46,13 @@ def setup_main_seed_data(main_db_session):
             first_name="Diane",
             last_name="Meier",
             ssn="686280445",
-            date_of_birth="2/28/2057",
+            date_of_birth="02/28/2057",
         )
         employee2 = Employee(
             first_name="Samantha",
             last_name="Young",
             ssn="195501688",
-            date_of_birth="7/13/1980",
+            date_of_birth="07/13/1980",
         )
         document_type = DocumentType(
             id="b08ce4d2-9bc8-4975-af86-7e939c1493bb", name="UNKNOWN"

@@ -72,10 +72,9 @@ class UnstructuredFilter:
             if doc_input.ssn and str(employee.ssn) in doc_input.ssn:
                 match.set_true(match.SSN)
 
-            if (
-                doc_input.dateOfBirth
-                and datetime.strftime(employee.date_of_birth, "%m/%d/%Y")
-                in doc_input.dateOfBirth,
+            if doc_input.dateOfBirth and self._date_in_list(
+                datetime.strftime(employee.date_of_birth, "%m/%d/%Y"),
+                doc_input.dateOfBirth,
             ):
                 match.set_true(match.DATE_OF_BIRTH)
 
@@ -89,19 +88,23 @@ class UnstructuredFilter:
                 for key, val in employee_dict.items():
                     if match.is_match(key):
                         valid_employee_dict[key] = val
-
-                individual_df = individual_df.append(
-                    pd.DataFrame.from_records([valid_employee_dict])
-                )
-                individual_df = individual_df.where(pd.notnull(individual_df), None)
-
+                new_df = pd.DataFrame.from_records([valid_employee_dict])
+                individual_df = individual_df.append(new_df)
             match_types.append(match)
+
+        individual_df = individual_df.where(pd.notnull(individual_df), None)
 
         logger.info(
             f"Matches of these types found in unstructured document: {match_types}"
         )
 
         return individual_df
+
+    def _date_in_list(self, item, lst):
+        for datestr in lst:
+            if datestr == item:
+                return True
+        return False
 
     def _get_name_matches(self, doc_input):
         """
