@@ -57,8 +57,43 @@ class UnstructuredFilter:
             datetime.strptime(item, "%m/%d/%Y").date() for item in doc_input.dateOfBirth
         ]
 
+    def _match_input_to_employee(self, doc_input, employee, match):
+        # Match ssn if ssn from docinput matches emplyee record OR join happened on ssn
+        if (
+            doc_input.ssn and str(employee.ssn) in doc_input.ssn
+        ) or match.match_flag == match.SSN:
+            match.set_true(match.SSN)
+
+        # Match first_name if first_name from docinput matches emplyee record OR join happened on first_name AND last_name
+        if (
+            (doc_input.name and employee.first_name in doc_input.name)
+            and match.match_flag == match.SSN
+        ) or match.match_flag == match.FULL_NAME:
+            match.set_true(match.FIRST_NAME)
+
+        # Match last_name if last_name from docinput matches emplyee record OR join happened on first_name AND last_name
+        if (
+            (doc_input.name and employee.last_name in doc_input.name)
+            and match.match_flag == match.SSN
+        ) or match.match_flag == match.FULL_NAME:
+            match.set_true(match.LAST_NAME)
+
+        # Match dob if dob in employee record
+        if doc_input.dateOfBirth and self._date_in_list(
+            datetime.strftime(employee.date_of_birth, "%m/%d/%Y"),
+            doc_input.dateOfBirth,
+        ):
+            match.set_true(match.DATE_OF_BIRTH)
+
     def _extract_individuals(self, doc_input):
-        db_matches = self._get_name_matches(doc_input)
+        match_flag = ""
+        if doc_input.ssn and len(doc_input.ssn) > 0:
+            db_matches = self._get_snn_matches(doc_input)
+            match_flag = UnstructuredMatch.SSN
+        else:
+            db_matches = self._get_name_matches(doc_input)
+            match_flag = UnstructuredMatch.FULL_NAME
+
         keys = Employee.__table__.columns.keys()
         individual_df = pd.DataFrame(columns=keys)
         match_types = []
@@ -68,16 +103,10 @@ class UnstructuredFilter:
         )
 
         for employee in db_matches:
-            match = UnstructuredMatch()
-            if doc_input.ssn and str(employee.ssn) in doc_input.ssn:
-                match.set_true(match.SSN)
+            match = UnstructuredMatch(match_flag)
+            self._match_input_to_employee(doc_input, employee, match)
 
-            if doc_input.dateOfBirth and self._date_in_list(
-                datetime.strftime(employee.date_of_birth, "%m/%d/%Y"),
-                doc_input.dateOfBirth,
-            ):
-                match.set_true(match.DATE_OF_BIRTH)
-
+            # Build match dict and convert to df
             if (
                 (match.is_match(match.FIRST_NAME) and match.is_match(match.LAST_NAME))
                 or match.is_match(match.SSN)
@@ -102,9 +131,21 @@ class UnstructuredFilter:
 
     def _date_in_list(self, item, lst):
         for datestr in lst:
+            logger.info(f"option: {datestr}, truth: {item}")
             if datestr == item:
                 return True
         return False
+
+    def _get_snn_matches(self, doc_input):
+        """
+        Get rows that have an ssn in doc_input.ssn
+        """
+        with MainDbSession() as context:
+            result = (
+                context.query(Employee).filter(Employee.ssn.in_(doc_input.ssn)).all()
+            )
+            context.expunge_all()
+            return result
 
     def _get_name_matches(self, doc_input):
         """
