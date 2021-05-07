@@ -8,6 +8,7 @@ from sqlalchemy import (
     Integer,
     JSON,
     String,
+    Text,
     text,
 )
 from sqlalchemy.dialects.postgresql import UUID
@@ -38,6 +39,9 @@ class ParsingStrategyType(Base):
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     name = Column(String, nullable=False)
+    created_at = Column(DateTime, nullable=False, server_default=text("now()"))
+    updated_at = Column(DateTime, nullable=False, server_default=text("now()"))
+    deleted_at = Column(DateTime)
 
 
 class IngestionEvent(Base):
@@ -510,9 +514,11 @@ class UnstructuredDocument(Base):
     __tablename__ = "unstructured_document"
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
-    name = Column(String, nullable=True)
-    ssn = Column(String, nullable=True)
-    dateOfBirth = Column(String, nullable=True)
-    zipCode = Column(String, nullable=True)
-    text = Column(String, nullable=True)
+    name = Column(JSON)
+    ssn = Column(JSON)
+    dateOfBirth = Column(JSON)
+    zipCode = Column(JSON)
+    text = Column(Text)
     ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+
+    ingestion_event = relationship("IngestionEvent")

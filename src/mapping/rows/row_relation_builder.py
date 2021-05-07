@@ -54,8 +54,20 @@ class RowRelationBuilder:
         row_thresh = r_config.get_confidence_threshold()
         col_relations = self.source.get_column_relations()
         row_relations = []
+        import logging
+
+        logger = logging.getLogger(__name__)
+        logger.info(
+            "000000000000000000000000000000000000000000000000000000000000000000000"
+        )
+        logger.info(self.source.get_data().head())
+        logger.info(
+            "100000000000000000000000000000000000000000000000000000000000000000000"
+        )
+        logger.info(self.target.get_data().head())
         for s_row in self.source.get_data().iterrows():
             s_i = s_row[0]  # iterrows returns (Index,Series) pair
+            logger.info(f"ssss {s_i}")
             for t_row in self.target.get_data().iterrows():
                 t_i = t_row[0]
                 val_matches: List[ValueMatch] = []
@@ -64,7 +76,9 @@ class RowRelationBuilder:
                     target_column = column_relation.get_target_column_name()
                     s_val = s_row[1][source_column]  # iterrows gives (Index,Series)
                     t_val = t_row[1][target_column]
+                    logger.info(f"source_val {s_val}, target_val {t_val}")
                     val_confidence = val_model.predict_single(s_val, t_val, m_target)
+                    logger.info(val_confidence)
                     val_match = ValueMatch(
                         target_index=t_i,
                         confidence=val_confidence,
@@ -84,6 +98,7 @@ class RowRelationBuilder:
                         confidence=row_confidence,
                         match_description=row_match_desc,
                     )
+                    logger.info(f"relation: {s_i}, {t_i}")
                     row_relations.append(row_relation)
         return row_relations
 

@@ -3,7 +3,7 @@
     "first_name": 3,
     "last_name": 10,
     "date_of_birth": 10,
-    "ssn": 10
+    "ssn": 20
   },
   "null_confidence": 0.2,
   "confidence_threshold": 0.5

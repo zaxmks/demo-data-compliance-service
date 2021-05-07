@@ -71,6 +71,7 @@ class Compliance:
     def _get_unstructured_column_relations() -> List[ColumnRelation]:
         column_relations = [
             ColumnRelation("employee", "ssn", "ssn", 1.0),
+            ColumnRelation("employee", "date_of_birth", "date_of_birth", 1.0),
             ColumnRelation("employee", "first_name", "first_name", 1.0),
             ColumnRelation("employee", "last_name", "last_name", 1.0),
         ]
@@ -278,8 +279,11 @@ class Compliance:
         elif doc_type_name == DocumentTypeEnum.UNKNOWN.value:
             unstructured_filter = UnstructuredFilter()
             people_match_df, doc_text = unstructured_filter.filter(ingestion_event_id)
+            people_match_df.index = range(people_match_df.shape[0])
             if len(people_match_df) > 0:
                 f_vals_list = people_match_df.to_dict(orient="records")
+                logging.info("88888 peopleeeeiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+                logging.info(people_match_df.head())
                 ds = DataSource(people_match_df)
                 ds.column_relations = self.unstructured_column_relations
                 ds.map_rows_to(
