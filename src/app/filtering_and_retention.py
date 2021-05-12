@@ -71,6 +71,7 @@ class Compliance:
     def _get_unstructured_column_relations() -> List[ColumnRelation]:
         column_relations = [
             ColumnRelation("employee", "ssn", "ssn", 1.0),
+            ColumnRelation("employee", "date_of_birth", "date_of_birth", 1.0),
             ColumnRelation("employee", "first_name", "first_name", 1.0),
             ColumnRelation("employee", "last_name", "last_name", 1.0),
         ]
@@ -107,7 +108,7 @@ class Compliance:
         with open(path, "r") as F:
             return json.load(F)
 
-    def generate_structured_row_matches(self, source: DataSource) -> DataFrame:
+    def _generate_structured_row_matches(self, source: DataSource) -> DataFrame:
         """Generate structured row matches."""
         rows = {
             "first_name": [],  # just for sanity check
@@ -128,8 +129,8 @@ class Compliance:
             rows["employee_id"].append(target_row.id)
             rows["first_name"].append(source_row.first_name)
             rows["last_name"].append(source_row.last_name)
-            rows["confidence"] = relation.confidence
-            rows["explanation"] = relation.match_description
+            rows["confidence"].append(relation.confidence)
+            rows["explanation"].append(relation.match_description)
         return DataFrame(rows)
 
     @staticmethod
@@ -200,7 +201,7 @@ class Compliance:
             logger.info("Finished writing to ComplianceRunEvent")
             return compliance_run_event
 
-    def get_ingestion_event_and_write_to_compliance(self, ingestion_event_id: str):
+    def _get_ingestion_event_and_write_to_compliance(self, ingestion_event_id: str):
         # using the ingestion event id, we grab the pdf data
         ingestion_event = self._get_ingestion_event_by_id(ingestion_event_id)
         with PdfDbSession() as pdf_db:
@@ -244,7 +245,7 @@ class Compliance:
             return "No records in employee table"
 
         # first get ingestion event
-        doc_type_name = self.get_ingestion_event_and_write_to_compliance(
+        doc_type_name = self._get_ingestion_event_and_write_to_compliance(
             ingestion_event_id
         )
         if not doc_type_name:
@@ -268,28 +269,25 @@ class Compliance:
             f_vals = df.to_dict(orient="records")[
                 0
             ]  # assume one doc per ingestion_event
-            num_document_matches = df.shape[0]
             ds = DataSource(df)
             ds.column_relations = self.fincen_column_relations
             ds.map_rows_to(
                 self.employee, self.value_matching_config, self.row_mapping_config
             )
-            results_df = self.generate_structured_row_matches(ds)
+            results_df = self._generate_structured_row_matches(ds)
             num_records = results_df.shape[0]
         elif doc_type_name == DocumentTypeEnum.UNKNOWN.value:
             unstructured_filter = UnstructuredFilter()
             people_match_df, doc_text = unstructured_filter.filter(ingestion_event_id)
+            people_match_df.index = range(people_match_df.shape[0])
             if len(people_match_df) > 0:
-                f_vals = people_match_df.to_dict(orient="records")[
-                    0
-                ]  # assume one person per document
-                num_document_matches = people_match_df.shape[0]
+                f_vals_list = people_match_df.to_dict(orient="records")
                 ds = DataSource(people_match_df)
                 ds.column_relations = self.unstructured_column_relations
                 ds.map_rows_to(
                     self.employee, self.value_matching_config, self.row_mapping_config
                 )
-                results_df = self.generate_structured_row_matches(ds)
+                results_df = self._generate_structured_row_matches(ds)
                 num_records = results_df.shape[0]
             else:
                 num_records = 0
@@ -310,38 +308,42 @@ class Compliance:
             )
             return "No Entity Matches found. Request rejected."
         else:
-            # Assume only one employee matches a document
-            row = results_df.iloc[0]
-            logger.info(
-                "*****************************************************************************"
-            )
-            logger.info(
-                f"Found match for {row.first_name} {row.last_name} "
-                f"with confidence {row.confidence}, "
-                f"computed by {row.explanation}"
-            )
-            logger.info(
-                "*****************************************************************************"
-            )
+            employee_ids = []
+            for i in range(num_records):
+                row = results_df.iloc[i]
+                employee_ids.append(row.employee_id)
+                logger.info(
+                    "*****************************************************************************"
+                )
+                logger.info(
+                    f"Found match for {row.first_name} {row.last_name} "
+                    f"with confidence {row.confidence}, "
+                    f"computed by {row.explanation}"
+                )
+                logger.info(
+                    "*****************************************************************************"
+                )
         # Write to EmployeeToComplianceRunEvent and add explanation
         with MainDbSession() as main_db:
-            main_db.add(
-                EmployeeToComplianceRunEvent(
-                    employee_id=str(row.employee_id),
-                    compliance_run_event_id=ingestion_event_id,
+            for i in range(num_records):
+                row = results_df.iloc[i]
+                main_db.add(
+                    EmployeeToComplianceRunEvent(
+                        employee_id=str(row.employee_id),
+                        compliance_run_event_id=ingestion_event_id,
+                    )
                 )
-            )
-            match_data = EntityMatchDatum(
-                confidence_threshold=str(
-                    self.row_mapping_config.get_confidence_threshold()
-                ),
-                confidence=str(row.confidence),
-                explanation=str(row.explanation),
-                matched_employee_id=str(row.employee_id),
-                run_event_id=ingestion_event_id,
-            )
-            main_db.add(match_data)
-            main_db.commit()
+                match_data = EntityMatchDatum(
+                    confidence_threshold=str(
+                        self.row_mapping_config.get_confidence_threshold()
+                    ),
+                    confidence=str(row.confidence),
+                    explanation=str(row.explanation),
+                    matched_employee_id=str(row.employee_id),
+                    run_event_id=ingestion_event_id,
+                )
+                main_db.add(match_data)
+                main_db.commit()
 
         # Write document to main database
         with MainDbSession() as main_db:
@@ -350,6 +352,8 @@ class Compliance:
                 del f_vals["ingestion_event_id"]
                 main_db.add(FincenMain(**f_vals))
             elif doc_type_name == DocumentTypeEnum.UNKNOWN.value:
+                # Only write one document and use name of first person
+                f_vals = f_vals_list[0]
                 # noinspection PyUnboundLocalVariable
                 doc = UnstructuredDocMain(
                     first_name=f_vals["first_name"],
@@ -400,18 +404,14 @@ class Compliance:
                 "Prepare API request for rules engine to answer "
                 "any possible pathfinder questions for the newly updated Employee."
             )
-            logger.info(f"Number of documents matched: {num_document_matches}")
             logger.info(f"Number of employees matched: {num_records}")
             logger.info(
                 "*****************************************************************************"
             )
             self._session.post(
                 f"{url}/rules_processor/execute/",
-                json={"employeeIdList": [row.employee_id]},
+                json={"employeeIdList": employee_ids},
                 headers=headers,
             )
 
-        return (
-            f"Num documents matched: {num_document_matches}, "
-            f"Num employees matched: {num_records}"
-        )
+        return f"Num documents matched: 1, " f"Num employees matched: {num_records}"

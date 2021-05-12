@@ -1,14 +1,13 @@
 import re
 import logging
 import pytest
-import datetime
 
 import requests_mock
 from fastapi.testclient import TestClient
 from src.web.routes.pdf_routes import pdf_router
 from src.tests.utils.setup_data import DbTestCase
 from src.core.db.db_init import MainDbSession, PdfDbSession
-from src.tests.api.general_compliance_test.fixture import (
+from src.tests.api.multiple_affiliates_test.multiple_affiliates_fixture import (
     setup_main_seed_data,
     setup_pdf_seed_data,
 )
@@ -21,11 +20,9 @@ from src.core.db.models.main_models import (
 logger = logging.getLogger(__name__)
 
 
-# @pytest.mark.usefixtures("db_session")
-class GeneralComplianceTest(DbTestCase):
+class MultipleAffiliatesTest(DbTestCase):
     def setUp(self):
         super().setUp()
-        # TODO: should use self.pdf_db and self.main_db when can
         setup_main_seed_data(MainDbSession)
         setup_pdf_seed_data(PdfDbSession)
 
@@ -35,7 +32,7 @@ class GeneralComplianceTest(DbTestCase):
         r_mock.register_uri("POST", matcher, text="mocked")
         client = TestClient(pdf_router)
 
-        ingestion_event_id = "ddb8d772-c0a4-42ac-9bff-fe4409495988"
+        ingestion_event_id = "99b8d772-c0a4-42ac-9bff-fe4409495988"
 
         response = client.post(f"/process/{ingestion_event_id}")
 
@@ -44,7 +41,7 @@ class GeneralComplianceTest(DbTestCase):
         logger.info(response._content)
 
         assert response._content == (
-            b"Num documents matched: 1, Num employees matched: 1"
+            b"Num documents matched: 1, Num employees matched: 2"
         )
 
         with MainDbSession() as context:
@@ -56,19 +53,31 @@ class GeneralComplianceTest(DbTestCase):
             compliance_run_event_to_employee = (
                 context.query(EmployeeToComplianceRunEvent)
                 .filter_by(compliance_run_event_id=compliance_run_event.id)
-                .one_or_none()
+                .all()
             )
-            employee = (
+            assert len(compliance_run_event_to_employee) == 2
+            employees = (
                 context.query(Employee)
-                .filter_by(id=compliance_run_event_to_employee.employee_id)
-                .one_or_none()
+                .join(EmployeeToComplianceRunEvent)
+                .filter(Employee.id == EmployeeToComplianceRunEvent.employee_id)
+                .all()
             )
-            context.expunge(employee)
+            logger.info(employees)
+            assert len(employees) == 2
 
-        assert employee.first_name == "Jacqueline"
-        assert employee.last_name == "Baranov"
-        assert employee.ssn == "761870877"
-        assert (
-            employee.date_of_birth
-            == datetime.datetime(year=1971, month=1, day=29).date()
-        )
+            # employees could be in any order
+            e0 = employees[0]
+            e1 = employees[1]
+            a = (
+                e0.first_name == "Diane"
+                and e0.last_name == "Meier"
+                and e1.first_name == "Samantha"
+                and e1.last_name == "Young"
+            )
+            b = (
+                e1.first_name == "Diane"
+                and e1.last_name == "Meier"
+                and e0.first_name == "Samantha"
+                and e0.last_name == "Young"
+            )
+            assert a or b

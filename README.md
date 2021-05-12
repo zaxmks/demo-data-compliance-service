@@ -89,24 +89,10 @@ brew install awscli
 ```
 
 ---
-### Clone the Repo
-Clone the git repository locally and change working directory.
-
-```sh
-# clone git repo
-$ git clone [REPO_URL]
-
-$ cd [REPO_NAME]
-```
 
 
 ### Repo Setup
 
-- Install pre-commit
-  ```shell script
-    brew install pre-commit
-    pre-commit install
-  ```
 - Run aws configure and set up your local aws keys.
     ```shell script
     aws configure
@@ -116,20 +102,18 @@ $ cd [REPO_NAME]
     and follow their easy steps
 - Ensure you login to docker for ECR in order to pull our images:
   ```shell script
-  aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 533333767769.dkr.ecr.us-gov-west-1.amazonaws.com
+  task docker:login
   ```
-- Run `bin/build.sh` to build the project's Docker image.
+- Run `task build` to build the project's Docker image.
     ```shell script
-    pre-commit install
-    bin/build.sh
+    task build
     ```
 
 #### Generating Current database schema
 
 1. Run your docker-compose setup.
 ```shell
-docker network create vk
-./bin/web_server.sh
+task build
 ```
 2. Pull down our `raw-data` repo, and run the following commands:
 ```shell
@@ -151,27 +135,20 @@ sqlacodegen --outfile src/core/db/models/main_models.py postgresql://postgres:pa
 
 #### Saving to the database
 
-1. Use the DBContext() context-manager in the `db` module
+1. Use the one of the Session context-managers in the `db` module
 2. e.g.
 ```python
-with DBContext(DatabaseEnum.PDF_INGESTION_DB) as pdf_db:
+with MainDbSession() as main_db:
     # ... Some mapping code to push data into a Fincen8300Rev4 SQL Alchemy Model
     models = [
       Fincen8300Rev4(...),
       Fincen8300Rev4(...),
       Fincen8300Rev4(...)
     ]
-    pdf_db.add(models)
+    main_db.add(models)
+    main_db.commit()
 ```
 3. This demonstrates how to select a database, and save information to our database.
-
-#### Making Database Queries
-
-e.g.
-```python
-db = DbQuery(DatabaseEnum.MAIN_INGESTION_DB)
-db.execute("SELECT 1 FROM SOME_TABLE")
-```
 
 
 #### Unit Tests
@@ -182,7 +159,7 @@ the [pytest framework](https://docs.pytest.org/en/latest/).
 
 ```sh
 # run all tests
-$ bin/test.sh
+$ task test
 ```
 
 By default pytest captures all output sent to `stdout` and `stderr` during test execution. This
@@ -190,35 +167,19 @@ can be disabled by passing the `-s` option.
 
 ```sh
 # run tests with capture disabled and verbose
-$ bin/test.sh -s -vv
+$ task test -s -vv
 ```
 
 You can see a complete list of test configuration options using `--help`.
 
 #### Interactive Shell
 
-The `bin/shell.sh` script starts a Docker container in interactive mode and drops you into a bash
+The `task shell` script starts a Docker container in interactive mode and drops you into a bash
 prompt. This can be useful when using an interactive debugger to step through code.
 
 ```sh
 # run docker image in interactive bash shell
-$ bin/shell.sh
-```
-
-### Training
-
-Run the training script to train a new model from scratch.
-
-```sh
-$ bin/train.sh
-```
-
-### Prediction
-
-Run the prediction script to run a trained model on a dataset.
-
-```sh
-$ bin/predict.sh
+task shell
 ```
 
 <!-- CONTRIBUTING -->

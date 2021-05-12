@@ -4,18 +4,20 @@ logger = logging.getLogger(__name__)
 
 
 class UnstructuredMatch:
+    FULL_NAME = "full_name"
     FIRST_NAME = "first_name"
     LAST_NAME = "last_name"
     SSN = "ssn"
     DATE_OF_BIRTH = "date_of_birth"
 
-    def __init__(self):
+    def __init__(self, match_flag):
         self.match_dict = {
-            self.FIRST_NAME: True,
-            self.LAST_NAME: True,
+            self.FIRST_NAME: False,
+            self.LAST_NAME: False,
             self.SSN: False,
             self.DATE_OF_BIRTH: False,
         }
+        self.match_flag = match_flag
 
     def set_true(self, key):
         if key in self.match_dict:

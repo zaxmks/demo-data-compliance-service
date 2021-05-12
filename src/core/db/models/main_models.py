@@ -37,7 +37,7 @@ class Employee(Base):
     suffix_name = Column(String)
     date_of_birth = Column(Date)
     dod_id = Column(String)
-    ssn = Column(String)
+    ssn = Column(String, unique=True)
     emp_id = Column(String)
     emp_1st_hire_dt = Column(Date)
     emp_last_hiredt = Column(Date)
