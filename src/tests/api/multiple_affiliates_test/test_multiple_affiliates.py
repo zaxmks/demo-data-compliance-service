@@ -7,10 +7,6 @@ from fastapi.testclient import TestClient
 from src.web.routes.pdf_routes import pdf_router
 from src.tests.utils.setup_data import DbTestCase
 from src.core.db.db_init import MainDbSession, PdfDbSession
-from src.tests.api.multiple_affiliates_test.multiple_affiliates_fixture import (
-    setup_main_seed_data,
-    setup_pdf_seed_data,
-)
 from src.core.db.models.main_models import (
     ComplianceRunEvent,
     Employee,
@@ -22,9 +18,12 @@ logger = logging.getLogger(__name__)
 
 class MultipleAffiliatesTest(DbTestCase):
     def setUp(self):
+        from src.tests.api.multiple_affiliates_test.multiple_affiliates_fixture import (
+            setup_seed_data,
+        )
+
         super().setUp()
-        setup_main_seed_data(MainDbSession)
-        setup_pdf_seed_data(PdfDbSession)
+        setup_seed_data()
 
     @requests_mock.Mocker(real_http=True)
     def test_post_dcs_url(self, r_mock):

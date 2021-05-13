@@ -8,7 +8,10 @@ from src.tests.utils.factories import (
 )
 
 
-def setup_pdf_seed_data():
+def setup_seed_data():
+    PDFParsingStrategyTypeFactory(
+        id="9720cb1c-4461-40e4-b800-38dfdfd0061b", name="unstructured"
+    )
     PDFIngestionEventFactory(
         id="ddb8d772-c0a4-42ac-9bff-fe4409495988",
         s3_bucket="test_bucket",
@@ -24,9 +27,6 @@ def setup_pdf_seed_data():
         dateOfBirth=json.dumps(["01/29/1971"]),
         text="raw text",
         ingestion_event_id="ddb8d772-c0a4-42ac-9bff-fe4409495988",
-    )
-    PDFParsingStrategyTypeFactory(
-        id="9720cb1c-4461-40e4-b800-38dfdfd0061b", name="unstructured"
     )
     MainEmployeeFactory(
         first_name="Jacqueline",
