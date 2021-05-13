@@ -16,6 +16,7 @@ def setup_pdf_seed_data(pdf_db_session):
             s3_key="test_key",
             created_at="2021-03-26 18:54:56.090261",
             updated_at="2021-03-26 18:54:56.090261",
+            identified_document_type_id="b08ce4d2-9bc8-4975-af86-7e939c1493bb",
             parsing_strategy_type_id="9720cb1c-4461-40e4-b800-38dfdfd0061b",
         )
         unstructured = UnstructuredDocument(
@@ -29,6 +30,13 @@ def setup_pdf_seed_data(pdf_db_session):
         parsing_strategy_type = ParsingStrategyType(
             id="9720cb1c-4461-40e4-b800-38dfdfd0061b", name="unstructured"
         )
+
+        document_type = DocumentType(
+            id="b08ce4d2-9bc8-4975-af86-7e939c1493bb", name="UNKNOWN"
+        )
+
+        context.add(document_type)
+        context.commit()
 
         context.add(parsing_strategy_type)
         context.commit()

@@ -1,16 +1,5 @@
 # coding: utf-8
-from sqlalchemy import (
-    BigInteger,
-    Boolean,
-    Column,
-    Date,
-    DateTime,
-    ForeignKey,
-    Integer,
-    String,
-    Text,
-    text,
-)
+from sqlalchemy import BigInteger, Boolean, Column, Date, DateTime, ForeignKey, Integer, String, Text, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -20,14 +9,14 @@ metadata = Base.metadata
 
 
 class DocumentType(Base):
-    __tablename__ = "document_type"
+    __tablename__ = 'document_type'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     name = Column(String, nullable=False)
 
 
 class Employee(Base):
-    __tablename__ = "employee"
+    __tablename__ = 'employee'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     prefix_name = Column(String)
@@ -42,17 +31,8 @@ class Employee(Base):
     emp_1st_hire_dt = Column(Date)
     emp_last_hiredt = Column(Date)
 
-
-class Migration(Base):
-    __tablename__ = "migrations"
-
-    id = Column(Integer, primary_key=True)
-    timestamp = Column(BigInteger, nullable=False)
-    name = Column(String, nullable=False)
-
-
 class ComplianceRunEvent(Base):
-    __tablename__ = "compliance_run_event"
+    __tablename__ = 'compliance_run_event'
 
     id = Column(UUID, primary_key=True)
     created_at = Column(DateTime, nullable=False, server_default=text("now()"))
@@ -62,41 +42,39 @@ class ComplianceRunEvent(Base):
     s3_key = Column(String, nullable=False)
     was_redacted = Column(Boolean, nullable=False)
     status = Column(String, nullable=False)
-    document_type_id = Column(ForeignKey("document_type.id"))
+    document_type_id = Column(ForeignKey('document_type.id'))
 
-    document_type = relationship("DocumentType")
+    document_type = relationship('DocumentType')
 
 
 class EmployeeToComplianceRunEvent(Base):
-    __tablename__ = "employee_to_compliance_run_event"
+    __tablename__ = 'employee_to_compliance_run_event'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
-    employee_id = Column(ForeignKey("employee.id"), nullable=False)
-    compliance_run_event_id = Column(
-        ForeignKey("compliance_run_event.id"), nullable=False
-    )
+    employee_id = Column(ForeignKey('employee.id'), nullable=False)
+    compliance_run_event_id = Column(ForeignKey('compliance_run_event.id'), nullable=False)
 
-    compliance_run_event = relationship("ComplianceRunEvent")
-    employee = relationship("Employee")
+    compliance_run_event = relationship('ComplianceRunEvent')
+    employee = relationship('Employee')
 
 
 class EntityMatchDatum(Base):
-    __tablename__ = "entity_match_data"
+    __tablename__ = 'entity_match_data'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     confidence_threshold = Column(String, nullable=False)
     confidence = Column(String, nullable=False)
     explanation = Column(String, nullable=False)
-    matched_employee_id = Column(ForeignKey("employee.id"), nullable=False)
-    run_event_id = Column(ForeignKey("compliance_run_event.id"), nullable=False)
+    matched_employee_id = Column(ForeignKey('employee.id'), nullable=False)
+    run_event_id = Column(ForeignKey('compliance_run_event.id'), nullable=False)
     created_at = Column(DateTime, nullable=False, server_default=text("now()"))
 
-    matched_employee = relationship("Employee")
-    run_event = relationship("ComplianceRunEvent")
+    matched_employee = relationship('Employee')
+    run_event = relationship('ComplianceRunEvent')
 
 
 class Fincen8300Rev4(Base):
-    __tablename__ = "fincen8300_rev4"
+    __tablename__ = 'fincen8300_rev4'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     amends_prior_report = Column(String)
@@ -166,13 +144,13 @@ class Fincen8300Rev4(Base):
     date_of_signature_footer = Column(Date)
     contact_name_printed_brc = Column(String)
     contact_phone_brc = Column(String)
-    compliance_run_event_id = Column(ForeignKey("compliance_run_event.id"), unique=True)
+    compliance_run_event_id = Column(ForeignKey('compliance_run_event.id'), unique=True)
 
-    compliance_run_event = relationship("ComplianceRunEvent", uselist=False)
+    compliance_run_event = relationship('ComplianceRunEvent', uselist=False)
 
 
 class UnstructuredDocument(Base):
-    __tablename__ = "unstructured_document"
+    __tablename__ = 'unstructured_document'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     first_name = Column(String)
@@ -181,8 +159,8 @@ class UnstructuredDocument(Base):
     date_of_birth = Column(Date)
     zip_code = Column(Integer)
     text = Column(Text, nullable=False)
-    compliance_run_event_id = Column(ForeignKey("compliance_run_event.id"), unique=True)
-    document_type_id = Column(ForeignKey("document_type.id"), unique=True)
+    compliance_run_event_id = Column(ForeignKey('compliance_run_event.id'), unique=True)
+    document_type_id = Column(ForeignKey('document_type.id'), unique=True)
 
-    compliance_run_event = relationship("ComplianceRunEvent", uselist=False)
-    document_type = relationship("DocumentType", uselist=False)
+    compliance_run_event = relationship('ComplianceRunEvent', uselist=False)
+    document_type = relationship('DocumentType', uselist=False)

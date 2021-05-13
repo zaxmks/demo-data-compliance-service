@@ -1,16 +1,5 @@
 # coding: utf-8
-from sqlalchemy import (
-    BigInteger,
-    Column,
-    Date,
-    DateTime,
-    ForeignKey,
-    Integer,
-    JSON,
-    String,
-    Text,
-    text,
-)
+from sqlalchemy import BigInteger, Column, Date, DateTime, ForeignKey, Integer, JSON, String, Text, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -20,22 +9,14 @@ metadata = Base.metadata
 
 
 class DocumentType(Base):
-    __tablename__ = "document_type"
+    __tablename__ = 'document_type'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     name = Column(String, nullable=False)
 
 
-class Migration(Base):
-    __tablename__ = "migrations"
-
-    id = Column(Integer, primary_key=True)
-    timestamp = Column(BigInteger, nullable=False)
-    name = Column(String, nullable=False)
-
-
 class ParsingStrategyType(Base):
-    __tablename__ = "parsing_strategy_type"
+    __tablename__ = 'parsing_strategy_type'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     name = Column(String, nullable=False)
@@ -45,32 +26,34 @@ class ParsingStrategyType(Base):
 
 
 class IngestionEvent(Base):
-    __tablename__ = "ingestion_event"
+    __tablename__ = 'ingestion_event'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     s3_bucket = Column(String, nullable=False)
     s3_key = Column(String, nullable=False)
     created_at = Column(DateTime, nullable=False, server_default=text("now()"))
     updated_at = Column(DateTime, nullable=False, server_default=text("now()"))
-    parsing_strategy_type_id = Column(ForeignKey("parsing_strategy_type.id"))
+    parsing_strategy_type_id = Column(ForeignKey('parsing_strategy_type.id'))
+    identified_document_type_id = Column(ForeignKey('document_type.id'))
 
-    parsing_strategy_type = relationship("ParsingStrategyType")
+    identified_document_type = relationship('DocumentType')
+    parsing_strategy_type = relationship('ParsingStrategyType')
 
 
 class PdfConfigMappingActive(Base):
-    __tablename__ = "pdf_config_mapping_active"
+    __tablename__ = 'pdf_config_mapping_active'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     mappingJson = Column(JSON, nullable=False)
     createdAt = Column(DateTime, nullable=False, server_default=text("now()"))
     updatedAt = Column(DateTime, nullable=False, server_default=text("now()"))
-    documentTypeId = Column(ForeignKey("document_type.id"), nullable=False, unique=True)
+    documentTypeId = Column(ForeignKey('document_type.id'), nullable=False, unique=True)
 
-    document_type = relationship("DocumentType", uselist=False)
+    document_type = relationship('DocumentType', uselist=False)
 
 
 class ApisDh(Base):
-    __tablename__ = "apis_dhs"
+    __tablename__ = 'apis_dhs'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     tecs_id_passenger = Column(String)
@@ -105,17 +88,17 @@ class ApisDh(Base):
     document_address_type = Column(String)
     document_address = Column(String)
     document_residence_country = Column(String)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
     date_of_birth_passenger = Column(Date)
     flight_date_travel = Column(Date)
     document_expiration_date = Column(Date)
     document_issuance_date = Column(Date)
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class BankruptcyTransunion(Base):
-    __tablename__ = "bankruptcy_transunion"
+    __tablename__ = 'bankruptcy_transunion'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     namesreported = Column(String)
@@ -170,7 +153,7 @@ class BankruptcyTransunion(Base):
     account_review_inq_industry_code = Column(String)
     account_review_inq_member_code = Column(String)
     account_review_inq_subscriber_prefix_code = Column(String)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
     date_reported = Column(Date)
     date_hired = Column(Date)
     effective_date = Column(Date)
@@ -179,11 +162,11 @@ class BankruptcyTransunion(Base):
     most_recent_payment_date = Column(Date)
     collection_date = Column(Date)
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class BciDh(Base):
-    __tablename__ = "bci_dhs"
+    __tablename__ = 'bci_dhs'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     tecs_id = Column(String)
@@ -213,16 +196,16 @@ class BciDh(Base):
     process_result_code = Column(String)
     package_result_code1 = Column(String)
     package_result_code2 = Column(String)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
     date_of_birth = Column(Date)
     crossing_date_time = Column(DateTime)
     visa_admit_until_date = Column(Date)
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class CmirFincen(Base):
-    __tablename__ = "cmir_fincen"
+    __tablename__ = 'cmir_fincen'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     type_of_report = Column(String)
@@ -264,13 +247,13 @@ class CmirFincen(Base):
     airline_flight = Column(String)
     legal_name_of_financial_institution = Column(String)
     signature_date = Column(Date)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class CmrFincen(Base):
-    __tablename__ = "cmr_fincen"
+    __tablename__ = 'cmr_fincen'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     type_of_report = Column(String)
@@ -306,7 +289,7 @@ class CmrFincen(Base):
     voluntary_report = Column(String)
     airline_flight = Column(String)
     legal_name_of_financial_institution = Column(String)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
     filing_date = Column(Date)
     received_date = Column(Date)
     entry_date = Column(Date)
@@ -314,11 +297,11 @@ class CmrFincen(Base):
     cbp_date = Column(Date)
     signature_date = Column(Date)
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class CriminalLexisNexi(Base):
-    __tablename__ = "criminal_lexis_nexis"
+    __tablename__ = 'criminal_lexis_nexis'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     name = Column(String)
@@ -400,7 +383,7 @@ class CriminalLexisNexi(Base):
     has_bankruptcy = Column(String)
     has_property = Column(String)
     has_corp_affiliation = Column(String)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
     ssn_issued_start_date_aka = Column(Date)
     ssn_issued_end_date_aka = Column(Date)
     prop_assmnt_tape_cut_date = Column(Date)
@@ -431,11 +414,11 @@ class CriminalLexisNexi(Base):
     bankrupt_date = Column(Date)
     criminal_case_filing_date = Column(Date)
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class Fincen8300Rev4(Base):
-    __tablename__ = "fincen8300_rev4"
+    __tablename__ = 'fincen8300_rev4'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     amends_prior_report = Column(String)
@@ -502,16 +485,16 @@ class Fincen8300Rev4(Base):
     title_footer = Column(String)
     contact_name_printed_brc = Column(String)
     contact_phone_brc = Column(String)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
     dob = Column(Date)
     date_cash_received = Column(Date)
     date_of_signature_footer = Column(Date)
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')
 
 
 class UnstructuredDocument(Base):
-    __tablename__ = "unstructured_document"
+    __tablename__ = 'unstructured_document'
 
     id = Column(UUID, primary_key=True, server_default=text("uuid_generate_v4()"))
     name = Column(JSON)
@@ -519,6 +502,6 @@ class UnstructuredDocument(Base):
     dateOfBirth = Column(JSON)
     zipCode = Column(JSON)
     text = Column(Text)
-    ingestion_event_id = Column(ForeignKey("ingestion_event.id"))
+    ingestion_event_id = Column(ForeignKey('ingestion_event.id'))
 
-    ingestion_event = relationship("IngestionEvent")
+    ingestion_event = relationship('IngestionEvent')

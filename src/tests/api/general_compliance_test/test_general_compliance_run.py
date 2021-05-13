@@ -5,6 +5,8 @@ import datetime
 
 import requests_mock
 from fastapi.testclient import TestClient
+
+from src.core.db.models.pdf_models import IngestionEvent
 from src.web.routes.pdf_routes import pdf_router
 from src.tests.utils.setup_data import DbTestCase
 from src.core.db.db_init import MainDbSession, PdfDbSession
@@ -28,6 +30,7 @@ class GeneralComplianceTest(DbTestCase):
         # TODO: should use self.pdf_db and self.main_db when can
         setup_main_seed_data(MainDbSession)
         setup_pdf_seed_data(PdfDbSession)
+
 
     @requests_mock.Mocker(real_http=True)
     def test_post_dcs_url(self, r_mock):
