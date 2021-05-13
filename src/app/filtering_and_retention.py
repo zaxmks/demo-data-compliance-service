@@ -33,36 +33,6 @@ class Compliance:
             self.config = ConfigurationLoader("config/mapping/levenshtein_default.json",
                                                      "config/mapping/weighted_linear_default.json")
 
-    def _write_compliance_run_event(
-        self, ingestion_event: IngestionEvent):
-        with MainDbSession() as main_db:
-            compliance_run_event = ComplianceRunEvent(
-                id=ingestion_event.id,
-                s3_bucket=ingestion_event.s3_bucket,
-                s3_key=ingestion_event.s3_key,
-                was_redacted=False,
-                status="ok",
-                document_type_id=ingestion_event.identified_document_type_id,
-            )
-            main_db.add(compliance_run_event)
-            main_db.commit()
-            main_db.expunge_all()
-            log(logger, "Finished writing to ComplianceRunEvent")
-            return compliance_run_event
-
-    def _get_ingestion_event_and_write_to_compliance(self, ingestion_event_id: str):
-        # using the ingestion event id, we grab the pdf data
-        ingestion_event = self.input_reader.get_ingestion_event_by_id(ingestion_event_id)
-        log(logger, "INGESTION EVENT?")
-        log(logger, ingestion_event.__dict__)
-        doc_type_id = ingestion_event.identified_document_type_id
-        if not doc_type_id:
-            return None
-
-        self._write_compliance_run_event(ingestion_event)
-        return self.input_reader.get_doc_type_name_by_id(doc_type_id)
-
-
     def filter_and_retain(self, ingestion_event_id: str):
         log(logger, "Begin compliance operations", use_delimiter=True)
         # Create a class whose job it is to manage querying and paging for employees.
@@ -81,6 +51,7 @@ class Compliance:
             log(logger, message, use_delimiter=True)
             return message
 
+        # filter against known affiliates
         affiliate_filter = AffiliateFilterFactory().build_affiliate_filter(doc_type_name, self.employee, self.config)
         affiliate_filter.filter_affiliates(ingestion_event_id, self.config)
         num_records = affiliate_filter.num_records
@@ -89,9 +60,39 @@ class Compliance:
             message = "No Entity Matches found. Request rejected."
             log(logger, message, use_delimiter=True, use_disclaimer=True)
             return message
-        else:
-            employee_ids = affiliate_filter.gather_matches()
 
+        affiliate_ids = affiliate_filter.gather_matches()
+        self.write_main_output(ingestion_event_id, doc_type_name, affiliate_filter)
+        self.post_to_rules_engine(num_records, affiliate_ids)
+
+    def _get_ingestion_event_and_write_to_compliance(self, ingestion_event_id: str):
+        # using the ingestion event id, we grab the pdf data
+        ingestion_event = self.input_reader.get_ingestion_event_by_id(ingestion_event_id)
+        doc_type_id = ingestion_event.identified_document_type_id
+        if not doc_type_id:
+            return None
+
+        self._write_compliance_run_event(ingestion_event)
+        return self.input_reader.get_doc_type_name_by_id(doc_type_id)
+
+    def _write_compliance_run_event(
+        self, ingestion_event: IngestionEvent):
+        with MainDbSession() as main_db:
+            compliance_run_event = ComplianceRunEvent(
+                id=ingestion_event.id,
+                s3_bucket=ingestion_event.s3_bucket,
+                s3_key=ingestion_event.s3_key,
+                was_redacted=False,
+                status="ok",
+                document_type_id=ingestion_event.identified_document_type_id,
+            )
+            main_db.add(compliance_run_event)
+            main_db.commit()
+            main_db.expunge_all()
+            log(logger, "Finished writing to ComplianceRunEvent")
+            return compliance_run_event
+
+    def write_main_output(self, ingestion_event_id, doc_type_name, affiliate_filter):
         output_db_writer = OutputDBWriterFactory().build_output_db_writer(doc_type_name)
         output_db_writer.write_employee_to_compliance_run_event(ingestion_event_id, affiliate_filter, self.config.row_mapping_config)
         output_db_writer.write_main_document(ingestion_event_id, affiliate_filter)
@@ -104,6 +105,7 @@ class Compliance:
         message += "\nSuccessfully DELETED Employee records from pdf-ingestion-db"
         log(logger, message, use_delimiter=True)
 
+    def post_to_rules_engine(self, num_records, affiliate_ids):
         # Post to rules engine
         headers = {"Content-Type": "application/json"}
         url = ApplicationEnv.RULES_ENGINE_URL()
@@ -115,7 +117,7 @@ class Compliance:
             log(logger, message, use_delimiter=True)
             self._session.post(
                 f"{url}/rules_processor/execute/",
-                json={"employeeIdList": employee_ids},
+                json={"employeeIdList": affiliate_ids},
                 headers=headers,
             )
 
