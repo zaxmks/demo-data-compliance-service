@@ -128,9 +128,9 @@ npm run db:migrate:main
 4. Your databases should be setup and migrated
 5. Run this command to generate the latest model schema as SQLAlchemy Models.
 ```shell
-sqlacodegen --outfile src/core/db/models/itact_models.py postgresql://postgres:password@localhost:56000/postgres
+sqlacodegen --outfile src/core/db/models/main_models.py postgresql://postgres:password@localhost:56000/postgres
 sqlacodegen --outfile src/core/db/models/pdf_models.py postgresql://postgres:password@localhost:56001/postgres
-sqlacodegen --outfile src/core/db/models/main_models.py postgresql://postgres:password@localhost:56002/postgres
+sqlacodegen --outfile src/core/db/models/itact_models.py postgresql://postgres:password@localhost:56002/postgres
 ```
 
 #### Saving to the database
