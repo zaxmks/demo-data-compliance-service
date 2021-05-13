@@ -1,14 +1,15 @@
 import json
-from src.tests.utils.factories import (
-    PDFIngestionEventFactory,
-    PDFUnstructuredDocumentFactory,
-    PDFParsingStrategyTypeFactory,
-    MainEmployeeFactory,
-    MainDocumentTypeFactory,
-)
 
 
 def setup_seed_data():
+    from src.tests.utils.factories import (
+        PDFIngestionEventFactory,
+        PDFUnstructuredDocumentFactory,
+        PDFParsingStrategyTypeFactory,
+        MainEmployeeFactory,
+        MainDocumentTypeFactory,
+    )
+
     PDFParsingStrategyTypeFactory(
         id="9720cb1c-4461-40e4-b800-38dfdfd0061b", name="unstructured"
     )

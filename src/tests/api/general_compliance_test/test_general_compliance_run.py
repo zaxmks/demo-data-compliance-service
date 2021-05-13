@@ -6,6 +6,7 @@ import datetime
 import requests_mock
 from fastapi.testclient import TestClient
 from src.web.routes.pdf_routes import pdf_router
+from src.tests.api.general_compliance_test.fixture import setup_seed_data
 from src.tests.utils.setup_data import DbTestCase
 from src.core.db.db_init import MainDbSession, PdfDbSession
 from src.core.db.models.main_models import (
@@ -19,8 +20,6 @@ logger = logging.getLogger(__name__)
 
 class GeneralComplianceTest(DbTestCase):
     def setUp(self):
-        from src.tests.api.general_compliance_test.fixture import setup_seed_data
-
         super().setUp()
         setup_seed_data()
 
